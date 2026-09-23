@@ -97,7 +97,7 @@
 <body>
   <p><a href="../">&larr; all releases</a></p>
   <h1>DuckDB Extension Status</h1>
-  <div class="meta">Target release: v1.5.6 (v1.5-variegata) &middot; generated 2026-09-23 10:40</div>
+  <div class="meta">Target release: v1.5.6 (v1.5-variegata) &middot; generated 2026-09-23 11:13</div>
 
   <div class="summary">
     
@@ -113,60 +113,50 @@
 
   <details class="legend">
     <summary>Status legend &mdash; what do I have to do?</summary>
-    
     <div class="legend-item">
       <span class="badge ok">Up to date</span>
       <p class="meaning">The pinned commit matches the tip of the extension's target branch.</p>
       <p class="action"><strong>Maintainer action:</strong> Nothing to do.</p>
     </div>
-    
     <div class="legend-item">
       <span class="badge behind">Behind</span>
       <p class="meaning">The extension has moved since duckdb/duckdb last pinned a commit.</p>
       <p class="action"><strong>Maintainer action:</strong> Run with --generate-bump (add --make-pr to open the PR) to move the pin.</p>
     </div>
-    
     <div class="legend-item">
       <span class="badge patches">Has patches</span>
       <p class="meaning">duckdb/duckdb carries one or more patches for this extension.</p>
       <p class="action"><strong>Maintainer action:</strong> --generate-bump drops any patch already absorbed upstream on its own. One that isn't stays carried and needs no action here yet.</p>
     </div>
-    
     <div class="legend-item">
       <span class="badge blocked">Blocked</span>
       <p class="meaning">Either a patch duckdb carries neither applies nor reverses cleanly at the pinned commit, or there's an open patch-failure issue for this extension -- either way, duckdb and the extension have diverged.</p>
-      <p class="action"><strong>Maintainer action:</strong> Run with --generate-patches --target <extension> (add --make-pr) to open a PR resolving it on the extension side; it has to land there before duckdb can bump past it.</p>
+      <p class="action"><strong>Maintainer action:</strong> Run with --generate-patches --target &lt;extension&gt; (add --make-pr) to open a PR resolving it on the extension side; it has to land there before duckdb can bump past it.</p>
     </div>
-    
   </details>
 
   <details class="legend">
     <summary>Next action legend &mdash; what does each one do?</summary>
-    
     <div class="legend-item">
       <code class="action-label">BUMP (IN DUCKDB) TO ...</code>
       <p class="meaning">Moves duckdb's pinned commit for this extension forward to the commit found on its target branch. Any carried patch that has already landed there is dropped in the same change.</p>
       <p class="action"><strong>How:</strong> Run with --generate-bump (add --make-pr to open the PR).</p>
     </div>
-    
     <div class="legend-item">
       <code class="action-label">REMOVE X OF Y PATCHES</code>
       <p class="meaning">The pin doesn't move, but X of the patches duckdb carries for this extension have already landed there and can be dropped.</p>
       <p class="action"><strong>How:</strong> Run with --generate-bump (add --make-pr to open the PR).</p>
     </div>
-    
     <div class="legend-item">
       <code class="action-label">APPLY PATCHES (EXTENSION SIDE)</code>
       <p class="meaning">A patch duckdb carries no longer applies or reverses cleanly at the pinned commit -- it has to be resolved on the extension's own branch before duckdb can move past it.</p>
-      <p class="action"><strong>How:</strong> Run with --generate-patches --target <extension> (add --make-pr).</p>
+      <p class="action"><strong>How:</strong> Run with --generate-patches --target &lt;extension&gt; (add --make-pr).</p>
     </div>
-    
     <div class="legend-item">
       <code class="action-label">NONE</code>
       <p class="meaning">Nothing for duckdb to change for this extension right now.</p>
       <p class="action"><strong>How:</strong> No action needed.</p>
     </div>
-    
   </details>
 
   <table id="ext-table">
@@ -198,7 +188,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb/pull/26070">Bump PR</a></li>
+            <li><a href="https://github.com/duckdb/duckdb/pull/26072">Bump PR</a></li>
             
           </ul>
           
@@ -222,7 +212,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb/pull/26070">Bump PR</a></li>
+            <li><a href="https://github.com/duckdb/duckdb/pull/26072">Bump PR</a></li>
             
           </ul>
           
@@ -264,7 +254,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb/pull/26070">Bump PR</a></li>
+            <li><a href="https://github.com/duckdb/duckdb/pull/26072">Bump PR</a></li>
             
           </ul>
           
@@ -288,7 +278,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb/pull/26070">Bump PR</a></li>
+            <li><a href="https://github.com/duckdb/duckdb/pull/26072">Bump PR</a></li>
             
           </ul>
           
@@ -312,7 +302,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb/pull/26070">Bump PR</a></li>
+            <li><a href="https://github.com/duckdb/duckdb/pull/26072">Bump PR</a></li>
             
           </ul>
           
@@ -336,7 +326,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb/pull/26070">Bump PR</a></li>
+            <li><a href="https://github.com/duckdb/duckdb/pull/26072">Bump PR</a></li>
             
           </ul>
           
@@ -360,7 +350,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb/pull/26070">Bump PR</a></li>
+            <li><a href="https://github.com/duckdb/duckdb/pull/26072">Bump PR</a></li>
             
           </ul>
           
@@ -384,7 +374,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb/pull/26070">Bump PR</a></li>
+            <li><a href="https://github.com/duckdb/duckdb/pull/26072">Bump PR</a></li>
             
           </ul>
           
