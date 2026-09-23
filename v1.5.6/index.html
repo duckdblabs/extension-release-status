@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DuckDB Extension Status &mdash; v1.5.6</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #fff;
+    --fg: #1a1a1a;
+    --muted: #767676;
+    --card-bg: #f6f6f7;
+    --border: #e2e2e2;
+    --row-alt: #fafafa;
+    --link: #0a58ca;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14161a;
+      --fg: #e6e6e6;
+      --muted: #9a9a9a;
+      --card-bg: #1c1f26;
+      --border: #33363f;
+      --row-alt: #1f222a;
+      --link: #7ab7ff;
+    }
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    max-width: 1080px;
+    margin: 2.5rem auto;
+    padding: 0 1.25rem;
+    color: var(--fg);
+    background: var(--bg);
+  }
+  a { color: var(--link); }
+  h1 { font-size: 1.4rem; margin-bottom: 0.1rem; }
+  .meta { color: var(--muted); font-size: 0.85rem; margin-bottom: 1.5rem; }
+  .summary { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.75rem; }
+  .card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    min-width: 7rem;
+    text-align: center;
+  }
+  .card .count { font-size: 1.5rem; font-weight: 600; }
+  .card .label { font-size: 0.8rem; color: var(--muted); }
+  details.legend {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.75rem;
+    font-size: 0.88rem;
+  }
+  details.legend summary { cursor: pointer; font-weight: 600; }
+  .legend-item { margin-top: 0.75rem; }
+  .legend-item .meaning { color: var(--muted); margin: 0.15rem 0; }
+  .legend-item .action { margin: 0.15rem 0; }
+  .action-label { background: var(--row-alt); padding: 0.1rem 0.4rem; border-radius: 4px; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
+  th, td { border: 1px solid var(--border); padding: 0.45rem 0.6rem; text-align: left; vertical-align: top; }
+  th { background: var(--card-bg); font-weight: 600; }
+  tr:nth-child(even) td { background: var(--row-alt); }
+  code { font-size: 0.85em; }
+  ul.related { margin: 0; padding-left: 1.1rem; }
+  ul.related li { margin: 0.1rem 0; }
+  ul.related.issues a { color: #c0362c; font-weight: 600; }
+  @media (prefers-color-scheme: dark) {
+    ul.related.issues a { color: #ff9c9c; }
+  }
+  th { cursor: pointer; user-select: none; white-space: nowrap; }
+  th:hover { background: var(--row-alt); }
+  th[data-dir="asc"]::after { content: " \25B2"; }
+  th[data-dir="desc"]::after { content: " \25BC"; }
+  .badge {
+    display: inline-block;
+    padding: 0.1rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge.ok { background: #d8f3dc; color: #1b5e20; }
+  .badge.behind { background: #ffe8cc; color: #8a4b00; }
+  .badge.patches { background: #fff3b0; color: #6b5900; }
+  .badge.blocked { background: #ffd6d6; color: #8a1c1c; }
+  @media (prefers-color-scheme: dark) {
+    .badge.ok { background: #1b3a24; color: #8fe3a5; }
+    .badge.behind { background: #4a2f0f; color: #ffc987; }
+    .badge.patches { background: #453d0c; color: #f5df6e; }
+    .badge.blocked { background: #4a1414; color: #ff9c9c; }
+  }
+</style>
+</head>
+<body>
+  <p><a href="../">&larr; all releases</a></p>
+  <h1>DuckDB Extension Status</h1>
+  <div class="meta">Target release: v1.5.6 (v1.5-variegata) &middot; generated 2026-09-23 10:26</div>
+
+  <div class="summary">
+    
+    <div class="card"><div class="count">6</div><div class="label">Blocked</div></div>
+    
+    <div class="card"><div class="count">2</div><div class="label">Has patches</div></div>
+    
+    <div class="card"><div class="count">4</div><div class="label">Behind</div></div>
+    
+    <div class="card"><div class="count">8</div><div class="label">Up to date</div></div>
+    
+  </div>
+
+  <details class="legend">
+    <summary>Status legend &mdash; what do I have to do?</summary>
+    
+    <div class="legend-item">
+      <span class="badge ok">Up to date</span>
+      <p class="meaning">The pinned commit matches the tip of the extension's target branch.</p>
+      <p class="action"><strong>Maintainer action:</strong> Nothing to do.</p>
+    </div>
+    
+    <div class="legend-item">
+      <span class="badge behind">Behind</span>
+      <p class="meaning">The extension has moved since duckdb/duckdb last pinned a commit.</p>
+      <p class="action"><strong>Maintainer action:</strong> Run with --generate-bump (add --make-pr to open the PR) to move the pin.</p>
+    </div>
+    
+    <div class="legend-item">
+      <span class="badge patches">Has patches</span>
+      <p class="meaning">duckdb/duckdb carries one or more patches for this extension.</p>
+      <p class="action"><strong>Maintainer action:</strong> --generate-bump drops any patch already absorbed upstream on its own. One that isn't stays carried and needs no action here yet.</p>
+    </div>
+    
+    <div class="legend-item">
+      <span class="badge blocked">Blocked</span>
+      <p class="meaning">Either a patch duckdb carries neither applies nor reverses cleanly at the pinned commit, or there's an open patch-failure issue for this extension -- either way, duckdb and the extension have diverged.</p>
+      <p class="action"><strong>Maintainer action:</strong> Run with --generate-patches --target <extension> (add --make-pr) to open a PR resolving it on the extension side; it has to land there before duckdb can bump past it.</p>
+    </div>
+    
+  </details>
+
+  <details class="legend">
+    <summary>Next action legend &mdash; what does each one do?</summary>
+    
+    <div class="legend-item">
+      <code class="action-label">BUMP (IN DUCKDB) TO ...</code>
+      <p class="meaning">Moves duckdb's pinned commit for this extension forward to the commit found on its target branch. Any carried patch that has already landed there is dropped in the same change.</p>
+      <p class="action"><strong>How:</strong> Run with --generate-bump (add --make-pr to open the PR).</p>
+    </div>
+    
+    <div class="legend-item">
+      <code class="action-label">REMOVE X OF Y PATCHES</code>
+      <p class="meaning">The pin doesn't move, but X of the patches duckdb carries for this extension have already landed there and can be dropped.</p>
+      <p class="action"><strong>How:</strong> Run with --generate-bump (add --make-pr to open the PR).</p>
+    </div>
+    
+    <div class="legend-item">
+      <code class="action-label">APPLY PATCHES (EXTENSION SIDE)</code>
+      <p class="meaning">A patch duckdb carries no longer applies or reverses cleanly at the pinned commit -- it has to be resolved on the extension's own branch before duckdb can move past it.</p>
+      <p class="action"><strong>How:</strong> Run with --generate-patches --target <extension> (add --make-pr).</p>
+    </div>
+    
+    <div class="legend-item">
+      <code class="action-label">NONE</code>
+      <p class="meaning">Nothing for duckdb to change for this extension right now.</p>
+      <p class="action"><strong>How:</strong> No action needed.</p>
+    </div>
+    
+  </details>
+
+  <table id="ext-table">
+    <thead>
+      <tr>
+        <th>Extension</th>
+        <th>Status</th>
+        <th>Target branch</th>
+        <th>Commit</th>
+        <th>Next action</th>
+        <th>Description</th>
+        <th>Related PRs</th>
+        <th>Related Issues</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-delta">delta</a></td>
+        <td><span class="badge blocked">Blocked</span></td>
+        <td>v1.5-variegata</td>
+        <td data-sort="e687032816845fd2c8cebcbda7441308571ca509">
+          <code>45c4087860</code> &rarr; <code>e687032816</code>
+          
+        </td>
+        <td>BUMP (IN DUCKDB) TO e687032816 (no patches)</td>
+        <td>commit mismatched (expected:45c4087860, found:e687032816)</td>
+        <td data-sort="1">
+          
+          <ul class="related">
+            
+            <li><a href="https://github.com/duckdb/duckdb/pull/26031">Bump PR</a></li>
+            
+          </ul>
+          
+        </td>
+        <td data-sort="1">
+          
+          <ul class="related issues">
+            
+            <li><a href="https://github.com/duckdblabs/duckdb-internal/issues/10912">Patch failure issue</a></li>
+            
+          </ul>
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-encodings">encodings</a></td>
+        <td><span class="badge blocked">Blocked</span></td>
+        <td>main</td>
+        <td data-sort="f3e4d03ecf18406ef86fe5833a7ad55d8f93520f">
+          <code>06295e77b1</code> &rarr; <code>f3e4d03ecf</code>
+          
+        </td>
+        <td>NONE</td>
+        <td>commit mismatched, but no bump required (expected:06295e77b1, found:f3e4d03ecf)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="1">
+          
+          <ul class="related issues">
+            
+            <li><a href="https://github.com/duckdblabs/duckdb-internal/issues/10913">Patch failure issue</a></li>
+            
+          </ul>
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-fts">fts</a></td>
+        <td><span class="badge blocked">Blocked</span></td>
+        <td>main</td>
+        <td data-sort="98efac320bb5fe57dd3103c1954e10774fb49e07">
+          <code>6814ec9a7d</code> &rarr; <code>98efac320b</code>
+          
+        </td>
+        <td>NONE</td>
+        <td>commit mismatched, but no bump required (expected:6814ec9a7d, found:98efac320b)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="1">
+          
+          <ul class="related issues">
+            
+            <li><a href="https://github.com/duckdblabs/duckdb-internal/issues/10914">Patch failure issue</a></li>
+            
+          </ul>
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-inet">inet</a></td>
+        <td><span class="badge blocked">Blocked</span></td>
+        <td>main</td>
+        <td data-sort="7c0a9c478d356673fa89aa869868365fba2eb7fb">
+          <code>fe7f60bb60</code> &rarr; <code>7c0a9c478d</code>
+          
+        </td>
+        <td>NONE</td>
+        <td>commit mismatched, but no bump required (expected:fe7f60bb60, found:7c0a9c478d)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="1">
+          
+          <ul class="related issues">
+            
+            <li><a href="https://github.com/duckdblabs/duckdb-internal/issues/10915">Patch failure issue</a></li>
+            
+          </ul>
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-postgres">postgres_scanner</a></td>
+        <td><span class="badge blocked">Blocked</span></td>
+        <td>v1.5-variegata</td>
+        <td data-sort="318dabb2474fc3789b0199301a2e661e19c1b4fc">
+          <code>786f9c06d0</code> &rarr; <code>318dabb247</code>
+          
+        </td>
+        <td>BUMP (IN DUCKDB) TO 318dabb247 (no patches)</td>
+        <td>commit mismatched (expected:786f9c06d0, found:318dabb247)</td>
+        <td data-sort="1">
+          
+          <ul class="related">
+            
+            <li><a href="https://github.com/duckdb/duckdb/pull/26031">Bump PR</a></li>
+            
+          </ul>
+          
+        </td>
+        <td data-sort="1">
+          
+          <ul class="related issues">
+            
+            <li><a href="https://github.com/duckdblabs/duckdb-internal/issues/10916">Patch failure issue</a></li>
+            
+          </ul>
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-spatial">spatial</a></td>
+        <td><span class="badge blocked">Blocked</span></td>
+        <td>v1.5-variegata</td>
+        <td data-sort="04270fe7bb4eb412765cce8afde0276a9d81d3ba">
+          <code>eb1e57c9d9</code> &rarr; <code>04270fe7bb</code>
+          
+        </td>
+        <td>BUMP (IN DUCKDB) TO 04270fe7bb + REMOVE 1 OF 1 PATCHES</td>
+        <td>commit mismatched (expected:eb1e57c9d9, found:04270fe7bb)</td>
+        <td data-sort="1">
+          
+          <ul class="related">
+            
+            <li><a href="https://github.com/duckdb/duckdb/pull/26031">Bump PR</a></li>
+            
+          </ul>
+          
+        </td>
+        <td data-sort="1">
+          
+          <ul class="related issues">
+            
+            <li><a href="https://github.com/duckdblabs/duckdb-internal/issues/10917">Patch failure issue</a></li>
+            
+          </ul>
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-httpfs">httpfs</a></td>
+        <td><span class="badge patches">Has patches</span></td>
+        <td>v1.5-variegata</td>
+        <td data-sort="4bc690dba4496c765777a0269d48fdbaff7cdc11">
+          <code>c1f7850b6c</code> &rarr; <code>4bc690dba4</code>
+          
+        </td>
+        <td>BUMP (IN DUCKDB) TO 4bc690dba4 + REMOVE 0 OF 1 PATCHES</td>
+        <td>commit mismatched (expected:c1f7850b6c, found:4bc690dba4)</td>
+        <td data-sort="1">
+          
+          <ul class="related">
+            
+            <li><a href="https://github.com/duckdb/duckdb/pull/26031">Bump PR</a></li>
+            
+          </ul>
+          
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-vss">vss</a></td>
+        <td><span class="badge patches">Has patches</span></td>
+        <td>v1.5-variegata</td>
+        <td data-sort="b833341c8737fd3f3558c7720cc575ae8fc82598">
+          <code>b833341c87</code>
+          
+        </td>
+        <td>NONE</td>
+        <td>commit matches (b833341c87)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-aws">aws</a></td>
+        <td><span class="badge behind">Behind</span></td>
+        <td>v1.5-variegata</td>
+        <td data-sort="28c853c084a6e3acd36d7b8018c42438bb8c5a33">
+          <code>efa54a990e</code> &rarr; <code>28c853c084</code>
+          
+        </td>
+        <td>BUMP (IN DUCKDB) TO 28c853c084 (no patches)</td>
+        <td>commit mismatched (expected:efa54a990e, found:28c853c084)</td>
+        <td data-sort="1">
+          
+          <ul class="related">
+            
+            <li><a href="https://github.com/duckdb/duckdb/pull/26031">Bump PR</a></li>
+            
+          </ul>
+          
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-iceberg">iceberg</a></td>
+        <td><span class="badge behind">Behind</span></td>
+        <td>v1.5-variegata</td>
+        <td data-sort="890b78a9cfae380396b435b033c27cdbdad04e42">
+          <code>45163a28e0</code> &rarr; <code>890b78a9cf</code>
+          
+        </td>
+        <td>BUMP (IN DUCKDB) TO 890b78a9cf (no patches)</td>
+        <td>commit mismatched (expected:45163a28e0, found:890b78a9cf)</td>
+        <td data-sort="1">
+          
+          <ul class="related">
+            
+            <li><a href="https://github.com/duckdb/duckdb/pull/26031">Bump PR</a></li>
+            
+          </ul>
+          
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-quack">quack</a></td>
+        <td><span class="badge behind">Behind</span></td>
+        <td>v1.5-variegata</td>
+        <td data-sort="7e80f7ffcc98d0b3e81d0e1df8cc1c2da240a64b">
+          <code>c1548111c1</code> &rarr; <code>7e80f7ffcc</code>
+          
+        </td>
+        <td>BUMP (IN DUCKDB) TO 7e80f7ffcc (no patches)</td>
+        <td>commit mismatched (expected:c1548111c1, found:7e80f7ffcc)</td>
+        <td data-sort="1">
+          
+          <ul class="related">
+            
+            <li><a href="https://github.com/duckdb/duckdb/pull/26031">Bump PR</a></li>
+            
+          </ul>
+          
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/unity_catalog">unity_catalog</a></td>
+        <td><span class="badge behind">Behind</span></td>
+        <td>v1.5-variegata</td>
+        <td data-sort="7d4d2f08f944244a3534ff0266e94bb491510bee">
+          <code>fd85147578</code> &rarr; <code>7d4d2f08f9</code>
+          
+        </td>
+        <td>BUMP (IN DUCKDB) TO 7d4d2f08f9 (no patches)</td>
+        <td>commit mismatched (expected:fd85147578, found:7d4d2f08f9)</td>
+        <td data-sort="1">
+          
+          <ul class="related">
+            
+            <li><a href="https://github.com/duckdb/duckdb/pull/26031">Bump PR</a></li>
+            
+          </ul>
+          
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-avro">avro</a></td>
+        <td><span class="badge ok">Up to date</span></td>
+        <td>v1.5-variegata</td>
+        <td data-sort="f9d590297485f0318f480372c70bdd852826e258">
+          <code>f9d5902974</code>
+          
+        </td>
+        <td>NONE</td>
+        <td>commit matches (f9d5902974)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-azure">azure</a></td>
+        <td><span class="badge ok">Up to date</span></td>
+        <td>v1.5-variegata</td>
+        <td data-sort="003214c96d0caa39d5c3e27a9e1976a0692c7d37">
+          <code>003214c96d</code>
+          
+        </td>
+        <td>NONE</td>
+        <td>commit matches (003214c96d)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/ducklake">ducklake</a></td>
+        <td><span class="badge ok">Up to date</span></td>
+        <td>v1.5-variegata</td>
+        <td data-sort="a7f80f5623fecdd7e39ad1a488036dd1cf5cb5d8">
+          <code>a7f80f5623</code>
+          
+        </td>
+        <td>NONE</td>
+        <td>commit matches (a7f80f5623)</td>
+        <td data-sort="1">
+          
+          <ul class="related">
+            
+            <li><a href="https://github.com/duckdb/duckdb/pull/26031">Bump PR</a></li>
+            
+          </ul>
+          
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-excel">excel</a></td>
+        <td><span class="badge ok">Up to date</span></td>
+        <td>main</td>
+        <td data-sort="4d5874e8a8147070e0bc68a6b391d00df924d639">
+          <code>f4c72b5ef0</code> &rarr; <code>4d5874e8a8</code>
+          
+        </td>
+        <td>NONE</td>
+        <td>commit mismatched, but no bump required (expected:f4c72b5ef0, found:4d5874e8a8)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-mysql">mysql_scanner</a></td>
+        <td><span class="badge ok">Up to date</span></td>
+        <td>v1.5-variegata</td>
+        <td data-sort="99c2e091b153b7f1cbd449988332232e75684b41">
+          <code>99c2e091b1</code>
+          
+        </td>
+        <td>NONE</td>
+        <td>commit matches (99c2e091b1)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-sqlite">sqlite_scanner</a></td>
+        <td><span class="badge ok">Up to date</span></td>
+        <td>v1.5-variegata</td>
+        <td data-sort="5274128259f73166c1f37f01190a4601f84c5525">
+          <code>5274128259</code>
+          
+        </td>
+        <td>NONE</td>
+        <td>commit matches (5274128259)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-sqlsmith">sqlsmith</a></td>
+        <td><span class="badge ok">Up to date</span></td>
+        <td>main</td>
+        <td data-sort="acceef43a7626b59e3e4c9d85c3b54d06b52b009">
+          <code>e47106c6fe</code> &rarr; <code>acceef43a7</code>
+          
+        </td>
+        <td>NONE</td>
+        <td>commit mismatched, but no bump required (expected:e47106c6fe, found:acceef43a7)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/bwc-test-utils">test_utils</a></td>
+        <td><span class="badge ok">Up to date</span></td>
+        <td>main</td>
+        <td data-sort="b7bef9e85c190a090c11b3a58b419a8487465083">
+          <code>5b9c733494</code> &rarr; <code>b7bef9e85c</code>
+          
+        </td>
+        <td>NONE</td>
+        <td>commit mismatched, but no bump required (expected:5b9c733494, found:b7bef9e85c)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+  <script>
+  (function () {
+    var table = document.getElementById('ext-table');
+    var headers = Array.prototype.slice.call(table.querySelectorAll('th'));
+    var tbody = table.querySelector('tbody');
+
+    headers.forEach(function (th, idx) {
+      th.addEventListener('click', function () {
+        var ascending = th.getAttribute('data-dir') !== 'asc';
+        headers.forEach(function (h) { h.removeAttribute('data-dir'); });
+        th.setAttribute('data-dir', ascending ? 'asc' : 'desc');
+
+        var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+        rows.sort(function (rowA, rowB) {
+          var cellA = rowA.children[idx], cellB = rowB.children[idx];
+          var valA = cellA.getAttribute('data-sort') || cellA.textContent.trim().toLowerCase();
+          var valB = cellB.getAttribute('data-sort') || cellB.textContent.trim().toLowerCase();
+          var numA = parseFloat(valA), numB = parseFloat(valB);
+          var cmp;
+          if (!isNaN(numA) && !isNaN(numB) && String(numA) === valA && String(numB) === valB) {
+            cmp = numA - numB;
+          } else {
+            cmp = valA < valB ? -1 : (valA > valB ? 1 : 0);
+          }
+          return ascending ? cmp : -cmp;
+        });
+        rows.forEach(function (row) { tbody.appendChild(row); });
+      });
+    });
+  })();
+  </script>
+</body>
+</html>
