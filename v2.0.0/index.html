@@ -4,53 +4,83 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DuckDB Extension Status &mdash; v2.0.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
     color-scheme: light dark;
-    --bg: #fff;
-    --fg: #1a1a1a;
-    --muted: #767676;
-    --card-bg: #f6f6f7;
-    --border: #e2e2e2;
-    --row-alt: #fafafa;
-    --link: #0a58ca;
+    --bg: #ffffff;
+    --fg: #0d1a24;
+    --muted: #5b6b76;
+    --card-bg: #f4f8fb;
+    --border: #dde6ec;
+    --row-alt: #f7fafc;
+    --link: #2c6e91;
+    --accent: #fff100;
+    --accent-fg: #332e00;
+    --radius-xs: 4px;
+    --radius-s: 6px;
+    --radius-m: 10px;
+    --radius-box: 15px;
+    --radius-pill: 999px;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #14161a;
-      --fg: #e6e6e6;
-      --muted: #9a9a9a;
-      --card-bg: #1c1f26;
-      --border: #33363f;
-      --row-alt: #1f222a;
-      --link: #7ab7ff;
+      --bg: #0a0f14;
+      --fg: #e6edf2;
+      --muted: #93a3ad;
+      --card-bg: #121a22;
+      --border: #22303b;
+      --row-alt: #0e151c;
+      --link: #2eafff;
+      --accent: #f3e71b;
+      --accent-fg: #1a1700;
     }
   }
+  * { box-sizing: border-box; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     max-width: 1080px;
     margin: 2.5rem auto;
     padding: 0 1.25rem;
     color: var(--fg);
     background: var(--bg);
   }
-  a { color: var(--link); }
-  h1 { font-size: 1.4rem; margin-bottom: 0.1rem; }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.35rem; letter-spacing: -0.01em; }
+  .brand-rule { width: 2.5rem; height: 4px; background: var(--accent); border-radius: var(--radius-pill); margin-bottom: 0.9rem; }
   .meta { color: var(--muted); font-size: 0.85rem; margin-bottom: 1.5rem; }
+  .back-link { color: var(--muted); font-size: 0.85rem; }
   .summary { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.75rem; }
   .card {
     background: var(--card-bg);
-    border-radius: 8px;
-    padding: 0.6rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-m);
+    padding: 0.6rem 1.1rem;
     min-width: 7rem;
     text-align: center;
   }
-  .card .count { font-size: 1.5rem; font-weight: 600; }
+  .card .count { font-size: 1.5rem; font-weight: 700; }
   .card .label { font-size: 0.8rem; color: var(--muted); }
+  .bump-prs {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius-box);
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 1.75rem;
+    font-size: 0.88rem;
+  }
+  .bump-prs h2 { font-size: 0.95rem; font-weight: 700; margin: 0 0 0.5rem; }
+  .bump-prs ul { margin: 0; padding-left: 1.1rem; }
+  .bump-prs li { margin: 0.2rem 0; }
   details.legend {
     background: var(--card-bg);
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-box);
+    padding: 0.75rem 1.1rem;
     margin-bottom: 1.75rem;
     font-size: 0.88rem;
   }
@@ -58,14 +88,27 @@
   .legend-item { margin-top: 0.75rem; }
   .legend-item .meaning { color: var(--muted); margin: 0.15rem 0; }
   .legend-item .action { margin: 0.15rem 0; }
-  .action-label { background: var(--row-alt); padding: 0.1rem 0.4rem; border-radius: 4px; }
-  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
-  th, td { border: 1px solid var(--border); padding: 0.45rem 0.6rem; text-align: left; vertical-align: top; }
+  .action-label {
+    background: var(--row-alt);
+    border: 1px solid var(--border);
+    padding: 0.1rem 0.45rem;
+    border-radius: var(--radius-s);
+    font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+    font-size: 0.82em;
+  }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; border-radius: var(--radius-box); overflow: hidden; }
+  th, td { border: 1px solid var(--border); padding: 0.55rem 0.65rem; text-align: left; vertical-align: top; }
   th { background: var(--card-bg); font-weight: 600; }
   tr:nth-child(even) td { background: var(--row-alt); }
-  code { font-size: 0.85em; }
+  code {
+    font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+    font-size: 0.85em;
+    background: var(--row-alt);
+    padding: 0.05rem 0.3rem;
+    border-radius: var(--radius-xs);
+  }
   ul.related { margin: 0; padding-left: 1.1rem; }
-  ul.related li { margin: 0.1rem 0; }
+  ul.related li { margin: 0.15rem 0; }
   ul.related.issues a { color: #c0362c; font-weight: 600; }
   @media (prefers-color-scheme: dark) {
     ul.related.issues a { color: #ff9c9c; }
@@ -76,28 +119,47 @@
   th[data-dir="desc"]::after { content: " \25BC"; }
   .badge {
     display: inline-block;
-    padding: 0.1rem 0.55rem;
-    border-radius: 999px;
+    padding: 0.15rem 0.6rem;
+    border-radius: var(--radius-pill);
     font-size: 0.78rem;
     font-weight: 600;
     white-space: nowrap;
   }
   .badge.ok { background: #d8f3dc; color: #1b5e20; }
   .badge.behind { background: #ffe8cc; color: #8a4b00; }
-  .badge.patches { background: #fff3b0; color: #6b5900; }
+  .badge.patches { background: var(--accent); color: var(--accent-fg); }
   .badge.blocked { background: #ffd6d6; color: #8a1c1c; }
   @media (prefers-color-scheme: dark) {
     .badge.ok { background: #1b3a24; color: #8fe3a5; }
     .badge.behind { background: #4a2f0f; color: #ffc987; }
-    .badge.patches { background: #453d0c; color: #f5df6e; }
     .badge.blocked { background: #4a1414; color: #ff9c9c; }
   }
+  .ci-dot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    font-size: 9px;
+    font-weight: 700;
+    color: #fff;
+    vertical-align: -3px;
+    line-height: 1;
+  }
+  .ci-dot.passed { background: #1e7a3d; }
+  .ci-dot.passed::before { content: "\2713"; }
+  .ci-dot.failed { background: #c0362c; }
+  .ci-dot.failed::before { content: "\2715"; }
+  .ci-dot.pending { background: #b8860b; }
+  .ci-dot.pending::before { content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #fff; }
 </style>
 </head>
 <body>
-  <p><a href="../">&larr; all releases</a></p>
+  <p class="back-link"><a href="../">&larr; all releases</a></p>
   <h1>DuckDB Extension Status</h1>
-  <div class="meta">Target release: v2.0.0 (v2.0-cyanoptera) &middot; generated 2026-09-24 16:17</div>
+  <div class="brand-rule"></div>
+  <div class="meta">Target release: v2.0.0 (v2.0-cyanoptera) &middot; generated 2026-09-24 16:28</div>
 
   <div class="summary">
     
@@ -110,6 +172,8 @@
     <div class="card"><div class="count">4</div><div class="label">Up to date</div></div>
     
   </div>
+
+  
 
   <details class="legend">
     <summary>Status legend &mdash; what do I have to do?</summary>
@@ -188,7 +252,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb-azure/pull/190">Patch PR on azure</a> <span title="CI failed">❌</span></li>
+            <li><a href="https://github.com/duckdb/duckdb-azure/pull/190">Patch PR on azure</a> <span class="ci-dot failed" title="CI failed"></span></li>
             
           </ul>
           
@@ -214,14 +278,8 @@
         </td>
         <td>BUMP (IN DUCKDB) TO ac61cfbcd2 (no patches)</td>
         <td>commit mismatched (expected:1419d1616f, found:ac61cfbcd2)</td>
-        <td data-sort="1">
-          
-          <ul class="related">
-            
-            <li><a href="https://github.com/duckdb/duckdb/pull/26091">Bump PR</a> <span title="CI passed">✅</span></li>
-            
-          </ul>
-          
+        <td data-sort="0">
+          &mdash;
         </td>
         <td data-sort="1">
           
@@ -248,7 +306,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/ducklake/pull/1466">Patch PR on ducklake</a> <span title="CI pending">🟠</span></li>
+            <li><a href="https://github.com/duckdb/ducklake/pull/1466">Patch PR on ducklake</a> <span class="ci-dot failed" title="CI failed"></span></li>
             
           </ul>
           
@@ -374,7 +432,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb-sqlsmith/pull/75">Patch PR on sqlsmith</a> <span title="CI failed">❌</span></li>
+            <li><a href="https://github.com/duckdb/duckdb-sqlsmith/pull/75">Patch PR on sqlsmith</a> <span class="ci-dot failed" title="CI failed"></span></li>
             
           </ul>
           
@@ -418,14 +476,8 @@
         </td>
         <td>BUMP (IN DUCKDB) TO 3f81d9749e + REMOVE 0 OF 1 PATCHES</td>
         <td>commit mismatched (expected:8103a11cc4, found:3f81d9749e)</td>
-        <td data-sort="1">
-          
-          <ul class="related">
-            
-            <li><a href="https://github.com/duckdb/duckdb/pull/26126">Bump PR</a> <span title="CI passed">✅</span></li>
-            
-          </ul>
-          
+        <td data-sort="0">
+          &mdash;
         </td>
         <td data-sort="0">
           &mdash;
@@ -446,7 +498,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb-quack/pull/278">Patch PR on quack</a> <span title="CI passed">✅</span></li>
+            <li><a href="https://github.com/duckdb/duckdb-quack/pull/278">Patch PR on quack</a> <span class="ci-dot passed" title="CI passed"></span></li>
             
           </ul>
           
@@ -502,14 +554,8 @@
         </td>
         <td>BUMP (IN DUCKDB) TO e33bc2dd4b (no patches)</td>
         <td>commit mismatched (expected:35fa8441d5, found:e33bc2dd4b)</td>
-        <td data-sort="1">
-          
-          <ul class="related">
-            
-            <li><a href="https://github.com/duckdb/duckdb/pull/26124">Bump PR</a> <span title="CI pending">🟠</span></li>
-            
-          </ul>
-          
+        <td data-sort="0">
+          &mdash;
         </td>
         <td data-sort="0">
           &mdash;
@@ -526,14 +572,8 @@
         </td>
         <td>BUMP (IN DUCKDB) TO 9380bac10b (no patches)</td>
         <td>commit mismatched (expected:54191de551, found:9380bac10b)</td>
-        <td data-sort="1">
-          
-          <ul class="related">
-            
-            <li><a href="https://github.com/duckdb/duckdb/pull/26091">Bump PR</a> <span title="CI passed">✅</span></li>
-            
-          </ul>
-          
+        <td data-sort="0">
+          &mdash;
         </td>
         <td data-sort="0">
           &mdash;
@@ -550,14 +590,8 @@
         </td>
         <td>BUMP (IN DUCKDB) TO caa836f468 (no patches)</td>
         <td>commit mismatched (expected:5b9ff899a1, found:caa836f468)</td>
-        <td data-sort="1">
-          
-          <ul class="related">
-            
-            <li><a href="https://github.com/duckdb/duckdb/pull/26091">Bump PR</a> <span title="CI passed">✅</span></li>
-            
-          </ul>
-          
+        <td data-sort="0">
+          &mdash;
         </td>
         <td data-sort="0">
           &mdash;
@@ -610,14 +644,8 @@
         </td>
         <td>NONE</td>
         <td>commit matches (9bc53cf655)</td>
-        <td data-sort="1">
-          
-          <ul class="related">
-            
-            <li><a href="https://github.com/duckdb/duckdb/pull/26091">Bump PR</a> <span title="CI passed">✅</span></li>
-            
-          </ul>
-          
+        <td data-sort="0">
+          &mdash;
         </td>
         <td data-sort="0">
           &mdash;
@@ -634,14 +662,8 @@
         </td>
         <td>NONE</td>
         <td>commit matches (26387d6c8f)</td>
-        <td data-sort="1">
-          
-          <ul class="related">
-            
-            <li><a href="https://github.com/duckdb/duckdb/pull/26091">Bump PR</a> <span title="CI passed">✅</span></li>
-            
-          </ul>
-          
+        <td data-sort="0">
+          &mdash;
         </td>
         <td data-sort="0">
           &mdash;

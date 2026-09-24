@@ -4,46 +4,54 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DuckDB Extension Release Status</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     color-scheme: light dark;
-    --bg: #fff;
-    --fg: #1a1a1a;
-    --muted: #767676;
-    --card-bg: #f6f6f7;
-    --border: #e2e2e2;
-    --link: #0a58ca;
+    --bg: #ffffff;
+    --fg: #0d1a24;
+    --muted: #5b6b76;
+    --card-bg: #f4f8fb;
+    --border: #dde6ec;
+    --link: #2c6e91;
+    --accent: #fff100;
+    --radius-m: 10px;
+    --radius-pill: 999px;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #14161a;
-      --fg: #e6e6e6;
-      --muted: #9a9a9a;
-      --card-bg: #1c1f26;
-      --border: #33363f;
-      --link: #7ab7ff;
+      --bg: #0a0f14;
+      --fg: #e6edf2;
+      --muted: #93a3ad;
+      --card-bg: #121a22;
+      --border: #22303b;
+      --link: #2eafff;
+      --accent: #f3e71b;
     }
   }
+  * { box-sizing: border-box; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     max-width: 640px;
     margin: 2.5rem auto;
     padding: 0 1.25rem;
     color: var(--fg);
     background: var(--bg);
   }
-  a { color: var(--link); }
-  h1 { font-size: 1.4rem; margin-bottom: 1.5rem; }
+  a { color: var(--link); text-decoration: none; }
+  h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.35rem; letter-spacing: -0.01em; }
+  .brand-rule { width: 2.5rem; height: 4px; background: var(--accent); border-radius: var(--radius-pill); margin-bottom: 1.5rem; }
   ul { list-style: none; margin: 0; padding: 0; }
   li {
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: var(--radius-m);
     margin-bottom: 0.6rem;
   }
   li a {
     display: block;
     padding: 0.75rem 1rem;
-    text-decoration: none;
     font-weight: 600;
     font-size: 1.05rem;
   }
@@ -53,6 +61,7 @@
 </head>
 <body>
   <h1>DuckDB Extension Release Status</h1>
+  <div class="brand-rule"></div>
   
   <ul>
     
