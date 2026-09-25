@@ -159,13 +159,13 @@
   <p class="back-link"><a href="../">&larr; all releases</a></p>
   <h1>DuckDB Extension Status</h1>
   <div class="brand-rule"></div>
-  <div class="meta">Target release: v2.0.0 (v2.0-cyanoptera) &middot; generated 2026-09-25 10:21</div>
+  <div class="meta">Target release: v2.0.0 (v2.0-cyanoptera) &middot; generated 2026-09-25 11:12</div>
 
   <div class="summary">
     
-    <div class="card"><div class="count">8</div><div class="label">Blocked</div></div>
+    <div class="card"><div class="count">7</div><div class="label">Blocked</div></div>
     
-    <div class="card"><div class="count">4</div><div class="label">Has patches</div></div>
+    <div class="card"><div class="count">5</div><div class="label">Has patches</div></div>
     
     <div class="card"><div class="count">3</div><div class="label">Behind</div></div>
     
@@ -178,7 +178,7 @@
     <h2>Bump PR on duckdb/duckdb</h2>
     <ul>
       
-      <li><a href="https://github.com/duckdb/duckdb/pull/26150">https://github.com/duckdb/duckdb/pull/26150</a> <span class="ci-dot failed" title="CI failed"></span> &mdash; avro, aws, delta, ducklake, excel, fts, iceberg, inet, quack, spatial, vss</li>
+      <li><a href="https://github.com/duckdb/duckdb/pull/26155">https://github.com/duckdb/duckdb/pull/26155</a> <span class="ci-dot pending" title="CI pending"></span> &mdash; avro, aws, delta, ducklake, excel, fts, iceberg, quack, spatial, vss</li>
       
     </ul>
   </div>
@@ -246,36 +246,6 @@
       </tr>
     </thead>
     <tbody>
-      
-      <tr>
-        <td><a href="https://github.com/duckdb/duckdb-azure">azure</a></td>
-        <td><span class="badge blocked">Blocked</span></td>
-        <td>main</td>
-        <td data-sort="74f47669b7c7cac7bad2c29bcfac8ec8b348110e">
-          <code>74f47669b7</code>
-          
-        </td>
-        <td>NONE</td>
-        <td>commit matches (74f47669b7)</td>
-        <td data-sort="1">
-          
-          <ul class="related">
-            
-            <li><a href="https://github.com/duckdb/duckdb-azure/pull/192">Patch PR on azure</a> <span class="ci-dot failed" title="CI failed"></span></li>
-            
-          </ul>
-          
-        </td>
-        <td data-sort="1">
-          
-          <ul class="related issues">
-            
-            <li><a href="https://github.com/duckdblabs/duckdb-internal/issues/10945">CI failure issue</a></li>
-            
-          </ul>
-          
-        </td>
-      </tr>
       
       <tr>
         <td><a href="https://github.com/duckdb/duckdb-delta">delta</a></td>
@@ -393,7 +363,7 @@
           <code>fe7f60bb60</code> &rarr; <code>7c0a9c478d</code>
           
         </td>
-        <td>BUMP (IN DUCKDB) TO 7c0a9c478d + REMOVE 2 OF 8 PATCHES</td>
+        <td>APPLY PATCHES (EXTENSION SIDE)</td>
         <td>commit mismatched (expected:fe7f60bb60, found:7c0a9c478d)</td>
         <td data-sort="0">
           &mdash;
@@ -447,7 +417,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb-sqlsmith/pull/76">Patch PR on sqlsmith</a> <span class="ci-dot pending" title="CI pending"></span></li>
+            <li><a href="https://github.com/duckdb/duckdb-sqlsmith/pull/76">Patch PR on sqlsmith</a> <span class="ci-dot failed" title="CI failed"></span></li>
             
           </ul>
           
@@ -460,6 +430,30 @@
             
           </ul>
           
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-azure">azure</a></td>
+        <td><span class="badge patches">Has patches</span></td>
+        <td>main</td>
+        <td data-sort="74f47669b7c7cac7bad2c29bcfac8ec8b348110e">
+          <code>74f47669b7</code>
+          
+        </td>
+        <td>NONE</td>
+        <td>commit matches (74f47669b7)</td>
+        <td data-sort="1">
+          
+          <ul class="related">
+            
+            <li><a href="https://github.com/duckdb/duckdb-azure/pull/192">Patch PR on azure</a> <span class="ci-dot failed" title="CI failed"></span></li>
+            
+          </ul>
+          
+        </td>
+        <td data-sort="0">
+          &mdash;
         </td>
       </tr>
       
@@ -477,7 +471,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb-excel/pull/100">Bump PR on excel</a> <span class="ci-dot pending" title="CI pending"></span></li>
+            <li><a href="https://github.com/duckdb/duckdb-excel/pull/100">Bump PR on excel</a> <span class="ci-dot passed" title="CI passed"></span></li>
             
           </ul>
           
@@ -549,7 +543,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb-vss/pull/96">Bump PR on vss</a> <span class="ci-dot pending" title="CI pending"></span></li>
+            <li><a href="https://github.com/duckdb/duckdb-vss/pull/96">Bump PR on vss</a> <span class="ci-dot passed" title="CI passed"></span></li>
             
           </ul>
           
@@ -573,7 +567,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb-avro/pull/128">Bump PR on avro</a> <span class="ci-dot pending" title="CI pending"></span></li>
+            <li><a href="https://github.com/duckdb/duckdb-avro/pull/128">Bump PR on avro</a> <span class="ci-dot passed" title="CI passed"></span></li>
             
           </ul>
           
@@ -597,7 +591,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb-aws/pull/201">Bump PR on aws</a> <span class="ci-dot pending" title="CI pending"></span></li>
+            <li><a href="https://github.com/duckdb/duckdb-aws/pull/201">Bump PR on aws</a> <span class="ci-dot failed" title="CI failed"></span></li>
             
           </ul>
           
@@ -621,7 +615,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb-iceberg/pull/1440">Bump PR on iceberg</a> <span class="ci-dot pending" title="CI pending"></span></li>
+            <li><a href="https://github.com/duckdb/duckdb-iceberg/pull/1440">Bump PR on iceberg</a> <span class="ci-dot failed" title="CI failed"></span></li>
             
           </ul>
           
