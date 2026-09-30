@@ -159,13 +159,13 @@
   <p class="back-link"><a href="../">&larr; all releases</a></p>
   <h1>DuckDB Extension Status</h1>
   <div class="brand-rule"></div>
-  <div class="meta">Target release: v2.0.0 (v2.0-cyanoptera) &middot; generated 2026-09-30 13:31</div>
+  <div class="meta">Target release: v2.0.0 (v2.0-cyanoptera) &middot; generated 2026-09-30 16:11</div>
 
   <div class="summary">
     
-    <div class="card"><div class="count">11</div><div class="label">Blocked</div></div>
+    <div class="card"><div class="count">12</div><div class="label">Blocked</div></div>
     
-    <div class="card"><div class="count">8</div><div class="label">Has patches</div></div>
+    <div class="card"><div class="count">7</div><div class="label">Has patches</div></div>
     
     <div class="card"><div class="count">0</div><div class="label">Behind</div></div>
     
@@ -239,6 +239,24 @@
     <tbody>
       
       <tr>
+        <td><a href="https://github.com/duckdb/duckdb-avro">avro</a></td>
+        <td><span class="badge blocked">Blocked</span></td>
+        <td>main</td>
+        <td data-sort="859d56d1bcf8e1645a4d6cb905b96ebf327af139">
+          <code>fa09aa71a7</code> &rarr; <code>859d56d1bc</code>
+          
+        </td>
+        <td>CHECK PATCHES BY HAND (CHECK FAILED)</td>
+        <td>commit mismatched (expected:fa09aa71a7, found:859d56d1bc)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
         <td><a href="https://github.com/duckdb/duckdb-delta">delta</a></td>
         <td><span class="badge blocked">Blocked</span></td>
         <td>main</td>
@@ -272,12 +290,12 @@
         <td><a href="https://github.com/duckdb/ducklake">ducklake</a></td>
         <td><span class="badge blocked">Blocked</span></td>
         <td>main</td>
-        <td data-sort="412f8506e2bba33e0a2bb0b44e103a87d445b2f9">
-          <code>e8924cfc9c</code> &rarr; <code>412f8506e2</code>
+        <td data-sort="9a79177ce069920f50d6e9dac9589fa585fe2b1c">
+          <code>e8924cfc9c</code> &rarr; <code>9a79177ce0</code>
           
         </td>
         <td>APPLY PATCHES (EXTENSION SIDE)</td>
-        <td>commit mismatched (expected:e8924cfc9c, found:412f8506e2)</td>
+        <td>commit mismatched (expected:e8924cfc9c, found:9a79177ce0)</td>
         <td data-sort="0">
           &mdash;
         </td>
@@ -509,30 +527,6 @@
       </tr>
       
       <tr>
-        <td><a href="https://github.com/duckdb/duckdb-avro">avro</a></td>
-        <td><span class="badge patches">Has patches</span></td>
-        <td>main</td>
-        <td data-sort="fa09aa71a716703cbd865a4f3cea17224202cde1">
-          <code>fa09aa71a7</code>
-          
-        </td>
-        <td>NONE</td>
-        <td>commit matches (fa09aa71a7)</td>
-        <td data-sort="1">
-          
-          <ul class="related">
-            
-            <li><a href="https://github.com/duckdb/duckdb-avro/pull/132">Patch PR on avro</a> <span class="ci-dot passed" title="CI passed"></span></li>
-            
-          </ul>
-          
-        </td>
-        <td data-sort="0">
-          &mdash;
-        </td>
-      </tr>
-      
-      <tr>
         <td><a href="https://github.com/duckdb/duckdb-aws">aws</a></td>
         <td><span class="badge patches">Has patches</span></td>
         <td>main</td>
@@ -560,12 +554,12 @@
         <td><a href="https://github.com/duckdb/duckdb-azure">azure</a></td>
         <td><span class="badge patches">Has patches</span></td>
         <td>main</td>
-        <td data-sort="35c55cf13f2fbf79161f507b511b4283382348e4">
-          <code>35c55cf13f</code>
+        <td data-sort="951a0abbdeae51f7393cd9fea8c38224d01c63de">
+          <code>35c55cf13f</code> &rarr; <code>951a0abbde</code>
           
         </td>
-        <td>NONE</td>
-        <td>commit matches (35c55cf13f)</td>
+        <td>BUMP (IN DUCKDB) TO 951a0abbde + REMOVE 0 OF 1 PATCHES</td>
+        <td>commit mismatched (expected:35c55cf13f, found:951a0abbde)</td>
         <td data-sort="1">
           
           <ul class="related">
