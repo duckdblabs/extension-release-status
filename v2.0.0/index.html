@@ -159,11 +159,11 @@
   <p class="back-link"><a href="../">&larr; all releases</a></p>
   <h1>DuckDB Extension Status</h1>
   <div class="brand-rule"></div>
-  <div class="meta">Target release: v2.0.0 (v2.0-cyanoptera) &middot; generated 2026-10-02 14:36</div>
+  <div class="meta">Target release: v2.0.0 (v2.0-cyanoptera) &middot; generated 2026-10-02 16:36</div>
 
   <div class="summary">
     
-    <div class="card"><div class="count">11</div><div class="label">Blocked</div></div>
+    <div class="card"><div class="count">12</div><div class="label">Blocked</div></div>
     
     <div class="card"><div class="count">3</div><div class="label">Has patches</div></div>
     
@@ -231,7 +231,6 @@
         <th>Target branch</th>
         <th>Commit</th>
         <th>Next action</th>
-        <th>Bumps itself</th>
         <th>Description</th>
         <th>Related PRs</th>
         <th>Related Issues</th>
@@ -247,8 +246,7 @@
           <code>7eaa663835</code> &rarr; <code>d5d9237e66</code>
           
         </td>
-        <td>APPLY PATCHES (EXTENSION SIDE)</td>
-        <td>no</td>
+        <td>CHECK PATCHES BY HAND (CHECK FAILED)</td>
         <td>commit mismatched (expected:7eaa663835, found:d5d9237e66)</td>
         <td data-sort="0">
           &mdash;
@@ -266,8 +264,7 @@
           <code>5f6baaa446</code> &rarr; <code>ba6874e33e</code>
           
         </td>
-        <td>APPLY PATCHES (EXTENSION SIDE)</td>
-        <td>no</td>
+        <td>CHECK PATCHES BY HAND (CHECK FAILED)</td>
         <td>commit mismatched (expected:5f6baaa446, found:ba6874e33e)</td>
         <td data-sort="0">
           &mdash;
@@ -292,7 +289,6 @@
           
         </td>
         <td>APPLY PATCHES (EXTENSION SIDE)</td>
-        <td>no</td>
         <td>commit mismatched (expected:e8924cfc9c, found:6560c6709e)</td>
         <td data-sort="0">
           &mdash;
@@ -317,7 +313,6 @@
           
         </td>
         <td>APPLY PATCHES (EXTENSION SIDE)</td>
-        <td>no</td>
         <td>commit mismatched (expected:9421a2d75b, found:cc89a4c5da)</td>
         <td data-sort="0">
           &mdash;
@@ -342,7 +337,6 @@
           
         </td>
         <td>APPLY PATCHES (EXTENSION SIDE)</td>
-        <td>no</td>
         <td>commit mismatched (expected:2266e67d01, found:4234fe9531)</td>
         <td data-sort="0">
           &mdash;
@@ -367,7 +361,6 @@
           
         </td>
         <td>BUMP (IN DUCKDB) TO 7773e83d51 + REMOVE 1 OF 2 PATCHES</td>
-        <td><a href="https://github.com/duckdb/duckdb-httpfs/actions/runs/37020408938">failure</a></td>
         <td>commit mismatched (expected:5e34903685, found:7773e83d51)</td>
         <td data-sort="0">
           &mdash;
@@ -391,8 +384,7 @@
           <code>5b9ff899a1</code> &rarr; <code>b1eea063bc</code>
           
         </td>
-        <td>APPLY PATCHES (EXTENSION SIDE)</td>
-        <td>no</td>
+        <td>CHECK PATCHES BY HAND (CHECK FAILED)</td>
         <td>commit mismatched (expected:5b9ff899a1, found:b1eea063bc)</td>
         <td data-sort="0">
           &mdash;
@@ -417,7 +409,6 @@
           
         </td>
         <td>APPLY PATCHES (EXTENSION SIDE)</td>
-        <td>no</td>
         <td>commit mismatched (expected:fe7f60bb60, found:61ce2d7245)</td>
         <td data-sort="0">
           &mdash;
@@ -442,7 +433,6 @@
           
         </td>
         <td>APPLY PATCHES (EXTENSION SIDE)</td>
-        <td>no</td>
         <td>commit mismatched (expected:974927a394, found:243475a6da)</td>
         <td data-sort="0">
           &mdash;
@@ -467,7 +457,6 @@
           
         </td>
         <td>APPLY PATCHES (EXTENSION SIDE)</td>
-        <td>no</td>
         <td>commit mismatched (expected:686950e980, found:4295b9b9a1)</td>
         <td data-sort="0">
           &mdash;
@@ -492,7 +481,6 @@
           
         </td>
         <td>NONE</td>
-        <td>no</td>
         <td>commit matches (acceef43a7)</td>
         <td data-sort="1">
           
@@ -515,6 +503,24 @@
       </tr>
       
       <tr>
+        <td><a href="https://github.com/duckdb/duckdb-vss">vss</a></td>
+        <td><span class="badge blocked">Blocked</span></td>
+        <td>main</td>
+        <td data-sort="6c5ae1b105892bb9f95386e783a5b7fc8b9adae3">
+          <code>c1430fd4bd</code> &rarr; <code>6c5ae1b105</code>
+          
+        </td>
+        <td>CHECK PATCHES BY HAND (CHECK FAILED)</td>
+        <td>commit mismatched (expected:c1430fd4bd, found:6c5ae1b105)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
         <td><a href="https://github.com/duckdb/duckdb-azure">azure</a></td>
         <td><span class="badge patches">Has patches</span></td>
         <td>main</td>
@@ -523,7 +529,6 @@
           
         </td>
         <td>BUMP (IN DUCKDB) TO 951a0abbde + REMOVE 0 OF 1 PATCHES</td>
-        <td>no</td>
         <td>commit mismatched (expected:35c55cf13f, found:951a0abbde)</td>
         <td data-sort="1">
           
@@ -540,6 +545,24 @@
       </tr>
       
       <tr>
+        <td><a href="https://github.com/duckdb/bwc-test-utils">test_utils</a></td>
+        <td><span class="badge patches">Has patches</span></td>
+        <td>main</td>
+        <td data-sort="b7bef9e85c190a090c11b3a58b419a8487465083">
+          <code>b7bef9e85c</code>
+          
+        </td>
+        <td>NONE</td>
+        <td>commit matches (b7bef9e85c)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
         <td><a href="https://github.com/duckdb/unity_catalog">unity_catalog</a></td>
         <td><span class="badge patches">Has patches</span></td>
         <td>main</td>
@@ -548,7 +571,6 @@
           
         </td>
         <td>NONE</td>
-        <td>no</td>
         <td>commit matches (91eff65972)</td>
         <td data-sort="1">
           
@@ -565,25 +587,6 @@
       </tr>
       
       <tr>
-        <td><a href="https://github.com/duckdb/duckdb-vss">vss</a></td>
-        <td><span class="badge patches">Has patches</span></td>
-        <td>main</td>
-        <td data-sort="6c5ae1b105892bb9f95386e783a5b7fc8b9adae3">
-          <code>c1430fd4bd</code> &rarr; <code>6c5ae1b105</code>
-          
-        </td>
-        <td>BUMP (IN DUCKDB) TO 6c5ae1b105 + REMOVE 1 OF 1 PATCHES</td>
-        <td>no</td>
-        <td>commit mismatched (expected:c1430fd4bd, found:6c5ae1b105)</td>
-        <td data-sort="0">
-          &mdash;
-        </td>
-        <td data-sort="0">
-          &mdash;
-        </td>
-      </tr>
-      
-      <tr>
         <td><a href="https://github.com/duckdb/duckdb-encodings">encodings</a></td>
         <td><span class="badge behind">Behind</span></td>
         <td>main</td>
@@ -592,7 +595,6 @@
           
         </td>
         <td>BUMP (IN DUCKDB) TO aa46e099a8 (no patches)</td>
-        <td>no</td>
         <td>commit mismatched (expected:384c0ab5c0, found:aa46e099a8)</td>
         <td data-sort="0">
           &mdash;
@@ -611,7 +613,6 @@
           
         </td>
         <td>BUMP (IN DUCKDB) TO 57eb6cc036 (no patches)</td>
-        <td>no</td>
         <td>commit mismatched (expected:26cebe53dd, found:57eb6cc036)</td>
         <td data-sort="0">
           &mdash;
@@ -630,7 +631,6 @@
           
         </td>
         <td>BUMP (IN DUCKDB) TO c377fb7368 (no patches)</td>
-        <td>no</td>
         <td>commit mismatched (expected:5c219c9158, found:c377fb7368)</td>
         <td data-sort="0">
           &mdash;
@@ -649,7 +649,6 @@
           
         </td>
         <td>NONE</td>
-        <td>no</td>
         <td>commit matches (859d56d1bc)</td>
         <td data-sort="1">
           
@@ -674,7 +673,6 @@
           
         </td>
         <td>NONE</td>
-        <td>no</td>
         <td>commit matches (f9db66ec5a)</td>
         <td data-sort="0">
           &mdash;
@@ -693,7 +691,6 @@
           
         </td>
         <td>NONE</td>
-        <td>no</td>
         <td>commit matches (ca01682537)</td>
         <td data-sort="0">
           &mdash;
