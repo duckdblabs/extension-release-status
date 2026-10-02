@@ -159,17 +159,17 @@
   <p class="back-link"><a href="../">&larr; all releases</a></p>
   <h1>DuckDB Extension Status</h1>
   <div class="brand-rule"></div>
-  <div class="meta">Target release: v2.0.0 (v2.0-cyanoptera) &middot; generated 2026-09-30 16:47</div>
+  <div class="meta">Target release: v2.0.0 (v2.0-cyanoptera) &middot; generated 2026-10-02 10:57</div>
 
   <div class="summary">
     
-    <div class="card"><div class="count">11</div><div class="label">Blocked</div></div>
+    <div class="card"><div class="count">9</div><div class="label">Blocked</div></div>
     
-    <div class="card"><div class="count">8</div><div class="label">Has patches</div></div>
+    <div class="card"><div class="count">7</div><div class="label">Has patches</div></div>
     
-    <div class="card"><div class="count">0</div><div class="label">Behind</div></div>
+    <div class="card"><div class="count">2</div><div class="label">Behind</div></div>
     
-    <div class="card"><div class="count">1</div><div class="label">Up to date</div></div>
+    <div class="card"><div class="count">2</div><div class="label">Up to date</div></div>
     
   </div>
 
@@ -178,7 +178,7 @@
     <h2>Bump PR on duckdb/duckdb</h2>
     <ul>
       
-      <li><a href="https://github.com/duckdb/duckdb/pull/26294">https://github.com/duckdb/duckdb/pull/26294</a> <span class="ci-dot pending" title="CI pending"></span> &mdash; avro</li>
+      <li><a href="https://github.com/duckdb/duckdb/pull/26294">https://github.com/duckdb/duckdb/pull/26294</a> <span class="ci-dot passed" title="CI passed"></span> &mdash; avro</li>
       
     </ul>
   </div>
@@ -261,7 +261,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb-delta/pull/386">Patch PR on delta</a> <span class="ci-dot pending" title="CI pending"></span></li>
+            <li><a href="https://github.com/duckdb/duckdb-delta/pull/386">Patch PR on delta</a> <span class="ci-dot passed" title="CI passed"></span></li>
             
           </ul>
           
@@ -281,12 +281,12 @@
         <td><a href="https://github.com/duckdb/ducklake">ducklake</a></td>
         <td><span class="badge blocked">Blocked</span></td>
         <td>main</td>
-        <td data-sort="9a79177ce069920f50d6e9dac9589fa585fe2b1c">
-          <code>e8924cfc9c</code> &rarr; <code>9a79177ce0</code>
+        <td data-sort="3c626d2d3cc5a42acf5224cbf404acf0e11cc49c">
+          <code>e8924cfc9c</code> &rarr; <code>3c626d2d3c</code>
           
         </td>
         <td>APPLY PATCHES (EXTENSION SIDE)</td>
-        <td>commit mismatched (expected:e8924cfc9c, found:9a79177ce0)</td>
+        <td>commit mismatched (expected:e8924cfc9c, found:3c626d2d3c)</td>
         <td data-sort="0">
           &mdash;
         </td>
@@ -350,15 +350,33 @@
       </tr>
       
       <tr>
+        <td><a href="https://github.com/duckdb/duckdb-httpfs">httpfs</a></td>
+        <td><span class="badge blocked">Blocked</span></td>
+        <td>main</td>
+        <td data-sort="917b39e81d5e0a05e1df7d773f82b68d26978a1c">
+          <code>5e34903685</code> &rarr; <code>917b39e81d</code>
+          
+        </td>
+        <td>CHECK PATCHES BY HAND (CHECK FAILED)</td>
+        <td>commit mismatched (expected:5e34903685, found:917b39e81d)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
         <td><a href="https://github.com/duckdb/duckdb-iceberg">iceberg</a></td>
         <td><span class="badge blocked">Blocked</span></td>
         <td>main</td>
-        <td data-sort="5d4e4f80cd14cc4576366ae875a2cfc617fed7a8">
-          <code>5b9ff899a1</code> &rarr; <code>5d4e4f80cd</code>
+        <td data-sort="931f3754084580c278fcb562c49033bb2b297453">
+          <code>5b9ff899a1</code> &rarr; <code>931f375408</code>
           
         </td>
         <td>APPLY PATCHES (EXTENSION SIDE)</td>
-        <td>commit mismatched (expected:5b9ff899a1, found:5d4e4f80cd)</td>
+        <td>commit mismatched (expected:5b9ff899a1, found:931f375408)</td>
         <td data-sort="0">
           &mdash;
         </td>
@@ -391,54 +409,6 @@
           <ul class="related issues">
             
             <li><a href="https://github.com/duckdblabs/duckdb-internal/issues/11017">Patch failure issue</a></li>
-            
-          </ul>
-          
-        </td>
-      </tr>
-      
-      <tr>
-        <td><a href="https://github.com/duckdb/duckdb-mysql">mysql_scanner</a></td>
-        <td><span class="badge blocked">Blocked</span></td>
-        <td>main</td>
-        <td data-sort="ff78dd1b9e754e1fa0a0a7ded1ab59ad67c8a83d">
-          <code>eb84a0757a</code> &rarr; <code>ff78dd1b9e</code>
-          
-        </td>
-        <td>APPLY PATCHES (EXTENSION SIDE)</td>
-        <td>commit mismatched (expected:eb84a0757a, found:ff78dd1b9e)</td>
-        <td data-sort="0">
-          &mdash;
-        </td>
-        <td data-sort="1">
-          
-          <ul class="related issues">
-            
-            <li><a href="https://github.com/duckdblabs/duckdb-internal/issues/11084">Patch failure issue</a></li>
-            
-          </ul>
-          
-        </td>
-      </tr>
-      
-      <tr>
-        <td><a href="https://github.com/duckdb/duckdb-postgres">postgres_scanner</a></td>
-        <td><span class="badge blocked">Blocked</span></td>
-        <td>main</td>
-        <td data-sort="3a76064020a8e583ef0b0672a2a57c0cf8854425">
-          <code>2dfa08d5cf</code> &rarr; <code>3a76064020</code>
-          
-        </td>
-        <td>APPLY PATCHES (EXTENSION SIDE)</td>
-        <td>commit mismatched (expected:2dfa08d5cf, found:3a76064020)</td>
-        <td data-sort="0">
-          &mdash;
-        </td>
-        <td data-sort="1">
-          
-          <ul class="related issues">
-            
-            <li><a href="https://github.com/duckdblabs/duckdb-internal/issues/11085">Patch failure issue</a></li>
             
           </ul>
           
@@ -494,30 +464,6 @@
       </tr>
       
       <tr>
-        <td><a href="https://github.com/duckdb/duckdb-sqlite">sqlite_scanner</a></td>
-        <td><span class="badge blocked">Blocked</span></td>
-        <td>main</td>
-        <td data-sort="a1f1415079d4ffc80100b8a07572214165b0244a">
-          <code>9bc53cf655</code> &rarr; <code>a1f1415079</code>
-          
-        </td>
-        <td>APPLY PATCHES (EXTENSION SIDE)</td>
-        <td>commit mismatched (expected:9bc53cf655, found:a1f1415079)</td>
-        <td data-sort="0">
-          &mdash;
-        </td>
-        <td data-sort="1">
-          
-          <ul class="related issues">
-            
-            <li><a href="https://github.com/duckdblabs/duckdb-internal/issues/11087">Patch failure issue</a></li>
-            
-          </ul>
-          
-        </td>
-      </tr>
-      
-      <tr>
         <td><a href="https://github.com/duckdb/duckdb-avro">avro</a></td>
         <td><span class="badge patches">Has patches</span></td>
         <td>main</td>
@@ -549,7 +495,7 @@
           
           <ul class="related">
             
-            <li><a href="https://github.com/duckdb/duckdb-aws/pull/207">Patch PR on aws</a> <span class="ci-dot pending" title="CI pending"></span></li>
+            <li><a href="https://github.com/duckdb/duckdb-aws/pull/207">Patch PR on aws</a> <span class="ci-dot passed" title="CI passed"></span></li>
             
           </ul>
           
@@ -574,30 +520,6 @@
           <ul class="related">
             
             <li><a href="https://github.com/duckdb/duckdb-azure/pull/196">Patch PR on azure</a> <span class="ci-dot failed" title="CI failed"></span></li>
-            
-          </ul>
-          
-        </td>
-        <td data-sort="0">
-          &mdash;
-        </td>
-      </tr>
-      
-      <tr>
-        <td><a href="https://github.com/duckdb/duckdb-httpfs">httpfs</a></td>
-        <td><span class="badge patches">Has patches</span></td>
-        <td>main</td>
-        <td data-sort="5e34903685e4d429cbb19b063406abdd8ce30591">
-          <code>5e34903685</code>
-          
-        </td>
-        <td>NONE</td>
-        <td>commit matches (5e34903685)</td>
-        <td data-sort="1">
-          
-          <ul class="related">
-            
-            <li><a href="https://github.com/duckdb/duckdb-httpfs/pull/465">Patch PR on httpfs</a> <span class="ci-dot passed" title="CI passed"></span></li>
             
           </ul>
           
@@ -641,14 +563,8 @@
         </td>
         <td>NONE</td>
         <td>commit matches (b7bef9e85c)</td>
-        <td data-sort="1">
-          
-          <ul class="related">
-            
-            <li><a href="https://github.com/duckdb/bwc-test-utils/pull/16">Patch PR on test_utils</a> <span class="ci-dot failed" title="CI failed"></span></li>
-            
-          </ul>
-          
+        <td data-sort="0">
+          &mdash;
         </td>
         <td data-sort="0">
           &mdash;
@@ -705,22 +621,70 @@
       
       <tr>
         <td><a href="https://github.com/duckdb/duckdb-encodings">encodings</a></td>
+        <td><span class="badge behind">Behind</span></td>
+        <td>main</td>
+        <td data-sort="aa46e099a8cfe1144c3ac9b5d95417af00459b6a">
+          <code>384c0ab5c0</code> &rarr; <code>aa46e099a8</code>
+          
+        </td>
+        <td>BUMP (IN DUCKDB) TO aa46e099a8 (no patches)</td>
+        <td>commit mismatched (expected:384c0ab5c0, found:aa46e099a8)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-mysql">mysql_scanner</a></td>
+        <td><span class="badge behind">Behind</span></td>
+        <td>main</td>
+        <td data-sort="991824b02211aa89a6cc7035433acddd3153f8fd">
+          <code>5c219c9158</code> &rarr; <code>991824b022</code>
+          
+        </td>
+        <td>BUMP (IN DUCKDB) TO 991824b022 (no patches)</td>
+        <td>commit mismatched (expected:5c219c9158, found:991824b022)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-postgres">postgres_scanner</a></td>
         <td><span class="badge ok">Up to date</span></td>
         <td>main</td>
-        <td data-sort="384c0ab5c0e915454a026466cbe830f2ea7937bf">
-          <code>384c0ab5c0</code>
+        <td data-sort="f9db66ec5a5c35a30ce868d2b7233ffc0a21a08e">
+          <code>f9db66ec5a</code>
           
         </td>
         <td>NONE</td>
-        <td>commit matches (384c0ab5c0)</td>
-        <td data-sort="1">
+        <td>commit matches (f9db66ec5a)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-sqlite">sqlite_scanner</a></td>
+        <td><span class="badge ok">Up to date</span></td>
+        <td>main</td>
+        <td data-sort="ca01682537b9bedfe785083547a1a8c253ced658">
+          <code>ca01682537</code>
           
-          <ul class="related">
-            
-            <li><a href="https://github.com/duckdb/duckdb-encodings/pull/26">Bump PR on encodings</a> <span class="ci-dot passed" title="CI passed"></span></li>
-            
-          </ul>
-          
+        </td>
+        <td>NONE</td>
+        <td>commit matches (ca01682537)</td>
+        <td data-sort="0">
+          &mdash;
         </td>
         <td data-sort="0">
           &mdash;
