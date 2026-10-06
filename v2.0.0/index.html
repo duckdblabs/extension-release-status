@@ -159,13 +159,13 @@
   <p class="back-link"><a href="../">&larr; all releases</a></p>
   <h1>DuckDB Extension Status</h1>
   <div class="brand-rule"></div>
-  <div class="meta">Target release: v2.0.0 (v2.0-cyanoptera) &middot; generated 2026-10-06 12:24</div>
+  <div class="meta">Target release: v2.0.0 (v2.0-cyanoptera) &middot; generated 2026-10-06 12:33</div>
 
   <div class="summary">
     
-    <div class="card"><div class="count">12</div><div class="label">Blocked</div></div>
+    <div class="card"><div class="count">11</div><div class="label">Blocked</div></div>
     
-    <div class="card"><div class="count">6</div><div class="label">Has patches</div></div>
+    <div class="card"><div class="count">7</div><div class="label">Has patches</div></div>
     
     <div class="card"><div class="count">2</div><div class="label">Behind</div></div>
     
@@ -250,25 +250,6 @@
         <td>APPLY PATCHES (EXTENSION SIDE)</td>
         <td>no</td>
         <td>commit mismatched (expected:7eaa663835, found:d5d9237e66)</td>
-        <td data-sort="0">
-          &mdash;
-        </td>
-        <td data-sort="0">
-          &mdash;
-        </td>
-      </tr>
-      
-      <tr>
-        <td><a href="https://github.com/duckdb/duckdb-azure">azure</a></td>
-        <td><span class="badge blocked">Blocked</span></td>
-        <td>main</td>
-        <td data-sort="0ce9955c448c4c4d1536b067bd505eca6f96a4a0">
-          <code>35c55cf13f</code> &rarr; <code>0ce9955c44</code>
-          
-        </td>
-        <td>CHECK PATCHES BY HAND (CHECK FAILED)</td>
-        <td>no</td>
-        <td>commit mismatched (expected:35c55cf13f, found:0ce9955c44)</td>
         <td data-sort="0">
           &mdash;
         </td>
@@ -494,21 +475,15 @@
         <td><a href="https://github.com/duckdb/duckdb-sqlsmith">sqlsmith</a></td>
         <td><span class="badge blocked">Blocked</span></td>
         <td>main</td>
-        <td data-sort="acceef43a7626b59e3e4c9d85c3b54d06b52b009">
-          <code>acceef43a7</code>
+        <td data-sort="0521e4c4325e7972e484f60de8adde1557defc3d">
+          <code>acceef43a7</code> &rarr; <code>0521e4c432</code>
           
         </td>
-        <td>NONE</td>
+        <td>CHECK PATCHES BY HAND (CHECK FAILED)</td>
         <td>no</td>
-        <td>commit matches (acceef43a7)</td>
-        <td data-sort="1">
-          
-          <ul class="related">
-            
-            <li><a href="https://github.com/duckdb/duckdb-sqlsmith/pull/78">Patch PR on sqlsmith</a> <span class="ci-dot failed" title="CI failed"></span></li>
-            
-          </ul>
-          
+        <td>commit mismatched (expected:acceef43a7, found:0521e4c432)</td>
+        <td data-sort="0">
+          &mdash;
         </td>
         <td data-sort="1">
           
@@ -518,6 +493,25 @@
             
           </ul>
           
+        </td>
+      </tr>
+      
+      <tr>
+        <td><a href="https://github.com/duckdb/duckdb-azure">azure</a></td>
+        <td><span class="badge patches">Has patches</span></td>
+        <td>main</td>
+        <td data-sort="0ce9955c448c4c4d1536b067bd505eca6f96a4a0">
+          <code>35c55cf13f</code> &rarr; <code>0ce9955c44</code>
+          
+        </td>
+        <td>BUMP (IN DUCKDB) TO 0ce9955c44 + REMOVE 1 OF 1 PATCHES</td>
+        <td>no</td>
+        <td>commit mismatched (expected:35c55cf13f, found:0ce9955c44)</td>
+        <td data-sort="0">
+          &mdash;
+        </td>
+        <td data-sort="0">
+          &mdash;
         </td>
       </tr>
       
