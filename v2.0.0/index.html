@@ -152,6 +152,23 @@
   .ci-dot.failed { background: #c0362c; }
   .ci-dot.failed::before { content: "\2715"; }
   .ci-dot.pending { background: #b8860b; }
+  .open-prs { margin-top: 2rem; }
+  .open-prs h2 { font-size: 0.95rem; font-weight: 700; margin: 0 0 0.5rem; }
+  .open-prs ul { list-style: none; margin: 0; padding: 0; font-size: 0.88rem; }
+  .open-prs li { display: flex; align-items: center; gap: 0.5rem; padding: 0.3rem 0; border-bottom: 1px solid var(--border); }
+  .open-prs .pr-line { font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace; font-size: 0.85em; overflow-wrap: anywhere; }
+  .copy-btn {
+    flex: none;
+    font: inherit;
+    font-size: 0.78rem;
+    padding: 0.1rem 0.55rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-s);
+    background: var(--card-bg);
+    color: var(--fg);
+    cursor: pointer;
+  }
+  .copy-btn:hover { background: var(--row-alt); }
   .ci-dot.pending::before { content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #fff; }
 </style>
 </head>
@@ -159,7 +176,7 @@
   <p class="back-link"><a href="../">&larr; all releases</a></p>
   <h1>DuckDB Extension Status</h1>
   <div class="brand-rule"></div>
-  <div class="meta">Target release: v2.0.0 (v2.0-cyanoptera) &middot; generated 2026-10-06 12:51</div>
+  <div class="meta">Target release: v2.0.0 (v2.0-cyanoptera) &middot; generated 2026-10-06 15:10</div>
 
   <div class="summary">
     
@@ -362,13 +379,13 @@
         <td><a href="https://github.com/duckdb/duckdb-iceberg">iceberg</a></td>
         <td><span class="badge blocked">Blocked</span></td>
         <td>main</td>
-        <td data-sort="221db9bb4f87f451c88c04a42eff8cbc9a9f0362">
-          <code>5b9ff899a1</code> &rarr; <code>221db9bb4f</code>
+        <td data-sort="dd1dc3c6cf5d9c94d45a7287c88806e81ed83ddb">
+          <code>5b9ff899a1</code> &rarr; <code>dd1dc3c6cf</code>
           
         </td>
         <td>APPLY PATCHES (EXTENSION SIDE)</td>
         <td>no</td>
-        <td>commit mismatched (expected:5b9ff899a1, found:221db9bb4f)</td>
+        <td>commit mismatched (expected:5b9ff899a1, found:dd1dc3c6cf)</td>
         <td data-sort="0">
           &mdash;
         </td>
@@ -519,13 +536,13 @@
         <td><a href="https://github.com/duckdb/duckdb-aws-glue">glue</a></td>
         <td><span class="badge patches">Has patches</span></td>
         <td>main</td>
-        <td data-sort="385256321105e2960c14d332ba54f95a6b178306">
-          <code>26cebe53dd</code> &rarr; <code>3852563211</code>
+        <td data-sort="bcef110077d9dbacb3491642feaeae273b86e135">
+          <code>26cebe53dd</code> &rarr; <code>bcef110077</code>
           
         </td>
-        <td>BUMP (IN DUCKDB) TO 3852563211 + REMOVE 0 OF 2 PATCHES</td>
+        <td>BUMP (IN DUCKDB) TO bcef110077 + REMOVE 0 OF 2 PATCHES</td>
         <td>no</td>
-        <td>commit mismatched (expected:26cebe53dd, found:3852563211)</td>
+        <td>commit mismatched (expected:26cebe53dd, found:bcef110077)</td>
         <td data-sort="0">
           &mdash;
         </td>
@@ -576,13 +593,13 @@
         <td><a href="https://github.com/duckdb/duckdb-sqlite">sqlite_scanner</a></td>
         <td><span class="badge patches">Has patches</span></td>
         <td>main</td>
-        <td data-sort="ca01682537b9bedfe785083547a1a8c253ced658">
-          <code>ca01682537</code>
+        <td data-sort="69f80a9f4b26bc5aecfd98e99d7a4359e601b295">
+          <code>ca01682537</code> &rarr; <code>69f80a9f4b</code>
           
         </td>
-        <td>NONE</td>
+        <td>BUMP (IN DUCKDB) TO 69f80a9f4b + REMOVE 0 OF 1 PATCHES</td>
         <td>no</td>
-        <td>commit matches (ca01682537)</td>
+        <td>commit mismatched (expected:ca01682537, found:69f80a9f4b)</td>
         <td data-sort="0">
           &mdash;
         </td>
@@ -595,21 +612,15 @@
         <td><a href="https://github.com/duckdb/unity_catalog">unity_catalog</a></td>
         <td><span class="badge patches">Has patches</span></td>
         <td>main</td>
-        <td data-sort="91eff65972b822f418d4c24225bb5b03f1bda2d0">
-          <code>91eff65972</code>
+        <td data-sort="7f6b833e19242af8cff883aa102f365729e17fb4">
+          <code>91eff65972</code> &rarr; <code>7f6b833e19</code>
           
         </td>
-        <td>NONE</td>
+        <td>BUMP (IN DUCKDB) TO 7f6b833e19 + REMOVE 1 OF 1 PATCHES</td>
         <td>no</td>
-        <td>commit matches (91eff65972)</td>
-        <td data-sort="1">
-          
-          <ul class="related">
-            
-            <li><a href="https://github.com/duckdb/unity_catalog/pull/135">Patch PR on unity_catalog</a> <span class="ci-dot passed" title="CI passed"></span></li>
-            
-          </ul>
-          
+        <td>commit mismatched (expected:91eff65972, found:7f6b833e19)</td>
+        <td data-sort="0">
+          &mdash;
         </td>
         <td data-sort="0">
           &mdash;
@@ -676,6 +687,8 @@
     </tbody>
   </table>
 
+  
+
   <script>
   (function () {
     var table = document.getElementById('ext-table');
@@ -706,6 +719,16 @@
       });
     });
   })();
+
+  document.querySelectorAll('.copy-btn').forEach(function (button) {
+    button.addEventListener('click', function () {
+      var text = button.nextElementSibling.textContent;
+      navigator.clipboard.writeText(text).then(function () {
+        button.textContent = 'Copied';
+        setTimeout(function () { button.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
   </script>
 </body>
 </html>
