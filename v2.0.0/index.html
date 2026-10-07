@@ -355,27 +355,27 @@
   <p class="back-link"><a href="../">&larr; all releases</a></p>
   <h1>DuckDB Extension Status</h1>
   <div class="brand-rule"></div>
-  <div class="meta">Target release: v2.0.0 (v2.0-cyanoptera) &middot; generated 2026-10-07 15:14 UTC &middot; <a href="#legend">Legend</a></div>
+  <div class="meta">Target release: v2.0.0 (v2.0-cyanoptera) &middot; generated 2026-10-07 15:32 UTC &middot; <a href="#legend">Legend</a></div>
 
-  <p class="bump-line"><span class="muted">Bump PR:</span> <span><a class="nowrap" href="https://github.com/duckdb/duckdb/pull/26562">duckdb/duckdb #26562</a> &middot; in review &middot; 9 extensions</span></p>
+  <p class="bump-line"><span class="muted">Bump PR:</span> <span><a class="nowrap" href="https://github.com/duckdb/duckdb/pull/26562">duckdb/duckdb #26562</a> <span class="nowrap"><span class="ci-dot failed" aria-hidden="true"></span>CI failed</span> &middot; in review &middot; 9 extensions</span></p>
 
   <div class="chips" role="group" aria-label="Filter the table by state">
     <button type="button" class="chip all" aria-pressed="true">All <strong>20</strong></button>
     
     <span class="chip-group">Pin</span>
     
-    <button type="button" class="chip behind" aria-pressed="false" data-axis="pin" data-value="Behind" title="No change since the report generated 2026-10-07 13:26 UTC">Behind <strong>20</strong></button>
+    <button type="button" class="chip behind" aria-pressed="false" data-axis="pin" data-value="Behind" title="No change since the report generated 2026-10-07 15:14 UTC">Behind <strong>20</strong></button>
     
-    <button type="button" class="chip ok" aria-pressed="false" data-axis="pin" data-value="Up to date" title="No change since the report generated 2026-10-07 13:26 UTC" disabled>Up to date <strong>0</strong></button>
+    <button type="button" class="chip ok" aria-pressed="false" data-axis="pin" data-value="Up to date" title="No change since the report generated 2026-10-07 15:14 UTC" disabled>Up to date <strong>0</strong></button>
     
     
     <span class="chip-group">Patches</span>
     
-    <button type="button" class="chip blocked" aria-pressed="false" data-axis="patches" data-value="Broken" title="No change since the report generated 2026-10-07 13:26 UTC">Broken <strong>11</strong></button>
+    <button type="button" class="chip blocked" aria-pressed="false" data-axis="patches" data-value="Broken" title="Down 3 since the report generated 2026-10-07 15:14 UTC">Broken <strong>8</strong><span class="chip-change">&#x2193;3</span></button>
     
-    <button type="button" class="chip patches" aria-pressed="false" data-axis="patches" data-value="Carried" title="No change since the report generated 2026-10-07 13:26 UTC">Carried <strong>7</strong></button>
+    <button type="button" class="chip patches" aria-pressed="false" data-axis="patches" data-value="Carried" title="Up 3 since the report generated 2026-10-07 15:14 UTC">Carried <strong>10</strong><span class="chip-change">&#x2191;3</span></button>
     
-    <button type="button" class="chip none" aria-pressed="false" data-axis="patches" data-value="None" title="No change since the report generated 2026-10-07 13:26 UTC">None <strong>2</strong></button>
+    <button type="button" class="chip none" aria-pressed="false" data-axis="patches" data-value="None" title="No change since the report generated 2026-10-07 15:14 UTC">None <strong>2</strong></button>
     
     
   </div>
@@ -411,26 +411,12 @@
       
       
       <tr data-pin="Behind" data-patches="Broken">
-        <td><a href="https://github.com/duckdb/duckdb-aws">aws</a></td>
-        <td data-sort="0"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="aws">Behind</button></td>
-        <td data-sort="0"><button type="button" class="badge blocked tip-trigger" data-tip="tip-patches-Broken" data-ext="aws">Broken</button></td>
-        <td><span class="muted">main</span></td>
-        <td data-sort="6"><a class="commit-range" href="https://github.com/duckdb/duckdb-aws/compare/7eaa663835aa5c627cb2b6f50ffcc5487ad973f3...96dbf197ed914de895260519565bdd175fa557b3"><code>7eaa663</code> &rarr; <code>96dbf19</code></a><span class="behind-count" title="6 commits behind">+6</span></td>
-        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-apply_patches" data-ext="aws">Apply patches (extension side)</button><div class="sub" title="0001-table-function-signature-options.patch: partly applied upstream, which GNU patch would skip as already applied">stops at 0001-table-function-signature-options.patch</div></td>
-        <td data-sort="0"><span class="muted">&mdash;</span></td>
-        <td data-sort="0"><span class="link-pair pr-state">merged: <a href="https://github.com/duckdb/duckdb-aws/pull/207">Patch</a>, <a href="https://github.com/duckdb/duckdb-aws/pull/210">Bump</a></span></td>
-        <td data-sort="-1"><span class="muted">&mdash;</span></td>
-      </tr>
-      
-      
-      
-      <tr data-pin="Behind" data-patches="Broken" class="alt">
         <td><a href="https://github.com/duckdb/duckdb-delta">delta</a></td>
         <td data-sort="0"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="delta">Behind</button></td>
         <td data-sort="0"><button type="button" class="badge blocked tip-trigger" data-tip="tip-patches-Broken" data-ext="delta">Broken</button></td>
         <td><span class="muted">main</span></td>
         <td data-sort="7"><a class="commit-range" href="https://github.com/duckdb/duckdb-delta/compare/5f6baaa4463237a13efda1192e2d92c206c6fab9...a33adba985f7e418a446a20c26bd6b7f073358a4"><code>5f6baaa</code> &rarr; <code>a33adba</code></a><span class="behind-count" title="7 commits behind">+7</span></td>
-        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-apply_patches" data-ext="delta">Apply patches (extension side)</button><div class="sub" title="0001-table-function-signature-options.patch: partly applied upstream, which GNU patch would skip as already applied">stops at 0001-table-function-signature-options.patch</div></td>
+        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="delta">Bump + drop 3 of 3 patches</button></td>
         <td data-sort="0"><span class="muted">&mdash;</span></td>
         <td data-sort="0"><span class="link-pair pr-state">merged: <a href="https://github.com/duckdb/duckdb-delta/pull/386">Patch</a></span></td>
         <td data-sort="15"><span class="link-pair issue"><a href="https://github.com/duckdblabs/duckdb-internal/issues/10912" title="On duckdblabs/duckdb-internal, a private repo: opens for DuckDB Labs staff only">Patch failure</a> <span class="internal-tag">internal</span><span class="sub">open 15d &middot; benfleis</span></span></td>
@@ -438,7 +424,7 @@
       
       
       
-      <tr data-pin="Behind" data-patches="Broken">
+      <tr data-pin="Behind" data-patches="Broken" class="alt">
         <td><a href="https://github.com/duckdb/ducklake">ducklake</a></td>
         <td data-sort="0"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="ducklake">Behind</button></td>
         <td data-sort="0"><button type="button" class="badge blocked tip-trigger" data-tip="tip-patches-Broken" data-ext="ducklake">Broken</button></td>
@@ -452,20 +438,6 @@
       
       
       
-      <tr data-pin="Behind" data-patches="Broken" class="alt">
-        <td><a href="https://github.com/duckdb/duckdb-excel">excel</a></td>
-        <td data-sort="0"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="excel">Behind</button></td>
-        <td data-sort="0"><button type="button" class="badge blocked tip-trigger" data-tip="tip-patches-Broken" data-ext="excel">Broken</button></td>
-        <td><span class="muted">main</span></td>
-        <td data-sort="20"><a class="commit-range" href="https://github.com/duckdb/duckdb-excel/compare/9421a2d75bd7544336caa73e5f9e6063cc7f6992...13c6b4f190c47aea9e12e13f7597edc8af852be1"><code>9421a2d</code> &rarr; <code>13c6b4f</code></a><span class="behind-count" title="20 commits behind">+20</span></td>
-        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-apply_patches" data-ext="excel">Apply patches (extension side)</button><div class="sub" title="0004-identifier-refactor.patch: partly applied upstream, which GNU patch would skip as already applied">stops at 0004-identifier-refactor.patch</div></td>
-        <td data-sort="0"><span class="muted">&mdash;</span></td>
-        <td data-sort="0"><span class="link-pair pr-state">merged: <a href="https://github.com/duckdb/duckdb-excel/pull/103">Patch</a>, <a href="https://github.com/duckdb/duckdb-excel/pull/100">Bump</a></span></td>
-        <td data-sort="-1"><span class="muted">&mdash;</span></td>
-      </tr>
-      
-      
-      
       <tr data-pin="Behind" data-patches="Broken">
         <td><a href="https://github.com/duckdb/duckdb-fts">fts</a></td>
         <td data-sort="0"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="fts">Behind</button></td>
@@ -474,7 +446,7 @@
         <td data-sort="55"><a class="commit-range" href="https://github.com/duckdb/duckdb-fts/compare/2266e67d01c737cb65114e77c7c672e58869a635...623ee80e0bd5a771347f7dd320915cc3ef2fb965"><code>2266e67</code> &rarr; <code>623ee80</code></a><span class="behind-count" title="55 commits behind">+55</span></td>
         <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-apply_patches" data-ext="fts">Apply patches (extension side)</button><div class="sub" title="0002-fts-indexing-includes.patch: neither applies nor reverses">stops at 0002-fts-indexing-includes.patch</div></td>
         <td data-sort="0"><span class="muted">&mdash;</span></td>
-        <td data-sort="1"><span class="link-pair"><a href="https://github.com/duckdb/duckdb-fts/pull/81">Patch PR</a></span></td>
+        <td data-sort="1"><span class="link-pair"><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/duckdb-fts/pull/81">Patch PR</a></span></td>
         <td data-sort="12"><span class="link-pair issue"><a href="https://github.com/duckdblabs/duckdb-internal/issues/11016" title="On duckdblabs/duckdb-internal, a private repo: opens for DuckDB Labs staff only">Patch failure</a> <span class="internal-tag">internal</span><span class="sub">open 12d &middot; Dtenwolde</span></span></td>
       </tr>
       
@@ -488,7 +460,7 @@
         <td data-sort="9"><a class="commit-range" href="https://github.com/duckdb/duckdb-httpfs/compare/5e34903685e4d429cbb19b063406abdd8ce30591...53b78e97a5c363a2a219818eeeed8042a53b6afc"><code>5e34903</code> &rarr; <code>53b78e9</code></a><span class="behind-count" title="9 commits behind">+9</span></td>
         <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="httpfs">Bump + drop 1 of 2 patches</button></td>
         <td data-sort="2"><a class="run-failed" href="https://github.com/duckdb/duckdb-httpfs/actions/runs/37020408938">&#x2715; failed</a></td>
-        <td data-sort="1"><span class="link-pair"><a href="https://github.com/duckdb/duckdb-httpfs/pull/473">Patch PR</a> <a class="bump-tag" href="https://github.com/duckdb/duckdb/pull/26562" title="duckdb/duckdb bump PR #26562 moves this extension's pin">in #26562</a></span></td>
+        <td data-sort="1"><span class="link-pair"><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/duckdb-httpfs/pull/473">Patch PR</a> <a class="bump-tag" href="https://github.com/duckdb/duckdb/pull/26562" title="duckdb/duckdb bump PR #26562 moves this extension's pin">in #26562</a></span></td>
         <td data-sort="0"><span class="link-pair issue"><a href="https://github.com/duckdblabs/duckdb-internal/issues/11254" title="On duckdblabs/duckdb-internal, a private repo: opens for DuckDB Labs staff only">Patch failure</a> <span class="internal-tag">internal</span><span class="sub">open 0d &middot; unassigned</span></span><span class="link-pair issue"><a href="https://github.com/duckdblabs/duckdb-internal/issues/11253" title="On duckdblabs/duckdb-internal, a private repo: opens for DuckDB Labs staff only">CI failure</a> <span class="internal-tag">internal</span><span class="sub">open 0d &middot; unassigned</span></span></td>
       </tr>
       
@@ -537,20 +509,6 @@
       
       
       <tr data-pin="Behind" data-patches="Broken" class="alt">
-        <td><a href="https://github.com/duckdb/duckdb-quack">quack</a></td>
-        <td data-sort="0"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="quack">Behind</button></td>
-        <td data-sort="0"><button type="button" class="badge blocked tip-trigger" data-tip="tip-patches-Broken" data-ext="quack">Broken</button></td>
-        <td><span class="muted">main</span></td>
-        <td data-sort="57"><a class="commit-range" href="https://github.com/duckdb/duckdb-quack/compare/974927a394b188755284682b73398ed50e86316c...f964cece8ecfe9006a607aa0a3e9b9030296c54f"><code>974927a</code> &rarr; <code>f964cec</code></a><span class="behind-count" title="57 commits behind">+57</span></td>
-        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-apply_patches" data-ext="quack">Apply patches (extension side)</button><div class="sub" title="0002-table-function-signature-options.patch: partly applied upstream, which GNU patch would skip as already applied">stops at 0002-table-function-signature-options.patch</div></td>
-        <td data-sort="0"><span class="muted">&mdash;</span></td>
-        <td data-sort="0"><span class="link-pair pr-state">merged: <a href="https://github.com/duckdb/duckdb-quack/pull/298">Patch</a>, <a href="https://github.com/duckdb/duckdb-quack/pull/286">Bump</a></span></td>
-        <td data-sort="-1"><span class="muted">&mdash;</span></td>
-      </tr>
-      
-      
-      
-      <tr data-pin="Behind" data-patches="Broken">
         <td><a href="https://github.com/duckdb/duckdb-spatial">spatial</a></td>
         <td data-sort="0"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="spatial">Behind</button></td>
         <td data-sort="0"><button type="button" class="badge blocked tip-trigger" data-tip="tip-patches-Broken" data-ext="spatial">Broken</button></td>
@@ -558,8 +516,22 @@
         <td data-sort="0"><a class="commit-range" href="https://github.com/duckdb/duckdb-spatial/compare/686950e980a0629c5ffbc788b498681e2b06e75e...4295b9b9a1b5a16b0a6c07880356ff3c4a21e676"><code>686950e</code> &rarr; <code>4295b9b</code></a></td>
         <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-apply_patches" data-ext="spatial">Apply patches (extension side)</button><div class="sub" title="0001-pruned-transitive-includes.patch: neither applies nor reverses">stops at 0001-pruned-transitive-includes.patch</div></td>
         <td data-sort="0"><span class="muted">&mdash;</span></td>
-        <td data-sort="1"><span class="link-pair"><a href="https://github.com/duckdb/duckdb-spatial/pull/884">Bump PR</a></span></td>
+        <td data-sort="1"><span class="link-pair"><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/duckdb-spatial/pull/884">Bump PR</a></span></td>
         <td data-sort="12"><span class="link-pair issue"><a href="https://github.com/duckdblabs/duckdb-internal/issues/11018" title="On duckdblabs/duckdb-internal, a private repo: opens for DuckDB Labs staff only">Patch failure</a> <span class="internal-tag">internal</span><span class="sub">open 12d &middot; Maxxen</span></span></td>
+      </tr>
+      
+      
+      
+      <tr data-pin="Behind" data-patches="Carried">
+        <td><a href="https://github.com/duckdb/duckdb-aws">aws</a></td>
+        <td data-sort="1"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="aws">Behind</button></td>
+        <td data-sort="10"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried" data-ext="aws">Carried</button></td>
+        <td><span class="muted">main</span></td>
+        <td data-sort="6"><a class="commit-range" href="https://github.com/duckdb/duckdb-aws/compare/7eaa663835aa5c627cb2b6f50ffcc5487ad973f3...96dbf197ed914de895260519565bdd175fa557b3"><code>7eaa663</code> &rarr; <code>96dbf19</code></a><span class="behind-count" title="6 commits behind">+6</span></td>
+        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="aws">Bump + drop 2 of 2 patches</button></td>
+        <td data-sort="0"><span class="muted">&mdash;</span></td>
+        <td data-sort="0"><span class="link-pair pr-state">merged: <a href="https://github.com/duckdb/duckdb-aws/pull/207">Patch</a>, <a href="https://github.com/duckdb/duckdb-aws/pull/210">Bump</a></span></td>
+        <td data-sort="-1"><span class="muted">&mdash;</span></td>
       </tr>
       
       
@@ -572,13 +544,27 @@
         <td data-sort="5"><a class="commit-range" href="https://github.com/duckdb/duckdb-azure/compare/35c55cf13f2fbf79161f507b511b4283382348e4...0ce9955c448c4c4d1536b067bd505eca6f96a4a0"><code>35c55cf</code> &rarr; <code>0ce9955</code></a><span class="behind-count" title="5 commits behind">+5</span></td>
         <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="azure">Bump + drop 1 of 1 patches</button></td>
         <td data-sort="0"><span class="muted">&mdash;</span></td>
-        <td data-sort="1"><span class="link-pair"><a href="https://github.com/duckdb/duckdb-azure/pull/198">Bump PR</a> <a class="bump-tag" href="https://github.com/duckdb/duckdb/pull/26562" title="duckdb/duckdb bump PR #26562 moves this extension's pin">in #26562</a></span></td>
+        <td data-sort="1"><span class="link-pair"><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/duckdb-azure/pull/198">Bump PR</a> <a class="bump-tag" href="https://github.com/duckdb/duckdb/pull/26562" title="duckdb/duckdb bump PR #26562 moves this extension's pin">in #26562</a></span></td>
         <td data-sort="0"><span class="link-pair issue"><a href="https://github.com/duckdblabs/duckdb-internal/issues/11252" title="On duckdblabs/duckdb-internal, a private repo: opens for DuckDB Labs staff only">CI failure</a> <span class="internal-tag">internal</span><span class="sub">open 0d &middot; unassigned</span></span></td>
       </tr>
       
       
       
       <tr data-pin="Behind" data-patches="Carried">
+        <td><a href="https://github.com/duckdb/duckdb-excel">excel</a></td>
+        <td data-sort="1"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="excel">Behind</button></td>
+        <td data-sort="10"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried" data-ext="excel">Carried</button></td>
+        <td><span class="muted">main</span></td>
+        <td data-sort="20"><a class="commit-range" href="https://github.com/duckdb/duckdb-excel/compare/9421a2d75bd7544336caa73e5f9e6063cc7f6992...13c6b4f190c47aea9e12e13f7597edc8af852be1"><code>9421a2d</code> &rarr; <code>13c6b4f</code></a><span class="behind-count" title="20 commits behind">+20</span></td>
+        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="excel">Bump + drop 11 of 11 patches</button></td>
+        <td data-sort="0"><span class="muted">&mdash;</span></td>
+        <td data-sort="0"><span class="link-pair pr-state">merged: <a href="https://github.com/duckdb/duckdb-excel/pull/103">Patch</a>, <a href="https://github.com/duckdb/duckdb-excel/pull/100">Bump</a></span></td>
+        <td data-sort="-1"><span class="muted">&mdash;</span></td>
+      </tr>
+      
+      
+      
+      <tr data-pin="Behind" data-patches="Carried" class="alt">
         <td><a href="https://github.com/duckdb/duckdb-aws-glue">glue</a></td>
         <td data-sort="1"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="glue">Behind</button></td>
         <td data-sort="10"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried" data-ext="glue">Carried</button></td>
@@ -592,7 +578,7 @@
       
       
       
-      <tr data-pin="Behind" data-patches="Carried" class="alt">
+      <tr data-pin="Behind" data-patches="Carried">
         <td><a href="https://github.com/duckdb/duckdb-postgres">postgres_scanner</a></td>
         <td data-sort="1"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="postgres_scanner">Behind</button></td>
         <td data-sort="10"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried" data-ext="postgres_scanner">Carried</button></td>
@@ -606,6 +592,20 @@
       
       
       
+      <tr data-pin="Behind" data-patches="Carried" class="alt">
+        <td><a href="https://github.com/duckdb/duckdb-quack">quack</a></td>
+        <td data-sort="1"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="quack">Behind</button></td>
+        <td data-sort="10"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried" data-ext="quack">Carried</button></td>
+        <td><span class="muted">main</span></td>
+        <td data-sort="57"><a class="commit-range" href="https://github.com/duckdb/duckdb-quack/compare/974927a394b188755284682b73398ed50e86316c...f964cece8ecfe9006a607aa0a3e9b9030296c54f"><code>974927a</code> &rarr; <code>f964cec</code></a><span class="behind-count" title="57 commits behind">+57</span></td>
+        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="quack">Bump + drop 3 of 3 patches</button></td>
+        <td data-sort="0"><span class="muted">&mdash;</span></td>
+        <td data-sort="0"><span class="link-pair pr-state">merged: <a href="https://github.com/duckdb/duckdb-quack/pull/298">Patch</a>, <a href="https://github.com/duckdb/duckdb-quack/pull/286">Bump</a></span></td>
+        <td data-sort="-1"><span class="muted">&mdash;</span></td>
+      </tr>
+      
+      
+      
       <tr data-pin="Behind" data-patches="Carried">
         <td><a href="https://github.com/duckdb/duckdb-sqlite">sqlite_scanner</a></td>
         <td data-sort="1"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="sqlite_scanner">Behind</button></td>
@@ -614,7 +614,7 @@
         <td data-sort="2"><a class="commit-range" href="https://github.com/duckdb/duckdb-sqlite/compare/ca01682537b9bedfe785083547a1a8c253ced658...1f5805cec42c130fb1c6dbd4490bbf19e60af801"><code>ca01682</code> &rarr; <code>1f5805c</code></a><span class="behind-count" title="2 commits behind">+2</span></td>
         <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="sqlite_scanner">Bump</button></td>
         <td data-sort="0"><span class="muted">&mdash;</span></td>
-        <td data-sort="1"><span class="link-pair"><a href="https://github.com/duckdb/duckdb-sqlite/pull/246">Patch PR</a> <a class="bump-tag" href="https://github.com/duckdb/duckdb/pull/26562" title="duckdb/duckdb bump PR #26562 moves this extension's pin">in #26562</a></span></td>
+        <td data-sort="1"><span class="link-pair"><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/duckdb-sqlite/pull/246">Patch PR</a> <a class="bump-tag" href="https://github.com/duckdb/duckdb/pull/26562" title="duckdb/duckdb bump PR #26562 moves this extension's pin">in #26562</a></span></td>
         <td data-sort="0"><span class="link-pair issue"><a href="https://github.com/duckdblabs/duckdb-internal/issues/11255" title="On duckdblabs/duckdb-internal, a private repo: opens for DuckDB Labs staff only">CI failure</a> <span class="internal-tag">internal</span><span class="sub">open 0d &middot; unassigned</span></span></td>
       </tr>
       
@@ -628,7 +628,7 @@
         <td data-sort="3"><a class="commit-range" href="https://github.com/duckdb/duckdb-sqlsmith/compare/acceef43a7626b59e3e4c9d85c3b54d06b52b009...0521e4c4325e7972e484f60de8adde1557defc3d"><code>acceef4</code> &rarr; <code>0521e4c</code></a><span class="behind-count" title="3 commits behind">+3</span></td>
         <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="sqlsmith">Bump + drop 6 of 7 patches</button></td>
         <td data-sort="0"><span class="muted">&mdash;</span></td>
-        <td data-sort="1"><span class="link-pair"><a href="https://github.com/duckdb/duckdb-sqlsmith/pull/79">Patch PR</a> <a class="bump-tag" href="https://github.com/duckdb/duckdb/pull/26562" title="duckdb/duckdb bump PR #26562 moves this extension's pin">in #26562</a></span></td>
+        <td data-sort="1"><span class="link-pair"><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/duckdb-sqlsmith/pull/79">Patch PR</a> <a class="bump-tag" href="https://github.com/duckdb/duckdb/pull/26562" title="duckdb/duckdb bump PR #26562 moves this extension's pin">in #26562</a></span></td>
         <td data-sort="0"><span class="link-pair issue"><a href="https://github.com/duckdblabs/duckdb-internal/issues/11256" title="On duckdblabs/duckdb-internal, a private repo: opens for DuckDB Labs staff only">CI failure</a> <span class="internal-tag">internal</span><span class="sub">open 0d &middot; unassigned</span></span></td>
       </tr>
       
@@ -656,7 +656,7 @@
         <td data-sort="3"><a class="commit-range" href="https://github.com/duckdb/duckdb-vss/compare/c1430fd4bd2d96eb1fb2ddb4909f4818234390bc...6c5ae1b105892bb9f95386e783a5b7fc8b9adae3"><code>c1430fd</code> &rarr; <code>6c5ae1b</code></a><span class="behind-count" title="3 commits behind">+3</span></td>
         <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="vss">Bump + drop 1 of 2 patches</button></td>
         <td data-sort="0"><span class="muted">&mdash;</span></td>
-        <td data-sort="1"><span class="link-pair"><a href="https://github.com/duckdb/duckdb-vss/pull/101">Patch PR</a> <a class="bump-tag" href="https://github.com/duckdb/duckdb/pull/26562" title="duckdb/duckdb bump PR #26562 moves this extension's pin">in #26562</a></span></td>
+        <td data-sort="1"><span class="link-pair"><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/duckdb-vss/pull/101">Patch PR</a> <a class="bump-tag" href="https://github.com/duckdb/duckdb/pull/26562" title="duckdb/duckdb bump PR #26562 moves this extension's pin">in #26562</a></span></td>
         <td data-sort="0"><span class="link-pair issue"><a href="https://github.com/duckdblabs/duckdb-internal/issues/11258" title="On duckdblabs/duckdb-internal, a private repo: opens for DuckDB Labs staff only">CI failure</a> <span class="internal-tag">internal</span><span class="sub">open 0d &middot; unassigned</span></span></td>
       </tr>
       
@@ -670,7 +670,7 @@
         <td data-sort="2"><a class="commit-range" href="https://github.com/duckdb/duckdb-avro/compare/859d56d1bcf8e1645a4d6cb905b96ebf327af139...0eb4902b25404b96c0132794ecc846e650da3170"><code>859d56d</code> &rarr; <code>0eb4902</code></a><span class="behind-count" title="2 commits behind">+2</span></td>
         <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="avro">Bump</button></td>
         <td data-sort="0"><span class="muted">&mdash;</span></td>
-        <td data-sort="1"><span class="link-pair"><a href="https://github.com/duckdb/duckdb-avro/pull/134">Bump PR</a> <a class="bump-tag" href="https://github.com/duckdb/duckdb/pull/26562" title="duckdb/duckdb bump PR #26562 moves this extension's pin">in #26562</a></span></td>
+        <td data-sort="1"><span class="link-pair"><span class="ci-dot passed" title="CI passed"></span><a href="https://github.com/duckdb/duckdb-avro/pull/134">Bump PR</a> <a class="bump-tag" href="https://github.com/duckdb/duckdb/pull/26562" title="duckdb/duckdb bump PR #26562 moves this extension's pin">in #26562</a></span></td>
         <td data-sort="-1"><span class="muted">&mdash;</span></td>
       </tr>
       
@@ -812,7 +812,7 @@ avro, azure, encodings, glue, httpfs, sqlite_scanner, sqlsmith, unity_catalog, v
     </details>
   </section>
 
-  <script type="application/json" id="report-summary">{"generated_at": "2026-10-07 15:14 UTC", "counts": {"pin": {"Behind": 20, "Up to date": 0}, "patches": {"Broken": 11, "Carried": 7, "None": 2}}}</script>
+  <script type="application/json" id="report-summary">{"generated_at": "2026-10-07 15:32 UTC", "counts": {"pin": {"Behind": 20, "Up to date": 0}, "patches": {"Broken": 8, "Carried": 10, "None": 2}}}</script>
   <script>
   (function () {
     var table = document.getElementById('ext-table');
