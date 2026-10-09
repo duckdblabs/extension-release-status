@@ -42,6 +42,24 @@
   a { color: var(--link); text-decoration: none; }
   h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
   .brand-rule { width: 2.5rem; height: 4px; background: var(--accent); border-radius: var(--radius-pill); }
+  :root {
+    --ok-bg: #d8f3dc;
+    --ok-fg: #1b5e20;
+    --behind-bg: #ffe8cc;
+    --behind-fg: #8a4b00;
+    --blocked-bg: #c0362c;
+    --blocked-fg: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ok-bg: #1b3a24;
+      --ok-fg: #8fe3a5;
+      --behind-bg: #4a2f0f;
+      --behind-fg: #ffc987;
+      --blocked-bg: #d1453b;
+      --blocked-fg: #ffffff;
+    }
+  }
   body { max-width: 640px; margin: 2.5rem auto; }
   h1 { margin-bottom: 0.35rem; }
   .brand-rule { margin-bottom: 1.5rem; }
@@ -52,13 +70,24 @@
     margin-bottom: 0.6rem;
   }
   li a {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 0.75rem 1rem;
     font-weight: 600;
     font-size: 1.05rem;
   }
   li:hover { background: var(--card-bg); }
   .empty { color: var(--muted); }
+  .lvl {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-pill);
+  }
+  .lvl.on_track { background: var(--ok-bg); color: var(--ok-fg); }
+  .lvl.at_risk { background: var(--behind-bg); color: var(--behind-fg); }
+  .lvl.blocked { background: var(--blocked-bg); color: var(--blocked-fg); }
 </style>
 </head>
 <body>
@@ -67,9 +96,19 @@
   
   <ul>
     
-    <li><a href="v2.0.0/">v2.0.0</a></li>
+    <li><a href="v2.0.0/">
+      <span>v2.0.0</span>
+      
+      
+        <span class="lvl blocked">Blocked</span>
+      
+    </a></li>
     
-    <li><a href="v1.5.6/">v1.5.6</a></li>
+    <li><a href="v1.5.6/">
+      <span>v1.5.6</span>
+      
+      
+    </a></li>
     
   </ul>
   
