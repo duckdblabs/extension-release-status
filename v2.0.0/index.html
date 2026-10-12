@@ -464,19 +464,19 @@
   <p class="back-link"><a href="../">&larr; all releases</a></p>
   <h1>DuckDB Extension Status</h1>
   <div class="brand-rule"></div>
-  <div class="meta">Target release: v2.0.0 (v2.0-cyanoptera) &middot; generated 12-10-2026 10:41 CEST &middot; last bump run 09-10-2026 17:01 CEST &middot; <a href="#legend">Legend</a></div>
+  <div class="meta">Target release: v2.0.0 (v2.0-cyanoptera) &middot; generated 12-10-2026 15:22 CEST &middot; last bump run 09-10-2026 17:01 CEST &middot; <a href="#legend">Legend</a></div>
 
   <section class="status blocked" role="status">
     <b>Blocked</b> <span class="muted">&middot; merge freeze in 2 days (14-10-2026)</span>
-    <ul><li class="blocked">1 core extension carries patches that no longer apply, no fix PR open → fix them on the extension side <a href="#" class="status-link" data-target="table:broken-core">show</a></li><li class="at_risk">2 extensions carry patches that no longer apply, no fix PR open → fix them on the extension side <a href="#" class="status-link" data-target="table:broken">show</a></li><li class="at_risk">1 broken extension has no maintainer → find one <a href="#" class="status-link" data-target="queue">show</a></li></ul>
+    <ul><li class="blocked">2 core extensions carry patches that no longer apply, no fix PR open → fix them on the extension side <a href="#" class="status-link" data-target="table:broken-core">show</a></li><li class="at_risk">2 extensions carry patches that no longer apply, no fix PR open → fix them on the extension side <a href="#" class="status-link" data-target="table:broken">show</a></li><li class="at_risk">1 broken extension has no maintainer → find one <a href="#" class="status-link" data-target="queue">show</a></li></ul>
   </section>
 
   <section class="moves" aria-labelledby="moves-h">
     <div class="head"><h2 id="moves-h">Next moves</h2><span class="muted" id="posted-count"></span></div>
     
     <ol id="moves">
-      <li class="r0" data-id="0:Fix CI on ducklake patch PR">
-        <span class="verb"><a href="https://github.com/duckdb/ducklake/pull/1609">Fix CI on ducklake patch PR</a></span> <span class="muted">&middot; CI failed</span> <button type="button" class="goto" data-goto="ducklake">in table &darr;</button>
+      <li class="r0" data-id="0:Fix CI on httpfs patch PR">
+        <span class="verb"><a href="https://github.com/duckdb/duckdb-httpfs/pull/481">Fix CI on httpfs patch PR</a></span> <span class="muted">@carlopi</span> <span class="muted">&middot; CI failed</span> <button type="button" class="goto" data-goto="httpfs">in table &darr;</button>
       </li>
       <li class="r0" data-id="0:Fix CI on fts patch PR">
         <span class="verb"><a href="https://github.com/duckdb/duckdb-fts/pull/82">Fix CI on fts patch PR</a></span> <span class="muted">&middot; Merge conflicts</span> <button type="button" class="goto" data-goto="fts">in table &darr;</button>
@@ -484,14 +484,14 @@
       <li class="r0" data-id="0:Fix CI on sqlsmith patch PR">
         <span class="verb"><a href="https://github.com/duckdb/duckdb-sqlsmith/pull/80">Fix CI on sqlsmith patch PR</a></span> <span class="muted">&middot; CI failed</span> <button type="button" class="goto" data-goto="sqlsmith">in table &darr;</button>
       </li>
+      <li class="r1" data-id="1:Ask @carlopi to apply ducklake patches (stops at 0017-return-stats-containers.patch)">
+        <span class="verb">Ask @carlopi to apply ducklake patches (stops at 0017-return-stats-containers.patch)</span> <span class="muted">&middot; core extension</span> <button type="button" class="goto" data-goto="ducklake">in table &darr;</button>
+      </li>
       <li class="r1" data-id="1:Find a maintainer for inet">
         <span class="verb">Find a maintainer for inet</span> <span class="muted">&middot; broken patches (stops at 0001-applied-patch-fix-patch.patch), nobody assigned</span> <button type="button" class="goto" data-goto="inet">in table &darr;</button>
       </li>
       <li class="r2" data-id="2:Review iceberg patch PR (draft touched 3d ago)">
         <span class="verb"><a href="https://github.com/duckdb/duckdb-iceberg/pull/1532">Review iceberg patch PR (draft touched 3d ago)</a></span> <span class="muted">&middot; someone edited the bot&#39;s PR; it stopped updating</span> <button type="button" class="goto" data-goto="iceberg">in table &darr;</button>
-      </li>
-      <li class="r2" data-id="2:Review ducklake patch PR (draft touched 2d ago)">
-        <span class="verb"><a href="https://github.com/duckdb/ducklake/pull/1609">Review ducklake patch PR (draft touched 2d ago)</a></span> <span class="muted">&middot; someone edited the bot&#39;s PR; it stopped updating</span> <button type="button" class="goto" data-goto="ducklake">in table &darr;</button>
       </li>
       <li class="r3" data-id="3:Post azure bump PR in the channel" data-posted-url="https://github.com/duckdb/duckdb-azure/pull/202" data-ci="passed">
         <span class="verb"><a href="https://github.com/duckdb/duckdb-azure/pull/202">Post azure bump PR in the channel</a></span> <span class="muted">&middot; green, one message per PR</span> <button type="button" class="copy-btn post-btn" data-copy="azure bump - https://github.com/duckdb/duckdb-azure/pull/202">Copy</button> <button type="button" class="goto" data-goto="azure">in table &darr;</button>
@@ -514,7 +514,7 @@
     </ol>
     <button type="button" class="link" id="moves-all">Show all 12</button>
     
-    <p class="muted bot-will">The bot will bump 8 extensions on the next ExtensionRelease run (avro, delta, ducklake, glue, httpfs, mysql_scanner, postgres_scanner, sqlite_scanner).</p>
+    <p class="muted bot-will">The bot will bump 2 extensions on the next ExtensionRelease run (glue, httpfs).</p>
   </section>
 
   <p class="bump-line muted">No open bump PR on duckdb/duckdb.</p>
@@ -525,39 +525,39 @@
     
     <span class="chip-group">Pin</span>
     
-    <button type="button" class="chip behind" aria-pressed="false" data-axis="pin" data-value="Behind" title="Down 8 since the report generated 09-10-2026 17:01 CEST">Behind <strong>13</strong><span class="chip-change">&#x2193;8</span></button>
+    <button type="button" class="chip behind" aria-pressed="false" data-axis="pin" data-value="Behind" title="Up 1 since the report generated 12-10-2026 10:41 CEST">Behind <strong>14</strong><span class="chip-change">&#x2191;1</span></button>
     
-    <button type="button" class="chip ok" aria-pressed="false" data-axis="pin" data-value="Up to date" title="Up 8 since the report generated 09-10-2026 17:01 CEST">Up to date <strong>8</strong><span class="chip-change">&#x2191;8</span></button>
+    <button type="button" class="chip ok" aria-pressed="false" data-axis="pin" data-value="Up to date" title="Down 1 since the report generated 12-10-2026 10:41 CEST">Up to date <strong>7</strong><span class="chip-change">&#x2193;1</span></button>
     
     
     <span class="chip-group">Patches</span>
     
-    <button type="button" class="chip blocked" aria-pressed="false" data-axis="patches" data-value="Broken" title="Down 1 since the report generated 09-10-2026 17:01 CEST">Broken <strong>5</strong><span class="chip-change">&#x2193;1</span></button>
+    <button type="button" class="chip blocked" aria-pressed="false" data-axis="patches" data-value="Broken" title="Up 1 since the report generated 12-10-2026 10:41 CEST">Broken <strong>6</strong><span class="chip-change">&#x2191;1</span></button>
     
-    <button type="button" class="chip patches" aria-pressed="false" data-axis="patches" data-value="Carried" title="Down 4 since the report generated 09-10-2026 17:01 CEST">Carried <strong>8</strong><span class="chip-change">&#x2193;4</span></button>
+    <button type="button" class="chip patches" aria-pressed="false" data-axis="patches" data-value="Carried" title="Up 1 since the report generated 12-10-2026 10:41 CEST">Carried <strong>9</strong><span class="chip-change">&#x2191;1</span></button>
     
-    <button type="button" class="chip none" aria-pressed="false" data-axis="patches" data-value="None" title="Up 5 since the report generated 09-10-2026 17:01 CEST">None <strong>8</strong><span class="chip-change">&#x2191;5</span></button>
+    <button type="button" class="chip none" aria-pressed="false" data-axis="patches" data-value="None" title="Down 2 since the report generated 12-10-2026 10:41 CEST">None <strong>6</strong><span class="chip-change">&#x2193;2</span></button>
     
     
   </div>
   
   
   <div class="sparks">
-    <span>Broken, 2 days <svg class="spark broken" width="120" height="24" viewBox="0 0 120 24" role="img" aria-label="Broken per day: 6, 5">
-      <polyline points="2.0,2.0 118.0,5.3 "/>
+    <span>Broken, 2 days <svg class="spark broken" width="120" height="24" viewBox="0 0 120 24" role="img" aria-label="Broken per day: 6, 6">
+      <polyline points="2.0,2.0 118.0,2.0 "/>
       <circle cx="2.0" cy="2.0" r="2.5"><title>09-10-2026: aws, fts, iceberg, inet, postgres_scanner, quack</title></circle>
-      <circle cx="118.0" cy="5.3" r="2.5"><title>12-10-2026: aws, fts, iceberg, inet, quack</title></circle>
-    </svg> <span class="spark-now">5</span></span>
-    <span>Behind, 2 days <svg class="spark behind" width="120" height="24" viewBox="0 0 120 24" role="img" aria-label="Behind per day: 21, 13">
-      <polyline points="2.0,2.0 118.0,9.6 "/>
+      <circle cx="118.0" cy="2.0" r="2.5"><title>12-10-2026: aws, ducklake, fts, iceberg, inet, quack</title></circle>
+    </svg> <span class="spark-now">6</span></span>
+    <span>Behind, 2 days <svg class="spark behind" width="120" height="24" viewBox="0 0 120 24" role="img" aria-label="Behind per day: 21, 14">
+      <polyline points="2.0,2.0 118.0,8.7 "/>
       <circle cx="2.0" cy="2.0" r="2.5"><title>09-10-2026: avro, aws, azure, delta, ducklake, encodings, excel, fts, glue, httpfs, iceberg, inet, legacy_parser, mysql_scanner, postgres_scanner, quack, spatial, sqlite_scanner, sqlsmith, unity_catalog, vss</title></circle>
-      <circle cx="118.0" cy="9.6" r="2.5"><title>12-10-2026: avro, aws, delta, ducklake, fts, glue, httpfs, iceberg, inet, mysql_scanner, postgres_scanner, quack, sqlite_scanner</title></circle>
-    </svg> <span class="spark-now">13</span></span></div>
+      <circle cx="118.0" cy="8.7" r="2.5"><title>12-10-2026: avro, aws, delta, ducklake, fts, glue, httpfs, iceberg, inet, legacy_parser, mysql_scanner, postgres_scanner, quack, sqlite_scanner</title></circle>
+    </svg> <span class="spark-now">14</span></span></div>
   
   
   
   
-  <p class="changed">Since yesterday: no longer broken <a href="#row-postgres_scanner">postgres_scanner</a> &middot; caught up <a href="#row-azure">azure</a>, <a href="#row-encodings">encodings</a>, <a href="#row-excel">excel</a>, <a href="#row-legacy_parser">legacy_parser</a>, <a href="#row-spatial">spatial</a>, <a href="#row-sqlsmith">sqlsmith</a>, <a href="#row-unity_catalog">unity_catalog</a>, <a href="#row-vss">vss</a></p>
+  <p class="changed">Since yesterday: now broken <a href="#row-ducklake">ducklake</a> &middot; no longer broken <a href="#row-postgres_scanner">postgres_scanner</a> &middot; caught up <a href="#row-azure">azure</a>, <a href="#row-encodings">encodings</a>, <a href="#row-excel">excel</a>, <a href="#row-spatial">spatial</a>, <a href="#row-sqlsmith">sqlsmith</a>, <a href="#row-unity_catalog">unity_catalog</a>, <a href="#row-vss">vss</a></p>
   
 
   <div class="table-wrap">
@@ -604,15 +604,32 @@
         <td data-sort="0"><button type="button" class="badge blocked tip-trigger" data-tip="tip-patches-Broken" data-ext="aws">Broken</button></td>
         <td><span class="muted">main</span></td>
         <td data-sort="24"><a class="commit-range" href="https://github.com/duckdb/duckdb-aws/compare/7eaa663835aa5c627cb2b6f50ffcc5487ad973f3...de46483edd4aab903a481db5332cbfa7970568f1"><code>7eaa663</code> &rarr; <code>de46483</code></a><span class="behind-count" title="24 commits behind">+24</span></td>
-        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="aws">Bump + drop 2 of 2 patches</button></td>
-        <td data-sort="0"><span class="link-pair pr-state">merged: <a href="https://github.com/duckdb/duckdb-aws/pull/207">Patch</a>, <a href="https://github.com/duckdb/duckdb-aws/pull/210">Bump</a></span></td>
-        <td data-sort="2"><span class="link-pair issue"><a href="https://github.com/duckdblabs/duckdb-internal/issues/11283" title="On duckdblabs/duckdb-internal, a private repo: opens for DuckDB Labs staff only">Patch failure</a> <span class="internal-tag">internal</span><span class="sub">open 2d &middot; idle 2d &middot; @Tmonster</span></span></td>
+        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="aws">Bump + drop 2 of 3 patches</button></td>
+        <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-aws/pull/219" data-ci="pending" data-review="in review" data-touched=""><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/duckdb-aws/pull/219">Bump PR</a><button type="button" class="copy-btn mini post-btn" data-copy="aws bump - https://github.com/duckdb/duckdb-aws/pull/219" title="Copy for the channel">&#x29C9;</button> <span class="pr-state">by @carlopi since 12-10-2026</span></span></td>
+        <td data-sort="3"><span class="link-pair issue"><a href="https://github.com/duckdblabs/duckdb-internal/issues/11283" title="On duckdblabs/duckdb-internal, a private repo: opens for DuckDB Labs staff only">Patch failure</a> <span class="internal-tag">internal</span><span class="sub">open 3d &middot; idle 2d &middot; @Tmonster</span></span></td>
       </tr>
       
       
       
       
-      <tr id="row-iceberg" data-pin="Behind" data-patches="Broken" class="alt">
+      <tr id="row-ducklake" data-pin="Behind" data-patches="Broken" class="alt">
+        <td><a href="https://github.com/duckdb/ducklake">ducklake</a></td>
+        <td data-sort="0"><span class="tier core">core</span></td>
+        <td>@carlopi</td>
+        <td data-sort="0"><span class="stuck">0d</span></td>
+        <td data-sort="0"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="ducklake">Behind</button></td>
+        <td data-sort="0"><button type="button" class="badge blocked tip-trigger" data-tip="tip-patches-Broken" data-ext="ducklake">Broken</button></td>
+        <td><span class="muted">main</span></td>
+        <td data-sort="218"><a class="commit-range" href="https://github.com/duckdb/ducklake/compare/80e6155e415b922ce27a0f67f02fc62edd508f37...0eba8c1f7e7818c176c71ad8e66f9abb6358fd0f"><code>80e6155</code> &rarr; <code>0eba8c1</code></a><span class="behind-count" title="218 commits behind">+218</span></td>
+        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-apply_patches" data-ext="ducklake">Apply patches (extension side)</button><div class="sub" title="0017-return-stats-containers.patch: neither applies nor reverses; f597c708 Treat the null counts of VARIANT columns as unknown may have taken it upstream, check by hand">stops at 0017-return-stats-containers.patch</div></td>
+        <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/ducklake/pull/1676" data-ci="pending" data-review="in review" data-touched=""><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/ducklake/pull/1676">Bump PR</a><button type="button" class="copy-btn mini post-btn" data-copy="ducklake bump - https://github.com/duckdb/ducklake/pull/1676" title="Copy for the channel">&#x29C9;</button> <span class="pr-state">by @carlopi since 12-10-2026</span></span></td>
+        <td data-sort="-1"><span class="muted">&mdash;</span></td>
+      </tr>
+      
+      
+      
+      
+      <tr id="row-iceberg" data-pin="Behind" data-patches="Broken">
         <td><a href="https://github.com/duckdb/duckdb-iceberg">iceberg</a></td>
         <td data-sort="0"><span class="tier core">core</span></td>
         <td><span class="muted">&mdash;</span></td>
@@ -620,8 +637,8 @@
         <td data-sort="0"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="iceberg">Behind</button></td>
         <td data-sort="0"><button type="button" class="badge blocked tip-trigger" data-tip="tip-patches-Broken" data-ext="iceberg">Broken</button></td>
         <td><span class="muted">main</span></td>
-        <td data-sort="409"><a class="commit-range" href="https://github.com/duckdb/duckdb-iceberg/compare/5b9ff899a17edc4289c4b3760a58c931736b4863...521d9bc162295e0cb19d5210790b876be69e3564"><code>5b9ff89</code> &rarr; <code>521d9bc</code></a><span class="behind-count" title="409 commits behind">+409</span></td>
-        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-apply_patches" data-ext="iceberg">Apply patches (extension side)</button><div class="sub" title="0003-table-function-get-table-entry.patch: neither applies nor reverses; 05f32104 expose snapshot id in iceberg bind data may have taken it upstream, check by hand">stops at 0003-table-function-get-table-entry.patch</div></td>
+        <td data-sort="416"><a class="commit-range" href="https://github.com/duckdb/duckdb-iceberg/compare/5b9ff899a17edc4289c4b3760a58c931736b4863...d202f4c9e588236ecc85a23bc3d91e39f2de862e"><code>5b9ff89</code> &rarr; <code>d202f4c</code></a><span class="behind-count" title="416 commits behind">+416</span></td>
+        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-apply_patches" data-ext="iceberg">Apply patches (extension side)</button><div class="sub" title="0001-table-function-signature-options.patch: targets src/planning/iceberg_optimizer.cpp, which iceberg no longer has at d202f4c9e5">stops at 0001-table-function-signature-options.patch</div></td>
         <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-iceberg/pull/1532" data-ci="passed" data-review="draft" data-touched="yes"><span class="ci-dot passed draft" title="CI passed (draft)"></span><a href="https://github.com/duckdb/duckdb-iceberg/pull/1532">Patch PR</a><button type="button" class="copy-btn mini post-btn" data-copy="iceberg patch - https://github.com/duckdb/duckdb-iceberg/pull/1532" title="Copy for the channel">&#x29C9;</button> <span class="pr-state">draft</span> <span class="chip-human">Needs a human</span></span></td>
         <td data-sort="-1"><span class="muted">&mdash;</span></td>
       </tr>
@@ -629,51 +646,34 @@
       
       
       
-      <tr id="row-ducklake" data-pin="Behind" data-patches="Carried">
-        <td><a href="https://github.com/duckdb/ducklake">ducklake</a></td>
-        <td data-sort="0"><span class="tier core">core</span></td>
-        <td><span class="muted">&mdash;</span></td>
-        <td data-sort="2"><span class="stuck">2d</span></td>
-        <td data-sort="1"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="ducklake">Behind</button></td>
-        <td data-sort="10"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried" data-ext="ducklake">Carried</button></td>
-        <td><span class="muted">main</span></td>
-        <td data-sort="153"><a class="commit-range" href="https://github.com/duckdb/ducklake/compare/80e6155e415b922ce27a0f67f02fc62edd508f37...353adb180ead9aa1c33fdf79c6e60cc7e08016fa"><code>80e6155</code> &rarr; <code>353adb1</code></a><span class="behind-count" title="153 commits behind">+153</span></td>
-        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="ducklake">Bump</button></td>
-        <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/ducklake/pull/1609" data-ci="failed" data-review="in review" data-touched="yes"><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/ducklake/pull/1609">Patch PR</a><button type="button" class="copy-btn mini post-btn" data-copy="ducklake patch - https://github.com/duckdb/ducklake/pull/1609" title="Copy for the channel">&#x29C9;</button> <span class="chip-human">Needs a human</span></span></td>
-        <td data-sort="-1"><span class="muted">&mdash;</span></td>
-      </tr>
-      
-      
-      
-      
-      <tr id="row-delta" data-pin="Behind" data-patches="None" class="alt">
+      <tr id="row-delta" data-pin="Behind" data-patches="Carried" class="alt">
         <td><a href="https://github.com/duckdb/duckdb-delta">delta</a></td>
         <td data-sort="0"><span class="tier core">core</span></td>
-        <td><span class="muted">&mdash;</span></td>
-        <td data-sort="-1"><span class="muted">&mdash;</span></td>
-        <td data-sort="2"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="delta">Behind</button></td>
-        <td data-sort="20"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="delta">None</button></td>
+        <td>@carlopi</td>
+        <td data-sort="0"><span class="stuck">0d</span></td>
+        <td data-sort="1"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="delta">Behind</button></td>
+        <td data-sort="10"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried" data-ext="delta">Carried</button></td>
         <td><span class="muted">main</span></td>
         <td data-sort="4"><a class="commit-range" href="https://github.com/duckdb/duckdb-delta/compare/6eb9bf905f86e71c2b4384a62ef0370736fb7940...0ebdebdf6ed9d2c8c6b17b077152ee1a00c4f2e4"><code>6eb9bf9</code> &rarr; <code>0ebdebd</code></a><span class="behind-count" title="4 commits behind">+4</span></td>
         <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="delta">Bump</button></td>
-        <td data-sort="0"><span class="link-pair pr-state">merged: <a href="https://github.com/duckdb/duckdb-delta/pull/386">Patch</a>, <a href="https://github.com/duckdb/duckdb-delta/pull/395">Bump</a></span></td>
+        <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-delta/pull/398" data-ci="pending" data-review="in review" data-touched=""><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/duckdb-delta/pull/398">Bump PR</a><button type="button" class="copy-btn mini post-btn" data-copy="delta bump - https://github.com/duckdb/duckdb-delta/pull/398" title="Copy for the channel">&#x29C9;</button> <span class="pr-state">by @carlopi since 12-10-2026</span></span></td>
         <td data-sort="-1"><span class="muted">&mdash;</span></td>
       </tr>
       
       
       
       
-      <tr id="row-httpfs" data-pin="Behind" data-patches="None">
+      <tr id="row-httpfs" data-pin="Behind" data-patches="Carried">
         <td><a href="https://github.com/duckdb/duckdb-httpfs">httpfs</a></td>
         <td data-sort="0"><span class="tier core">core</span></td>
-        <td><span class="muted">&mdash;</span></td>
-        <td data-sort="-1"><span class="muted">&mdash;</span></td>
-        <td data-sort="2"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="httpfs">Behind</button></td>
-        <td data-sort="20"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="httpfs">None</button></td>
+        <td>@carlopi</td>
+        <td data-sort="0"><span class="stuck">0d</span></td>
+        <td data-sort="1"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="httpfs">Behind</button></td>
+        <td data-sort="10"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried" data-ext="httpfs">Carried</button></td>
         <td><span class="muted">main</span></td>
         <td data-sort="2"><a class="commit-range" href="https://github.com/duckdb/duckdb-httpfs/compare/23b865d8350660a0ca4f18884634acae17b8dc09...abdd053708ff3ef9359a5b3da680b128d95e4f84"><code>23b865d</code> &rarr; <code>abdd053</code></a><span class="behind-count" title="2 commits behind">+2</span></td>
         <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="httpfs">Bump</button></td>
-        <td data-sort="0"><span class="link-pair pr-state">merged: <a href="https://github.com/duckdb/duckdb-httpfs/pull/475">Patch</a>, <a href="https://github.com/duckdb/duckdb-httpfs/pull/480">Bump</a></span></td>
+        <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-httpfs/pull/481" data-ci="failed" data-review="in review" data-touched=""><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/duckdb-httpfs/pull/481">Patch PR</a><button type="button" class="copy-btn mini post-btn" data-copy="httpfs patch - https://github.com/duckdb/duckdb-httpfs/pull/481" title="Copy for the channel">&#x29C9;</button> <span class="pr-state">by @carlopi since 12-10-2026</span></span></td>
         <td data-sort="-1"><span class="muted">&mdash;</span></td>
       </tr>
       
@@ -684,7 +684,7 @@
         <td><a href="https://github.com/duckdb/duckdb-azure">azure</a></td>
         <td data-sort="0"><span class="tier core">core</span></td>
         <td><span class="muted">&mdash;</span></td>
-        <td data-sort="2"><span class="stuck">2d</span></td>
+        <td data-sort="3"><span class="stuck">3d</span></td>
         <td data-sort="22"><button type="button" class="badge ok tip-trigger" data-tip="tip-pin-Up-to-date" data-ext="azure">Up to date</button></td>
         <td data-sort="22"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="azure">None</button></td>
         <td><span class="muted">main</span></td>
@@ -700,14 +700,14 @@
       <tr id="row-spatial" data-pin="Up to date" data-patches="None">
         <td><a href="https://github.com/duckdb/duckdb-spatial">spatial</a></td>
         <td data-sort="0"><span class="tier core">core</span></td>
-        <td><span class="muted">&mdash;</span></td>
-        <td data-sort="-1"><span class="muted">&mdash;</span></td>
+        <td>@carlopi</td>
+        <td data-sort="0"><span class="stuck">0d</span></td>
         <td data-sort="22"><button type="button" class="badge ok tip-trigger" data-tip="tip-pin-Up-to-date" data-ext="spatial">Up to date</button></td>
         <td data-sort="22"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="spatial">None</button></td>
         <td><code class="branch-odd" title="targets v2.0-cyanoptera because its main already tracks the next DuckDB">v2.0-cyanoptera</code></td>
         <td data-sort="0"><a class="commit-range" href="https://github.com/duckdb/duckdb-spatial/commit/9926b5806a34363a7d58f6e0edbee272534712bc"><code>9926b58</code></a></td>
         <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-none" data-ext="spatial">None</button></td>
-        <td data-sort="0"><span class="muted">&mdash;</span></td>
+        <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-spatial/pull/889" data-ci="pending" data-review="in review" data-touched=""><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/duckdb-spatial/pull/889">Bump PR</a><button type="button" class="copy-btn mini post-btn" data-copy="spatial bump - https://github.com/duckdb/duckdb-spatial/pull/889" title="Copy for the channel">&#x29C9;</button> <span class="pr-state">by @carlopi since 12-10-2026</span></span></td>
         <td data-sort="-1"><span class="muted">&mdash;</span></td>
       </tr>
       
@@ -725,7 +725,7 @@
         <td data-sort="55"><a class="commit-range" href="https://github.com/duckdb/duckdb-fts/compare/2266e67d01c737cb65114e77c7c672e58869a635...623ee80e0bd5a771347f7dd320915cc3ef2fb965"><code>2266e67</code> &rarr; <code>623ee80</code></a><span class="behind-count" title="55 commits behind">+55</span></td>
         <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-apply_patches" data-ext="fts">Apply patches (extension side)</button><div class="sub" title="0002-fts-indexing-includes.patch: neither applies nor reverses">stops at 0002-fts-indexing-includes.patch</div></td>
         <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-fts/pull/82" data-ci="failed" data-review="in review" data-touched=""><span class="ci-dot failed" title="Merge conflicts"></span><a href="https://github.com/duckdb/duckdb-fts/pull/82">Patch PR</a><button type="button" class="copy-btn mini post-btn" data-copy="fts patch - https://github.com/duckdb/duckdb-fts/pull/82" title="Copy for the channel">&#x29C9;</button></span></td>
-        <td data-sort="16"><span class="link-pair issue"><a href="https://github.com/duckdblabs/duckdb-internal/issues/11016" title="On duckdblabs/duckdb-internal, a private repo: opens for DuckDB Labs staff only">Patch failure</a> <span class="internal-tag">internal</span><span class="sub">open 16d &middot; idle 3d &middot; @Dtenwolde</span></span></td>
+        <td data-sort="17"><span class="link-pair issue"><a href="https://github.com/duckdblabs/duckdb-internal/issues/11016" title="On duckdblabs/duckdb-internal, a private repo: opens for DuckDB Labs staff only">Patch failure</a> <span class="internal-tag">internal</span><span class="sub">open 17d &middot; idle 0d &middot; @Dtenwolde</span></span></td>
       </tr>
       
       
@@ -751,14 +751,14 @@
       <tr id="row-avro" data-pin="Behind" data-patches="Carried" class="alt">
         <td><a href="https://github.com/duckdb/duckdb-avro">avro</a></td>
         <td data-sort="1"><span class="tier standard">standard</span></td>
-        <td><span class="muted">&mdash;</span></td>
-        <td data-sort="2"><span class="stuck">2d</span></td>
+        <td>@carlopi</td>
+        <td data-sort="3"><span class="stuck">3d</span></td>
         <td data-sort="1"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="avro">Behind</button></td>
         <td data-sort="10"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried" data-ext="avro">Carried</button></td>
         <td><span class="muted">main</span></td>
-        <td data-sort="2"><a class="commit-range" href="https://github.com/duckdb/duckdb-avro/compare/d786c8bd414ef417d6d4cb1b4f531dd2e7b8f7c3...758fb6063cbb6da49b2e1c16c4044cfcafefc52f"><code>d786c8b</code> &rarr; <code>758fb60</code></a><span class="behind-count" title="2 commits behind">+2</span></td>
-        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="avro">Bump</button></td>
-        <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-avro/pull/135" data-ci="passed" data-review="in review" data-touched=""><span class="ci-dot passed" title="CI passed"></span><a href="https://github.com/duckdb/duckdb-avro/pull/135">Merge PR</a><button type="button" class="copy-btn mini post-btn" data-copy="avro merge - https://github.com/duckdb/duckdb-avro/pull/135" title="Copy for the channel">&#x29C9;</button> <span class="pr-state">by @maiadegraaf since 09-10-2026</span></span></td>
+        <td data-sort="8"><a class="commit-range" href="https://github.com/duckdb/duckdb-avro/compare/d786c8bd414ef417d6d4cb1b4f531dd2e7b8f7c3...530b2bd51a855a450e8128c42cb6688e8f652121"><code>d786c8b</code> &rarr; <code>530b2bd</code></a><span class="behind-count" title="8 commits behind">+8</span></td>
+        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="avro">Bump + drop 1 of 1 patches</button></td>
+        <td data-sort="2"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-avro/pull/138" data-ci="pending" data-review="in review" data-touched=""><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/duckdb-avro/pull/138">Bump PR</a><button type="button" class="copy-btn mini post-btn" data-copy="avro bump - https://github.com/duckdb/duckdb-avro/pull/138" title="Copy for the channel">&#x29C9;</button> <span class="pr-state">by @carlopi since 12-10-2026</span></span><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-avro/pull/135" data-ci="passed" data-review="in review" data-touched=""><span class="ci-dot passed" title="CI passed"></span><a href="https://github.com/duckdb/duckdb-avro/pull/135">Merge PR</a><button type="button" class="copy-btn mini post-btn" data-copy="avro merge - https://github.com/duckdb/duckdb-avro/pull/135" title="Copy for the channel">&#x29C9;</button> <span class="pr-state">by @maiadegraaf since 09-10-2026</span></span></td>
         <td data-sort="-1"><span class="muted">&mdash;</span></td>
       </tr>
       
@@ -768,14 +768,14 @@
       <tr id="row-glue" data-pin="Behind" data-patches="Carried">
         <td><a href="https://github.com/duckdb/duckdb-aws-glue">glue</a></td>
         <td data-sort="1"><span class="tier standard">standard</span></td>
-        <td><span class="muted">&mdash;</span></td>
-        <td data-sort="-1"><span class="muted">&mdash;</span></td>
+        <td>@carlopi</td>
+        <td data-sort="0"><span class="stuck">0d</span></td>
         <td data-sort="1"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="glue">Behind</button></td>
         <td data-sort="10"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried" data-ext="glue">Carried</button></td>
         <td><span class="muted">main</span></td>
-        <td data-sort="11"><a class="commit-range" href="https://github.com/duckdb/duckdb-aws-glue/compare/24fa46ff3680ecb093673590911369d17fb6caf1...cac0d39448ad7fb3b18e4d83ef07ba588756df1a"><code>24fa46f</code> &rarr; <code>cac0d39</code></a><span class="behind-count" title="11 commits behind">+11</span></td>
+        <td data-sort="20"><a class="commit-range" href="https://github.com/duckdb/duckdb-aws-glue/compare/24fa46ff3680ecb093673590911369d17fb6caf1...4f45064267da495aca32ae06599a16e0a604a47c"><code>24fa46f</code> &rarr; <code>4f45064</code></a><span class="behind-count" title="20 commits behind">+20</span></td>
         <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="glue">Bump</button></td>
-        <td data-sort="0"><span class="muted">&mdash;</span></td>
+        <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-aws-glue/pull/94" data-ci="pending" data-review="in review" data-touched=""><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/duckdb-aws-glue/pull/94">Patch PR</a><button type="button" class="copy-btn mini post-btn" data-copy="glue patch - https://github.com/duckdb/duckdb-aws-glue/pull/94" title="Copy for the channel">&#x29C9;</button> <span class="pr-state">by @carlopi since 12-10-2026</span></span></td>
         <td data-sort="-1"><span class="muted">&mdash;</span></td>
       </tr>
       
@@ -785,14 +785,14 @@
       <tr id="row-mysql_scanner" data-pin="Behind" data-patches="Carried" class="alt">
         <td><a href="https://github.com/duckdb/duckdb-mysql">mysql_scanner</a></td>
         <td data-sort="1"><span class="tier standard">standard</span></td>
-        <td><span class="muted">&mdash;</span></td>
-        <td data-sort="-1"><span class="muted">&mdash;</span></td>
+        <td>@carlopi</td>
+        <td data-sort="0"><span class="stuck">0d</span></td>
         <td data-sort="1"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="mysql_scanner">Behind</button></td>
         <td data-sort="10"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried" data-ext="mysql_scanner">Carried</button></td>
         <td><span class="muted">main</span></td>
         <td data-sort="3"><a class="commit-range" href="https://github.com/duckdb/duckdb-mysql/compare/accd6a798c8bd82a5e741f028d2c62608a093e29...66ad12cd0f7e216aa7a1e87f21fb87f6f106d918"><code>accd6a7</code> &rarr; <code>66ad12c</code></a><span class="behind-count" title="3 commits behind">+3</span></td>
         <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="mysql_scanner">Bump + drop 1 of 1 patches</button></td>
-        <td data-sort="0"><span class="link-pair pr-state">merged: <a href="https://github.com/duckdb/duckdb-mysql/pull/329">Patch</a>, <a href="https://github.com/duckdb/duckdb-mysql/pull/328">Bump</a></span></td>
+        <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-mysql/pull/334" data-ci="pending" data-review="in review" data-touched=""><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/duckdb-mysql/pull/334">Bump PR</a><button type="button" class="copy-btn mini post-btn" data-copy="mysql_scanner bump - https://github.com/duckdb/duckdb-mysql/pull/334" title="Copy for the channel">&#x29C9;</button> <span class="pr-state">by @carlopi since 12-10-2026</span></span></td>
         <td data-sort="-1"><span class="muted">&mdash;</span></td>
       </tr>
       
@@ -802,14 +802,14 @@
       <tr id="row-postgres_scanner" data-pin="Behind" data-patches="Carried">
         <td><a href="https://github.com/duckdb/duckdb-postgres">postgres_scanner</a></td>
         <td data-sort="1"><span class="tier standard">standard</span></td>
-        <td><span class="muted">&mdash;</span></td>
-        <td data-sort="-1"><span class="muted">&mdash;</span></td>
+        <td>@carlopi</td>
+        <td data-sort="0"><span class="stuck">0d</span></td>
         <td data-sort="1"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="postgres_scanner">Behind</button></td>
         <td data-sort="10"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried" data-ext="postgres_scanner">Carried</button></td>
         <td><span class="muted">main</span></td>
         <td data-sort="14"><a class="commit-range" href="https://github.com/duckdb/duckdb-postgres/compare/f9db66ec5a5c35a30ce868d2b7233ffc0a21a08e...8d201d476ce690dac2e33921547c43e4daca587a"><code>f9db66e</code> &rarr; <code>8d201d4</code></a><span class="behind-count" title="14 commits behind">+14</span></td>
         <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="postgres_scanner">Bump + drop 3 of 3 patches</button></td>
-        <td data-sort="0"><span class="link-pair pr-state">merged: <a href="https://github.com/duckdb/duckdb-postgres/pull/587">Patch</a>, <a href="https://github.com/duckdb/duckdb-postgres/pull/589">Bump</a></span></td>
+        <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-postgres/pull/599" data-ci="pending" data-review="in review" data-touched=""><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/duckdb-postgres/pull/599">Bump PR</a><button type="button" class="copy-btn mini post-btn" data-copy="postgres_scanner bump - https://github.com/duckdb/duckdb-postgres/pull/599" title="Copy for the channel">&#x29C9;</button> <span class="pr-state">by @carlopi since 12-10-2026</span></span></td>
         <td data-sort="-1"><span class="muted">&mdash;</span></td>
       </tr>
       
@@ -819,14 +819,14 @@
       <tr id="row-sqlite_scanner" data-pin="Behind" data-patches="Carried" class="alt">
         <td><a href="https://github.com/duckdb/duckdb-sqlite">sqlite_scanner</a></td>
         <td data-sort="1"><span class="tier standard">standard</span></td>
-        <td><span class="muted">&mdash;</span></td>
-        <td data-sort="-1"><span class="muted">&mdash;</span></td>
+        <td>@carlopi</td>
+        <td data-sort="0"><span class="stuck">0d</span></td>
         <td data-sort="1"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="sqlite_scanner">Behind</button></td>
         <td data-sort="10"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried" data-ext="sqlite_scanner">Carried</button></td>
         <td><span class="muted">main</span></td>
         <td data-sort="3"><a class="commit-range" href="https://github.com/duckdb/duckdb-sqlite/compare/b73b6391d41c2465a839271cfe2f23e18fc2cb08...9c5f9d3d886dcbda537afceea05e16509b0ddf44"><code>b73b639</code> &rarr; <code>9c5f9d3</code></a><span class="behind-count" title="3 commits behind">+3</span></td>
-        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="sqlite_scanner">Bump + drop 1 of 1 patches</button></td>
-        <td data-sort="0"><span class="link-pair pr-state">merged: <a href="https://github.com/duckdb/duckdb-sqlite/pull/248">Patch</a>, <a href="https://github.com/duckdb/duckdb-sqlite/pull/235">Bump</a></span></td>
+        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="sqlite_scanner">Bump + drop 1 of 2 patches</button></td>
+        <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-sqlite/pull/249" data-ci="pending" data-review="in review" data-touched=""><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/duckdb-sqlite/pull/249">Bump PR</a><button type="button" class="copy-btn mini post-btn" data-copy="sqlite_scanner bump - https://github.com/duckdb/duckdb-sqlite/pull/249" title="Copy for the channel">&#x29C9;</button> <span class="pr-state">by @carlopi since 12-10-2026</span></span></td>
         <td data-sort="-1"><span class="muted">&mdash;</span></td>
       </tr>
       
@@ -837,7 +837,7 @@
         <td><a href="https://github.com/duckdb/duckdb-vss">vss</a></td>
         <td data-sort="1"><span class="tier standard">standard</span></td>
         <td><span class="muted">&mdash;</span></td>
-        <td data-sort="2"><span class="stuck">2d</span></td>
+        <td data-sort="3"><span class="stuck">3d</span></td>
         <td data-sort="21"><button type="button" class="badge ok tip-trigger" data-tip="tip-pin-Up-to-date" data-ext="vss">Up to date</button></td>
         <td data-sort="12"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried" data-ext="vss">Carried</button></td>
         <td><span class="muted">main</span></td>
@@ -850,11 +850,28 @@
       
       
       
-      <tr id="row-encodings" data-pin="Up to date" data-patches="None" class="alt">
+      <tr id="row-legacy_parser" data-pin="Behind" data-patches="None" class="alt">
+        <td><a href="https://github.com/duckdb/duckdb-legacy-parser">legacy_parser</a></td>
+        <td data-sort="1"><span class="tier standard">standard</span></td>
+        <td>@carlopi</td>
+        <td data-sort="0"><span class="stuck">0d</span></td>
+        <td data-sort="2"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="legacy_parser">Behind</button></td>
+        <td data-sort="20"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="legacy_parser">None</button></td>
+        <td><span class="muted">main</span></td>
+        <td data-sort="2"><a class="commit-range" href="https://github.com/duckdb/duckdb-legacy-parser/compare/2e8a34261845427f8d3e8bebe32b416615247ef8...0912e6734679d7df918da4af387bade6ff429d01"><code>2e8a342</code> &rarr; <code>0912e67</code></a><span class="behind-count" title="2 commits behind">+2</span></td>
+        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="legacy_parser">Bump</button></td>
+        <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-legacy-parser/pull/2" data-ci="pending" data-review="in review" data-touched=""><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/duckdb-legacy-parser/pull/2">Bump PR</a><button type="button" class="copy-btn mini post-btn" data-copy="legacy_parser bump - https://github.com/duckdb/duckdb-legacy-parser/pull/2" title="Copy for the channel">&#x29C9;</button> <span class="pr-state">by @carlopi since 12-10-2026</span></span></td>
+        <td data-sort="-1"><span class="muted">&mdash;</span></td>
+      </tr>
+      
+      
+      
+      
+      <tr id="row-encodings" data-pin="Up to date" data-patches="None">
         <td><a href="https://github.com/duckdb/duckdb-encodings">encodings</a></td>
         <td data-sort="1"><span class="tier standard">standard</span></td>
         <td><span class="muted">&mdash;</span></td>
-        <td data-sort="2"><span class="stuck">2d</span></td>
+        <td data-sort="3"><span class="stuck">3d</span></td>
         <td data-sort="22"><button type="button" class="badge ok tip-trigger" data-tip="tip-pin-Up-to-date" data-ext="encodings">Up to date</button></td>
         <td data-sort="22"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="encodings">None</button></td>
         <td><span class="muted">main</span></td>
@@ -867,11 +884,11 @@
       
       
       
-      <tr id="row-excel" data-pin="Up to date" data-patches="None">
+      <tr id="row-excel" data-pin="Up to date" data-patches="None" class="alt">
         <td><a href="https://github.com/duckdb/duckdb-excel">excel</a></td>
         <td data-sort="1"><span class="tier standard">standard</span></td>
         <td><span class="muted">&mdash;</span></td>
-        <td data-sort="2"><span class="stuck">2d</span></td>
+        <td data-sort="3"><span class="stuck">3d</span></td>
         <td data-sort="22"><button type="button" class="badge ok tip-trigger" data-tip="tip-pin-Up-to-date" data-ext="excel">Up to date</button></td>
         <td data-sort="22"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="excel">None</button></td>
         <td><span class="muted">main</span></td>
@@ -884,28 +901,11 @@
       
       
       
-      <tr id="row-legacy_parser" data-pin="Up to date" data-patches="None" class="alt">
-        <td><a href="https://github.com/duckdb/duckdb-legacy-parser">legacy_parser</a></td>
-        <td data-sort="1"><span class="tier standard">standard</span></td>
-        <td><span class="muted">&mdash;</span></td>
-        <td data-sort="2"><span class="stuck">2d</span></td>
-        <td data-sort="22"><button type="button" class="badge ok tip-trigger" data-tip="tip-pin-Up-to-date" data-ext="legacy_parser">Up to date</button></td>
-        <td data-sort="22"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="legacy_parser">None</button></td>
-        <td><span class="muted">main</span></td>
-        <td data-sort="0"><a class="commit-range" href="https://github.com/duckdb/duckdb-legacy-parser/commit/2e8a34261845427f8d3e8bebe32b416615247ef8"><code>2e8a342</code></a></td>
-        <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-none" data-ext="legacy_parser">None</button></td>
-        <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-legacy-parser/pull/1" data-ci="passed" data-review="in review" data-touched="yes"><span class="ci-dot passed" title="CI passed"></span><a href="https://github.com/duckdb/duckdb-legacy-parser/pull/1">Bump PR</a><button type="button" class="copy-btn mini post-btn" data-copy="legacy_parser bump - https://github.com/duckdb/duckdb-legacy-parser/pull/1" title="Copy for the channel">&#x29C9;</button> <span class="chip-human">Needs a human</span></span></td>
-        <td data-sort="-1"><span class="muted">&mdash;</span></td>
-      </tr>
-      
-      
-      
-      
       <tr id="row-unity_catalog" data-pin="Up to date" data-patches="None">
         <td><a href="https://github.com/duckdb/unity_catalog">unity_catalog</a></td>
         <td data-sort="1"><span class="tier standard">standard</span></td>
         <td><span class="muted">&mdash;</span></td>
-        <td data-sort="2"><span class="stuck">2d</span></td>
+        <td data-sort="3"><span class="stuck">3d</span></td>
         <td data-sort="22"><button type="button" class="badge ok tip-trigger" data-tip="tip-pin-Up-to-date" data-ext="unity_catalog">Up to date</button></td>
         <td data-sort="22"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="unity_catalog">None</button></td>
         <td><span class="muted">main</span></td>
@@ -922,14 +922,14 @@
         <td><a href="https://github.com/duckdb/duckdb-quack">quack</a></td>
         <td data-sort="2"><span class="tier experimental">experimental</span></td>
         <td>@guillesd</td>
-        <td data-sort="2"><span class="stuck">2d</span></td>
+        <td data-sort="3"><span class="stuck">3d</span></td>
         <td data-sort="0"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="quack">Behind</button></td>
         <td data-sort="0"><button type="button" class="badge blocked tip-trigger" data-tip="tip-patches-Broken" data-ext="quack">Broken</button></td>
         <td><span class="muted">main</span></td>
         <td data-sort="61"><a class="commit-range" href="https://github.com/duckdb/duckdb-quack/compare/974927a394b188755284682b73398ed50e86316c...c19ca48dadcb26febdabf23eae08c753c77eea21"><code>974927a</code> &rarr; <code>c19ca48</code></a><span class="behind-count" title="61 commits behind">+61</span></td>
         <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-apply_patches" data-ext="quack">Apply patches (extension side)</button><div class="sub" title="0004-table-function-get-table-entry.patch: neither applies nor reverses">stops at 0004-table-function-get-table-entry.patch</div></td>
         <td data-sort="0"><span class="link-pair pr-state">merged: <a href="https://github.com/duckdb/duckdb-quack/pull/298">Patch</a>, <a href="https://github.com/duckdb/duckdb-quack/pull/300">Bump</a></span></td>
-        <td data-sort="2"><span class="link-pair issue"><a href="https://github.com/duckdblabs/duckdb-internal/issues/11286" title="On duckdblabs/duckdb-internal, a private repo: opens for DuckDB Labs staff only">Patch failure</a> <span class="internal-tag">internal</span><span class="sub">open 2d &middot; idle 2d &middot; @guillesd</span></span></td>
+        <td data-sort="3"><span class="link-pair issue"><a href="https://github.com/duckdblabs/duckdb-internal/issues/11286" title="On duckdblabs/duckdb-internal, a private repo: opens for DuckDB Labs staff only">Patch failure</a> <span class="internal-tag">internal</span><span class="sub">open 3d &middot; idle 3d &middot; @guillesd</span></span></td>
       </tr>
       
       
@@ -939,7 +939,7 @@
         <td><a href="https://github.com/duckdb/duckdb-sqlsmith">sqlsmith</a></td>
         <td data-sort="2"><span class="tier experimental">experimental</span></td>
         <td><span class="muted">&mdash;</span></td>
-        <td data-sort="2"><span class="stuck">2d</span></td>
+        <td data-sort="3"><span class="stuck">3d</span></td>
         <td data-sort="21"><button type="button" class="badge ok tip-trigger" data-tip="tip-pin-Up-to-date" data-ext="sqlsmith">Up to date</button></td>
         <td data-sort="12"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried" data-ext="sqlsmith">Carried</button></td>
         <td><span class="muted">main</span></td>
@@ -956,7 +956,7 @@
   
   <details class="open-prs">
     <summary class="head">
-      <h2>Open PRs <span class="muted">11</span></h2>
+      <h2>Open PRs <span class="muted">20</span></h2>
       <button type="button" class="copy-btn" id="copy-ready" data-copy="" title="The green PRs not marked posted, one per line">Copy all ready</button>
     </summary>
     <ul id="open-prs">
@@ -971,15 +971,33 @@
       
       <li data-ci="passed" data-review="draft" data-touched="yes" data-posted-url="https://github.com/duckdb/duckdb-iceberg/pull/1532"><span class="ci-dot passed draft" title="CI passed (draft)"></span><button type="button" class="copy-btn post-btn" data-copy="iceberg patch - https://github.com/duckdb/duckdb-iceberg/pull/1532">Copy</button><span class="pr-line">iceberg patch - <a href="https://github.com/duckdb/duckdb-iceberg/pull/1532">https://github.com/duckdb/duckdb-iceberg/pull/1532</a></span> <span class="pr-state">draft</span></li>
       
-      <li data-ci="passed" data-review="in review" data-touched="yes" data-posted-url="https://github.com/duckdb/duckdb-legacy-parser/pull/1"><span class="ci-dot passed" title="CI passed"></span><button type="button" class="copy-btn post-btn" data-copy="legacy_parser bump - https://github.com/duckdb/duckdb-legacy-parser/pull/1">Copy</button><span class="pr-line">legacy_parser bump - <a href="https://github.com/duckdb/duckdb-legacy-parser/pull/1">https://github.com/duckdb/duckdb-legacy-parser/pull/1</a></span></li>
-      
       <li data-ci="passed" data-review="in review" data-touched="" data-posted-url="https://github.com/duckdb/unity_catalog/pull/144"><span class="ci-dot passed" title="CI passed"></span><button type="button" class="copy-btn post-btn" data-copy="unity_catalog bump - https://github.com/duckdb/unity_catalog/pull/144">Copy</button><span class="pr-line">unity_catalog bump - <a href="https://github.com/duckdb/unity_catalog/pull/144">https://github.com/duckdb/unity_catalog/pull/144</a></span></li>
       
       <li data-ci="passed" data-review="in review" data-touched="" data-posted-url="https://github.com/duckdb/duckdb-vss/pull/102"><span class="ci-dot passed" title="CI passed"></span><button type="button" class="copy-btn post-btn" data-copy="vss patch - https://github.com/duckdb/duckdb-vss/pull/102">Copy</button><span class="pr-line">vss patch - <a href="https://github.com/duckdb/duckdb-vss/pull/102">https://github.com/duckdb/duckdb-vss/pull/102</a></span></li>
       
-      <li data-ci="failed" data-review="in review" data-touched="yes" data-posted-url="https://github.com/duckdb/ducklake/pull/1609"><span class="ci-dot failed" title="CI failed"></span><button type="button" class="copy-btn post-btn" data-copy="ducklake patch - https://github.com/duckdb/ducklake/pull/1609" title="CI failed: fix first">Copy</button><span class="pr-line">ducklake patch - <a href="https://github.com/duckdb/ducklake/pull/1609">https://github.com/duckdb/ducklake/pull/1609</a></span></li>
+      <li data-ci="pending" data-review="in review" data-touched="" data-posted-url="https://github.com/duckdb/duckdb-avro/pull/138"><span class="ci-dot pending" title="CI pending"></span><button type="button" class="copy-btn post-btn" data-copy="avro bump - https://github.com/duckdb/duckdb-avro/pull/138" title="CI pending: fix first">Copy</button><span class="pr-line">avro bump - <a href="https://github.com/duckdb/duckdb-avro/pull/138">https://github.com/duckdb/duckdb-avro/pull/138</a></span></li>
+      
+      <li data-ci="pending" data-review="in review" data-touched="" data-posted-url="https://github.com/duckdb/duckdb-aws/pull/219"><span class="ci-dot pending" title="CI pending"></span><button type="button" class="copy-btn post-btn" data-copy="aws bump - https://github.com/duckdb/duckdb-aws/pull/219" title="CI pending: fix first">Copy</button><span class="pr-line">aws bump - <a href="https://github.com/duckdb/duckdb-aws/pull/219">https://github.com/duckdb/duckdb-aws/pull/219</a></span></li>
+      
+      <li data-ci="pending" data-review="in review" data-touched="" data-posted-url="https://github.com/duckdb/duckdb-delta/pull/398"><span class="ci-dot pending" title="CI pending"></span><button type="button" class="copy-btn post-btn" data-copy="delta bump - https://github.com/duckdb/duckdb-delta/pull/398" title="CI pending: fix first">Copy</button><span class="pr-line">delta bump - <a href="https://github.com/duckdb/duckdb-delta/pull/398">https://github.com/duckdb/duckdb-delta/pull/398</a></span></li>
+      
+      <li data-ci="pending" data-review="in review" data-touched="" data-posted-url="https://github.com/duckdb/ducklake/pull/1676"><span class="ci-dot pending" title="CI pending"></span><button type="button" class="copy-btn post-btn" data-copy="ducklake bump - https://github.com/duckdb/ducklake/pull/1676" title="CI pending: fix first">Copy</button><span class="pr-line">ducklake bump - <a href="https://github.com/duckdb/ducklake/pull/1676">https://github.com/duckdb/ducklake/pull/1676</a></span></li>
+      
+      <li data-ci="pending" data-review="in review" data-touched="" data-posted-url="https://github.com/duckdb/duckdb-aws-glue/pull/94"><span class="ci-dot pending" title="CI pending"></span><button type="button" class="copy-btn post-btn" data-copy="glue patch - https://github.com/duckdb/duckdb-aws-glue/pull/94" title="CI pending: fix first">Copy</button><span class="pr-line">glue patch - <a href="https://github.com/duckdb/duckdb-aws-glue/pull/94">https://github.com/duckdb/duckdb-aws-glue/pull/94</a></span></li>
+      
+      <li data-ci="pending" data-review="in review" data-touched="" data-posted-url="https://github.com/duckdb/duckdb-legacy-parser/pull/2"><span class="ci-dot pending" title="CI pending"></span><button type="button" class="copy-btn post-btn" data-copy="legacy_parser bump - https://github.com/duckdb/duckdb-legacy-parser/pull/2" title="CI pending: fix first">Copy</button><span class="pr-line">legacy_parser bump - <a href="https://github.com/duckdb/duckdb-legacy-parser/pull/2">https://github.com/duckdb/duckdb-legacy-parser/pull/2</a></span></li>
+      
+      <li data-ci="pending" data-review="in review" data-touched="" data-posted-url="https://github.com/duckdb/duckdb-mysql/pull/334"><span class="ci-dot pending" title="CI pending"></span><button type="button" class="copy-btn post-btn" data-copy="mysql_scanner bump - https://github.com/duckdb/duckdb-mysql/pull/334" title="CI pending: fix first">Copy</button><span class="pr-line">mysql_scanner bump - <a href="https://github.com/duckdb/duckdb-mysql/pull/334">https://github.com/duckdb/duckdb-mysql/pull/334</a></span></li>
+      
+      <li data-ci="pending" data-review="in review" data-touched="" data-posted-url="https://github.com/duckdb/duckdb-postgres/pull/599"><span class="ci-dot pending" title="CI pending"></span><button type="button" class="copy-btn post-btn" data-copy="postgres_scanner bump - https://github.com/duckdb/duckdb-postgres/pull/599" title="CI pending: fix first">Copy</button><span class="pr-line">postgres_scanner bump - <a href="https://github.com/duckdb/duckdb-postgres/pull/599">https://github.com/duckdb/duckdb-postgres/pull/599</a></span></li>
+      
+      <li data-ci="pending" data-review="in review" data-touched="" data-posted-url="https://github.com/duckdb/duckdb-spatial/pull/889"><span class="ci-dot pending" title="CI pending"></span><button type="button" class="copy-btn post-btn" data-copy="spatial bump - https://github.com/duckdb/duckdb-spatial/pull/889" title="CI pending: fix first">Copy</button><span class="pr-line">spatial bump - <a href="https://github.com/duckdb/duckdb-spatial/pull/889">https://github.com/duckdb/duckdb-spatial/pull/889</a></span></li>
+      
+      <li data-ci="pending" data-review="in review" data-touched="" data-posted-url="https://github.com/duckdb/duckdb-sqlite/pull/249"><span class="ci-dot pending" title="CI pending"></span><button type="button" class="copy-btn post-btn" data-copy="sqlite_scanner bump - https://github.com/duckdb/duckdb-sqlite/pull/249" title="CI pending: fix first">Copy</button><span class="pr-line">sqlite_scanner bump - <a href="https://github.com/duckdb/duckdb-sqlite/pull/249">https://github.com/duckdb/duckdb-sqlite/pull/249</a></span></li>
       
       <li data-ci="failed" data-review="in review" data-touched="" data-posted-url="https://github.com/duckdb/duckdb-fts/pull/82"><span class="ci-dot failed" title="Merge conflicts"></span><button type="button" class="copy-btn post-btn" data-copy="fts patch - https://github.com/duckdb/duckdb-fts/pull/82" title="CI failed: fix first">Copy</button><span class="pr-line">fts patch - <a href="https://github.com/duckdb/duckdb-fts/pull/82">https://github.com/duckdb/duckdb-fts/pull/82</a></span></li>
+      
+      <li data-ci="failed" data-review="in review" data-touched="" data-posted-url="https://github.com/duckdb/duckdb-httpfs/pull/481"><span class="ci-dot failed" title="CI failed"></span><button type="button" class="copy-btn post-btn" data-copy="httpfs patch - https://github.com/duckdb/duckdb-httpfs/pull/481" title="CI failed: fix first">Copy</button><span class="pr-line">httpfs patch - <a href="https://github.com/duckdb/duckdb-httpfs/pull/481">https://github.com/duckdb/duckdb-httpfs/pull/481</a></span></li>
       
       <li data-ci="failed" data-review="in review" data-touched="" data-posted-url="https://github.com/duckdb/duckdb-sqlsmith/pull/80"><span class="ci-dot failed" title="CI failed"></span><button type="button" class="copy-btn post-btn" data-copy="sqlsmith patch - https://github.com/duckdb/duckdb-sqlsmith/pull/80" title="CI failed: fix first">Copy</button><span class="pr-line">sqlsmith patch - <a href="https://github.com/duckdb/duckdb-sqlsmith/pull/80">https://github.com/duckdb/duckdb-sqlsmith/pull/80</a></span></li>
       
@@ -1080,7 +1098,7 @@
     </details>
   </section>
 
-  <script type="application/json" id="report-summary">{"generated_at": "12-10-2026 10:41 CEST", "counts": {"pin": {"Behind": 13, "Up to date": 8}, "patches": {"Broken": 5, "Carried": 8, "None": 8}}, "attempts": {}, "run": {"workflow": null, "run_url": null, "at": "2026-10-12T08:41:31.505613+00:00", "steps": {}, "last_bump_run": {"workflow": null, "run_url": null, "at": "2026-10-09T15:01:07.884085+00:00", "steps": {}}}, "history": [{"day": "2026-10-09", "counts": {"pin": {"Behind": 21, "Up to date": 0}, "patches": {"Broken": 6, "Carried": 12, "None": 3}}, "broken": ["aws", "fts", "iceberg", "inet", "postgres_scanner", "quack"], "behind": ["avro", "aws", "azure", "delta", "ducklake", "encodings", "excel", "fts", "glue", "httpfs", "iceberg", "inet", "legacy_parser", "mysql_scanner", "postgres_scanner", "quack", "spatial", "sqlite_scanner", "sqlsmith", "unity_catalog", "vss"]}, {"day": "2026-10-12", "counts": {"pin": {"Behind": 13, "Up to date": 8}, "patches": {"Broken": 5, "Carried": 8, "None": 8}}, "broken": ["aws", "fts", "iceberg", "inet", "quack"], "behind": ["avro", "aws", "delta", "ducklake", "fts", "glue", "httpfs", "iceberg", "inet", "mysql_scanner", "postgres_scanner", "quack", "sqlite_scanner"]}], "level": "blocked"}</script>
+  <script type="application/json" id="report-summary">{"generated_at": "12-10-2026 15:22 CEST", "counts": {"pin": {"Behind": 14, "Up to date": 7}, "patches": {"Broken": 6, "Carried": 9, "None": 6}}, "attempts": {}, "run": {"workflow": null, "run_url": null, "at": "2026-10-12T13:22:23.697143+00:00", "steps": {}, "last_bump_run": {"workflow": null, "run_url": null, "at": "2026-10-09T15:01:07.884085+00:00", "steps": {}}}, "history": [{"day": "2026-10-09", "counts": {"pin": {"Behind": 21, "Up to date": 0}, "patches": {"Broken": 6, "Carried": 12, "None": 3}}, "broken": ["aws", "fts", "iceberg", "inet", "postgres_scanner", "quack"], "behind": ["avro", "aws", "azure", "delta", "ducklake", "encodings", "excel", "fts", "glue", "httpfs", "iceberg", "inet", "legacy_parser", "mysql_scanner", "postgres_scanner", "quack", "spatial", "sqlite_scanner", "sqlsmith", "unity_catalog", "vss"]}, {"day": "2026-10-12", "counts": {"pin": {"Behind": 14, "Up to date": 7}, "patches": {"Broken": 6, "Carried": 9, "None": 6}}, "broken": ["aws", "ducklake", "fts", "iceberg", "inet", "quack"], "behind": ["avro", "aws", "delta", "ducklake", "fts", "glue", "httpfs", "iceberg", "inet", "legacy_parser", "mysql_scanner", "postgres_scanner", "quack", "sqlite_scanner"]}], "level": "blocked"}</script>
   <script>
   (function () {
     var table = document.getElementById('ext-table');
