@@ -96,7 +96,7 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .strip i{width:14px;height:14px;border-radius:3px;display:grid;place-items:center;font-style:normal;font-size:10px;font-weight:800;color:#fff}
 .strip i.ok{background:var(--good)}.strip i.fail{background:var(--crit)}
 .row{display:grid;gap:16px;margin-bottom:16px}
-.r-queue{grid-template-columns:1.4fr 1fr}
+.r-queue{grid-template-columns:1.4fr 1fr;align-items:start}
 .r-main{grid-template-columns:1.75fr 1fr}
 .r-two{grid-template-columns:1fr 1fr}
 .queue{list-style:none;margin:0;padding:0;counter-reset:q}
@@ -177,7 +177,7 @@ html.tv .tscroll{max-height:none}
   .jobs { color: var(--badtext); font-weight: 600; }
   .queue .copy-btn, .queue .goto { flex: none; }
   /* The shared .queue li { display: flex } would otherwise beat [hidden] */
-  #moves li[hidden], .ext-card[hidden] { display: none; }
+  #moves li[hidden], #ready-list li[hidden], .ext-card[hidden] { display: none; }
   .queue .r0 .verb a { color: var(--badtext); }
   .posted { opacity: 0.55; }
   .posted-tag { font-size: 11px; color: var(--goodtext); white-space: nowrap; }
@@ -189,10 +189,11 @@ html.tv .tscroll{max-height:none}
   .chip.all { border-color: var(--border); }
   .chip.ok, .badge.ok { background: var(--ok-bg); color: var(--ok-fg); --ring: var(--ok-fg); }
   .chip.behind, .badge.behind { background: var(--behind-bg); color: var(--behind-fg); --ring: var(--behind-fg); }
-  .chip.patches, .badge.patches { background: var(--patches-bg); color: var(--patches-fg); box-shadow: inset 0 0 0 1px var(--patches-line); --ring: var(--patches-line); }
-  .chip.blocked, .badge.blocked { background: var(--blocked-bg); color: var(--blocked-fg); --ring: var(--blocked-bg); }
+  .chip.patches, .badge.patches { background: var(--patches-bg); color: var(--patches-fg); box-shadow: inset 0 0 0 1px var(--patches-line); --ring: var(--patches-fg); }
+  .chip.blocked, .badge.blocked { background: var(--blocked-bg); color: var(--blocked-fg); --ring: var(--blocked-fg); }
   .chip.none, .chip.held { border-color: var(--border); color: var(--muted); --ring: var(--muted); }
-  .chip[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--page), 0 0 0 4px var(--ring); }
+  .chip[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--ring); }
+  .chip.all[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ring); }
   .chip:focus-visible, .tip-trigger:focus-visible { outline: 2px solid var(--s1); outline-offset: 1px; }
   .chip-change { font-size: 11px; font-weight: 500; margin-left: 4px; opacity: .85; }
   .badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; border: 0; font-family: inherit; cursor: help; }
@@ -271,8 +272,8 @@ html.tv .tscroll{max-height:none}
   .sq.ok { background: var(--good); }
   .sq.none { background: var(--grid); }
   .hint .sq { width: 10px; height: 10px; margin: 0 2px 0 4px; }
-  .ext-head { align-items: center; margin-bottom: 12px; }
-  #ext-search { font: inherit; font-size: 13px; padding: 5px 10px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--ink); min-width: 16rem; }
+  .ext-head { align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+  #ext-search { font: inherit; font-size: 13px; padding: 5px 10px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--ink); flex: 1 1 16rem; min-width: 0; max-width: 24rem; }
   #ext-search:focus-visible { outline: 2px solid var(--s1); outline-offset: 1px; }
   .ext-group { margin-bottom: 20px; }
   .ext-group h2 { font-size: 14px; font-weight: 700; margin: 0 0 8px; }
@@ -335,7 +336,7 @@ html.tv .tscroll{max-height:none}
     <header>
       <div>
         <h1>DuckDB Extension Status <span class="muted">v2.0.0</span></h1>
-        <div class="sub"><a href="../">&larr; all releases</a> &middot; branch v2.0-cyanoptera &middot; generated 12-10-2026 21:01 CEST &middot; last bump run 09-10-2026 17:01 CEST
+        <div class="sub"><a href="../">&larr; all releases</a> &middot; branch v2.0-cyanoptera &middot; generated 12-10-2026 21:11 CEST
           &middot; <a href="#legend" target="_self" id="legend-link">Legend</a></div>
       </div>
       <nav class="tabs" id="tabs" aria-label="Views">
@@ -374,15 +375,24 @@ html.tv .tscroll{max-height:none}
               <span class="verb">Find someone to apply inet patches</span> <span class="why">&middot; broken patches (stops at 0001-applied-patch-fix-patch.patch), nobody on it</span> <button type="button" class="goto" data-goto="inet">in table &darr;</button>
             </li>
           </ol>
-          <button type="button" class="more" id="moves-all" hidden>Show all 4</button>
+          <button type="button" class="more" id="moves-all" data-list="moves" hidden>Show all 4</button>
           
           <p class="hint bot-will">The bot will bump 10 extensions on the next ExtensionRelease run (azure, delta, encodings, excel, glue, httpfs, legacy_parser, spatial, unity_catalog, vss).</p>
         </div>
         <div class="card" id="ready">
-        <div class="cardhead"><h2>Ready to merge <span class="count">0</span></h2>
-          <button type="button" class="copy-btn" id="copy-ready" data-copy="" title="The lines not yet marked posted, one per line" disabled>Copy all</button></div>
+        <div class="cardhead"><h2>Ready to merge <span class="count">1</span></h2>
+          <button type="button" class="copy-btn" id="copy-ready" data-copy="" title="The lines not yet marked posted, one per line">Copy all</button></div>
         <p class="hint">CI green, not a draft, no manual edits, no changes requested. Copy a line to post it in the release channel; Copy all takes every unposted line.</p>
-        <p class="hint">Nothing green is waiting.</p>
+        
+        <ul class="ready" id="ready-list">
+          <li data-posted-url="https://github.com/duckdb/duckdb-mysql/pull/334" data-postable="yes">
+            <span class="ci-dot passed" aria-hidden="true"></span><a href="https://github.com/duckdb/duckdb-mysql/pull/334">mysql_scanner bump PR #334</a>
+            <span class="pr-state">needs review</span>
+            <button type="button" class="copy-btn post-btn" data-copy="mysql_scanner bump - https://github.com/duckdb/duckdb-mysql/pull/334">Copy</button>
+          </li>
+        </ul>
+        <button type="button" class="more" id="ready-all" data-list="ready-list" hidden>Show all 1</button>
+        
       </div>
       </div>
 
@@ -396,18 +406,18 @@ html.tv .tscroll{max-height:none}
           
           <span class="chip-group">Pin</span>
           
-          <button type="button" class="chip behind" aria-pressed="false" data-axis="pin" data-value="Behind" title="No change since the report generated 12-10-2026 20:51 CEST">Behind <strong>20</strong></button>
+          <button type="button" class="chip behind" aria-pressed="false" data-axis="pin" data-value="Behind" title="No change since the report generated 12-10-2026 21:01 CEST">Behind <strong>20</strong></button>
           
-          <button type="button" class="chip ok" aria-pressed="false" data-axis="pin" data-value="Up to date" title="No change since the report generated 12-10-2026 20:51 CEST">Up to date <strong>1</strong></button>
+          <button type="button" class="chip ok" aria-pressed="false" data-axis="pin" data-value="Up to date" title="No change since the report generated 12-10-2026 21:01 CEST">Up to date <strong>1</strong></button>
           
           
           <span class="chip-group">Patches</span>
           
-          <button type="button" class="chip blocked" aria-pressed="false" data-axis="patches" data-value="Broken" title="No change since the report generated 12-10-2026 20:51 CEST">Broken <strong>6</strong></button>
+          <button type="button" class="chip blocked" aria-pressed="false" data-axis="patches" data-value="Broken" title="No change since the report generated 12-10-2026 21:01 CEST">Broken <strong>6</strong></button>
           
-          <button type="button" class="chip patches" aria-pressed="false" data-axis="patches" data-value="Carried" title="No change since the report generated 12-10-2026 20:51 CEST">Carried <strong>9</strong></button>
+          <button type="button" class="chip patches" aria-pressed="false" data-axis="patches" data-value="Carried" title="No change since the report generated 12-10-2026 21:01 CEST">Carried <strong>9</strong></button>
           
-          <button type="button" class="chip none" aria-pressed="false" data-axis="patches" data-value="None" title="No change since the report generated 12-10-2026 20:51 CEST">None <strong>6</strong></button>
+          <button type="button" class="chip none" aria-pressed="false" data-axis="patches" data-value="None" title="No change since the report generated 12-10-2026 21:01 CEST">None <strong>6</strong></button>
           
           
         </div>
@@ -618,7 +628,7 @@ html.tv .tscroll{max-height:none}
               <td class="detail"><span class="muted">main</span></td>
               <td class="detail" data-sort="5"><a class="commit-range" href="https://github.com/duckdb/duckdb-mysql/compare/accd6a798c8bd82a5e741f028d2c62608a093e29...576e803219d53eddd82adea21fc28649bab5af2c"><code>accd6a7</code> &rarr; <code>576e803</code></a><span class="behind-count" title="5 commits behind">+5</span></td>
               <td><span class="actor bot">bot</span><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="mysql_scanner">Bump + drop 1 of 1 patches</button></td>
-              <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-mysql/pull/334" data-postable=""><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/duckdb-mysql/pull/334">Bump PR</a><button type="button" class="copy-btn mini post-btn" data-copy="mysql_scanner bump - https://github.com/duckdb/duckdb-mysql/pull/334" title="Copy for the channel">&#x29C9;</button> <span class="pr-state">by @carlopi since 12-10-2026</span></span><span class="sub stuck">idle 0d</span></td>
+              <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-mysql/pull/334" data-postable="yes"><span class="ci-dot passed" title="CI passed"></span><a href="https://github.com/duckdb/duckdb-mysql/pull/334">Bump PR</a><button type="button" class="copy-btn mini post-btn" data-copy="mysql_scanner bump - https://github.com/duckdb/duckdb-mysql/pull/334" title="Copy for the channel">&#x29C9;</button> <span class="pr-state">by @carlopi since 12-10-2026</span></span><span class="sub stuck">idle 0d</span></td>
               <td data-sort="-1"><span class="muted">&mdash;</span></td>
             </tr>
             
@@ -852,8 +862,8 @@ html.tv .tscroll{max-height:none}
 
     <section data-tab="extensions" hidden>
       <div class="cardhead ext-head">
-        <p class="hint">One card per extension, grouped by who it waits on. Bookmark <code>#ext-&lt;name&gt;</code> for yours.</p>
-        <input type="search" id="ext-search" placeholder="Filter by name" aria-label="Filter extensions by name" autocomplete="off">
+        <p class="hint">One card per extension, grouped by who it waits on. Filter by name, several separated by commas, then bookmark the page.</p>
+        <input type="search" id="ext-search" placeholder="Filter by name, e.g. aws, spatial" aria-label="Filter extensions by name" autocomplete="off">
       </div>
       
       
@@ -869,7 +879,7 @@ html.tv .tscroll{max-height:none}
             
             
             <ul class="ext-links">
-              <li><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/ducklake/pull/1676">Bump PR</a> <span class="pr-state">by @carlopi</span></li>
+              <li><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/ducklake/pull/1676">ducklake Bump PR #1676</a> <span class="pr-state">by @carlopi</span></li>
               
               
             </ul>
@@ -929,7 +939,7 @@ html.tv .tscroll{max-height:none}
             
             
             <ul class="ext-links">
-              <li><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/duckdb-avro/pull/138">Bump PR</a> <span class="pr-state">by @carlopi</span></li>
+              <li><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/duckdb-avro/pull/138">avro Bump PR #138</a> <span class="pr-state">by @carlopi</span></li>
               
               
             </ul>
@@ -943,11 +953,11 @@ html.tv .tscroll{max-height:none}
           <article class="ext-card card" id="ext-mysql_scanner" data-name="mysql_scanner">
             <div class="ext-title"><a href="https://github.com/duckdb/duckdb-mysql">mysql_scanner</a> <span class="tier standard">standard</span>
               <span class="badges"><span class="badge behind">Behind</span> <span class="badge patches">Carried</span></span></div>
-            <p class="ext-say"><span class="actor extension">extension</span>The bump PR in the extension repo is waiting on CI. Merge it once green.</p>
+            <p class="ext-say"><span class="actor extension">extension</span>The bump PR in the extension repo is green. Get it reviewed, then merge it.</p>
             
             
             <ul class="ext-links">
-              <li><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/duckdb-mysql/pull/334">Bump PR</a> <span class="pr-state">by @carlopi</span></li>
+              <li><span class="ci-dot passed" title="CI passed"></span><a href="https://github.com/duckdb/duckdb-mysql/pull/334">mysql_scanner Bump PR #334</a> <span class="pr-state">by @carlopi</span></li>
               
               
             </ul>
@@ -965,7 +975,7 @@ html.tv .tscroll{max-height:none}
             
             
             <ul class="ext-links">
-              <li><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/duckdb-postgres/pull/599">Bump PR</a> <span class="pr-state">by @carlopi</span></li>
+              <li><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/duckdb-postgres/pull/599">postgres_scanner Bump PR #599</a> <span class="pr-state">by @carlopi</span></li>
               
               
             </ul>
@@ -983,7 +993,7 @@ html.tv .tscroll{max-height:none}
             
             
             <ul class="ext-links">
-              <li><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/duckdb-sqlite/pull/249">Bump PR</a> <span class="pr-state">by @carlopi</span></li>
+              <li><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/duckdb-sqlite/pull/249">sqlite_scanner Bump PR #249</a> <span class="pr-state">by @carlopi</span></li>
               
               
             </ul>
@@ -1019,7 +1029,7 @@ html.tv .tscroll{max-height:none}
             
             
             <ul class="ext-links">
-              <li><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/duckdb-sqlsmith/pull/80">Patch PR</a></li>
+              <li><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/duckdb-sqlsmith/pull/80">sqlsmith Patch PR #80</a></li>
               
               
             </ul>
@@ -1188,7 +1198,7 @@ html.tv .tscroll{max-height:none}
     </section>
   </div>
 
-  <script type="application/json" id="report-summary">{"generated_at": "12-10-2026 21:01 CEST", "counts": {"pin": {"Behind": 20, "Up to date": 1}, "patches": {"Broken": 6, "Carried": 9, "None": 6}}, "attempts": {}, "run": {"workflow": null, "run_url": null, "at": "2026-10-12T19:01:13.904485+00:00", "steps": {}, "last_bump_run": {"workflow": null, "run_url": null, "at": "2026-10-09T15:01:07.884085+00:00", "steps": {}}}, "history": [{"day": "2026-10-09", "counts": {"pin": {"Behind": 21, "Up to date": 0}, "patches": {"Broken": 6, "Carried": 12, "None": 3}}, "broken": ["aws", "fts", "iceberg", "inet", "postgres_scanner", "quack"], "behind": ["avro", "aws", "azure", "delta", "ducklake", "encodings", "excel", "fts", "glue", "httpfs", "iceberg", "inet", "legacy_parser", "mysql_scanner", "postgres_scanner", "quack", "spatial", "sqlite_scanner", "sqlsmith", "unity_catalog", "vss"]}, {"day": "2026-10-12", "counts": {"pin": {"Behind": 20, "Up to date": 1}, "patches": {"Broken": 6, "Carried": 9, "None": 6}}, "broken": ["aws", "ducklake", "fts", "iceberg", "inet", "quack"], "behind": ["avro", "aws", "azure", "delta", "ducklake", "encodings", "excel", "fts", "glue", "httpfs", "iceberg", "inet", "legacy_parser", "mysql_scanner", "postgres_scanner", "quack", "spatial", "sqlite_scanner", "unity_catalog", "vss"], "states": {"aws": "B", "ducklake": "B", "iceberg": "B", "delta": "H", "httpfs": "H", "azure": "H", "spatial": "H", "fts": "B", "inet": "B", "avro": "H", "glue": "H", "mysql_scanner": "H", "postgres_scanner": "H", "sqlite_scanner": "H", "vss": "H", "encodings": "H", "excel": "H", "legacy_parser": "H", "unity_catalog": "H", "quack": "B", "sqlsmith": "K"}}], "level": "blocked"}</script>
+  <script type="application/json" id="report-summary">{"generated_at": "12-10-2026 21:11 CEST", "counts": {"pin": {"Behind": 20, "Up to date": 1}, "patches": {"Broken": 6, "Carried": 9, "None": 6}}, "attempts": {}, "run": {"workflow": null, "run_url": null, "at": "2026-10-12T19:11:26.701424+00:00", "steps": {}}, "history": [{"day": "2026-10-09", "counts": {"pin": {"Behind": 21, "Up to date": 0}, "patches": {"Broken": 6, "Carried": 12, "None": 3}}, "broken": ["aws", "fts", "iceberg", "inet", "postgres_scanner", "quack"], "behind": ["avro", "aws", "azure", "delta", "ducklake", "encodings", "excel", "fts", "glue", "httpfs", "iceberg", "inet", "legacy_parser", "mysql_scanner", "postgres_scanner", "quack", "spatial", "sqlite_scanner", "sqlsmith", "unity_catalog", "vss"]}, {"day": "2026-10-12", "counts": {"pin": {"Behind": 20, "Up to date": 1}, "patches": {"Broken": 6, "Carried": 9, "None": 6}}, "broken": ["aws", "ducklake", "fts", "iceberg", "inet", "quack"], "behind": ["avro", "aws", "azure", "delta", "ducklake", "encodings", "excel", "fts", "glue", "httpfs", "iceberg", "inet", "legacy_parser", "mysql_scanner", "postgres_scanner", "quack", "spatial", "sqlite_scanner", "unity_catalog", "vss"], "states": {"aws": "B", "ducklake": "B", "iceberg": "B", "delta": "H", "httpfs": "H", "azure": "H", "spatial": "H", "fts": "B", "inet": "B", "avro": "H", "glue": "H", "mysql_scanner": "H", "postgres_scanner": "H", "sqlite_scanner": "H", "vss": "H", "encodings": "H", "excel": "H", "legacy_parser": "H", "unity_catalog": "H", "quack": "B", "sqlsmith": "K"}}], "level": "blocked"}</script>
   <script>
   (function () {
     var table = document.getElementById('ext-table');
@@ -1269,19 +1279,57 @@ html.tv .tscroll{max-height:none}
   }
   bindCopy(document);
 
+  var extFilter = null, extHash = null, hashTimer = null;
+  (function () {
+    var box = document.getElementById('ext-search');
+    if (!box) return;
+    function terms() { return box.value.toLowerCase().split(',').map(function (t) { return t.trim(); }).filter(Boolean); }
+    function apply() {
+      var ts = terms(), any = false;
+      document.querySelectorAll('.ext-group').forEach(function (g) {
+        var cards = g.querySelectorAll('.ext-card'), shown = 0;
+        cards.forEach(function (c) {
+          var name = c.getAttribute('data-name');
+          var hit = !ts.length || ts.some(function (t) { return name.indexOf(t) !== -1; });
+          c.hidden = !hit; if (hit) shown++;
+        });
+        g.hidden = !shown;
+        g.querySelector('.count').textContent = ts.length ? shown + ' of ' + cards.length : cards.length;
+        any = any || shown > 0;
+      });
+      document.getElementById('ext-none').hidden = any;
+      // WebKit throws past 100 history writes in 30 s, so the hash follows typing with a pause, not per keystroke
+      clearTimeout(hashTimer);
+      hashTimer = setTimeout(function () { if (!box.closest('section[data-tab]').hidden) try { history.replaceState(null, '', extHash()); } catch (e) {} }, 250);
+    }
+    // The filter lives in the address bar, so a maintainer bookmarks #ext=aws,spatial for their extensions
+    extHash = function () { var ts = terms(); return ts.length ? '#ext=' + ts.map(encodeURIComponent).join(',') : '#extensions'; };
+    box.addEventListener('input', apply);
+    extFilter = function (value) { box.value = value; apply(); };
+  })();
+
   (function () {
     var TAB_KEY = 'ext-status:tab';
     function showTab(name, keepHash) {
+      // Otherwise a pending #ext= write lands after the click and the address bar names the other tab
+      clearTimeout(hashTimer);
       if (name !== 'extensions') name = 'work';
       document.querySelectorAll('section[data-tab]').forEach(function (s) { s.hidden = s.getAttribute('data-tab') !== name; });
       document.querySelectorAll('#tabs button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-tab') === name); });
       try { localStorage.setItem(TAB_KEY, name); } catch (e) {}
       // A deep link like #row-aws keeps its anchor on load; a tab click replaces it, or the next click on that anchor fires no hashchange
-      if (!keepHash && location.hash !== '#' + name) history.replaceState(null, '', '#' + name);
+      var want = name === 'extensions' && extHash ? extHash() : '#' + name;
+      if (!keepHash && location.hash !== want) history.replaceState(null, '', want);
     }
     // A deep link opens the tab whose section holds its target; an unknown hash falls back to Work
     function follow(hash, fallback) {
+      if (hash.indexOf('ext=') === 0 && extFilter) {
+        var v = hash.slice(4); try { v = decodeURIComponent(v); } catch (e) {}
+        showTab('extensions', true); extFilter(v.replace(/,/g, ', ')); return;
+      }
       var el = hash ? document.getElementById(hash) : null;
+      // The older one-card link #ext-aws filters like #ext=aws does, so a shared link shows just that card
+      if (el && el.classList.contains('ext-card') && extFilter) { showTab('extensions', true); extFilter(el.getAttribute('data-name')); return; }
       var sec = el ? el.closest('section[data-tab]') : null;
       var tab = hash === 'extensions' || hash === 'work' ? hash : sec ? sec.getAttribute('data-tab') : hash ? 'work' : fallback;
       var deep = hash && hash !== tab;
@@ -1294,26 +1342,9 @@ html.tv .tscroll{max-height:none}
     follow(location.hash.slice(1), saved || 'work');
   })();
 
-  (function () {
-    var box = document.getElementById('ext-search');
-    if (!box) return;
-    box.addEventListener('input', function () {
-      var q = box.value.trim().toLowerCase(), any = false;
-      document.querySelectorAll('.ext-group').forEach(function (g) {
-        var shown = 0;
-        g.querySelectorAll('.ext-card').forEach(function (c) { var hit = !q || c.getAttribute('data-name').indexOf(q) !== -1; c.hidden = !hit; if (hit) shown++; });
-        g.hidden = !shown;
-        any = any || shown > 0;
-      });
-      document.getElementById('ext-none').hidden = any;
-    });
-  })();
-
   // Posted marks: the channel takes one message per PR, so the page remembers which were copied (per browser)
   (function () {
     var POSTED_KEY = 'ext-status:posted:' + 'v2.0.0';
-    var MOVES_SHOWN = 10;
-    var showAllMoves = false;
     function posted() { try { return JSON.parse(localStorage.getItem(POSTED_KEY) || '{}'); } catch (e) { return {}; } }
     function save(p) { try { localStorage.setItem(POSTED_KEY, JSON.stringify(p)); } catch (e) {} }
     function markPosted(url) { var p = posted(); p[url] = new Date().toISOString(); save(p); }
@@ -1339,11 +1370,10 @@ html.tv .tscroll{max-height:none}
       var ready = document.getElementById('copy-ready');
       if (ready) ready.disabled = !readyLines().length;
     }
-    function showMoves() {
-      var moves = document.querySelectorAll('#moves > li');
-      moves.forEach(function (li, i) { li.hidden = !showAllMoves && i >= MOVES_SHOWN; });
-      var all = document.getElementById('moves-all');
-      if (all) all.hidden = showAllMoves || moves.length <= MOVES_SHOWN;
+    // Next moves and Ready to merge share one cap: the template hides items past 10, the button reveals its data-list
+    function showAll(button) {
+      document.querySelectorAll('#' + button.getAttribute('data-list') + ' > li').forEach(function (li) { li.hidden = false; });
+      button.hidden = true;
     }
     // Capture phase, so the text is in place before bindCopy's own click handler reads it
     document.addEventListener('click', function (e) {
@@ -1363,7 +1393,7 @@ html.tv .tscroll{max-height:none}
         setTimeout(applyPosted, 0);
       }
       if (e.target.closest('.unpost')) { unpost(e.target.closest('[data-posted-url]').getAttribute('data-posted-url')); applyPosted(); }
-      if (e.target.id === 'moves-all') { showAllMoves = true; showMoves(); }
+      if (e.target.hasAttribute('data-list')) showAll(e.target);
       var g = e.target.closest('.goto');
       if (g) {
         var row = document.getElementById('row-' + g.getAttribute('data-goto'));
@@ -1383,7 +1413,6 @@ html.tv .tscroll{max-height:none}
         else if (t === 'run') { var u = document.querySelector('header a[data-run]'); if (u) u.click(); }
       }
     });
-    showMoves();
     applyPosted();
   })();
 
