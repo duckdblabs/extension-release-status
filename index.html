@@ -4,44 +4,152 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DuckDB Extension Release Status</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* Shared by the status page and the release index: palette, page and heading */
-  :root {
-    color-scheme: light dark;
-    --bg: #ffffff;
-    --fg: #0d1a24;
-    --muted: #5b6b76;
-    --card-bg: #f4f8fb;
-    --border: #dde6ec;
-    --link: #2c6e91;
-    --accent: #fff100;
-    --radius-m: 10px;
-    --radius-pill: 999px;
+/* Shared by the dashboard and the site index: palette (light, dark, and the dashboard's theme toggle), page and heading */
+:root{
+  color-scheme:light;
+  --page:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
+  --grid:#e1e0d9;--axis:#c3c2b7;--border:rgba(11,11,11,.10);--wash:rgba(11,11,11,.035);
+  --s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s7:#4a3aa7;
+  --o1:#86b6ef;--o2:#5598e7;--o3:#2a78d6;--o4:#1c5cab;--o5:#104281;
+  --good:#0ca30c;--warn:#fab219;--serious:#ec835a;--crit:#d03b3b;
+  --goodtext:#006300;--badtext:#b42f2f;--warntext:#b26a00;
+  /* Series colours: overridden with the GitHub label colours when generate.py could fetch them. */
+  --must:var(--s1);--nice:var(--s2);--must-ink:#fff;--nice-ink:#fff;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --page:#0d0d0d;--surface:#1a1a19;--ink:#fff;--ink2:#c3c2b7;--muted:#898781;
+    --grid:#2c2c2a;--axis:#383835;--border:rgba(255,255,255,.10);--wash:rgba(255,255,255,.04);
+    --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s7:#9085e9;
+    --o1:#184f95;--o2:#1c5cab;--o3:#2a78d6;--o4:#5598e7;--o5:#86b6ef;
+    --goodtext:#0ca30c;--badtext:#e66767;--warntext:#f0b429;
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0a0f14;
-      --fg: #e6edf2;
-      --muted: #93a3ad;
-      --card-bg: #121a22;
-      --border: #22303b;
-      --link: #2eafff;
-      --accent: #f3e71b;
-    }
-  }
-  * { box-sizing: border-box; }
-  body {
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    padding: 0 1.25rem;
-    color: var(--fg);
-    background: var(--bg);
-  }
-  a { color: var(--link); text-decoration: none; }
-  h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
-  .brand-rule { width: 2.5rem; height: 4px; background: var(--accent); border-radius: var(--radius-pill); }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --page:#0d0d0d;--surface:#1a1a19;--ink:#fff;--ink2:#c3c2b7;--muted:#898781;
+  --grid:#2c2c2a;--axis:#383835;--border:rgba(255,255,255,.10);--wash:rgba(255,255,255,.04);
+  --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s7:#9085e9;
+  --o1:#184f95;--o2:#1c5cab;--o3:#2a78d6;--o4:#5598e7;--o5:#86b6ef;
+  --goodtext:#0ca30c;--badtext:#e66767;--warntext:#f0b429;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
+h1{font-size:34px;line-height:1.15;margin:0 0 6px;font-weight:700;letter-spacing:-.02em}
+/* Components shared by the release dashboard and the extension status page: tabs, cards, tiles, hero, status, queue, owner and data tables */
+a{color:var(--s1);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1600px;margin:0 auto;padding:24px 24px 48px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:20px}
+.sub{color:var(--ink2)}
+.hero{display:flex;flex-wrap:wrap;align-items:center;gap:20px 40px;margin-bottom:16px;padding:20px 24px}
+.countdown{display:flex;align-items:baseline;gap:10px;flex:none}
+.countdown .big{font-size:72px;font-weight:700;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.countdown .unit{font-size:18px;color:var(--ink2);font-weight:500}
+.phase{flex:1 1 520px;min-width:0}
+.phase .now{font-size:15px;color:var(--ink2);margin-bottom:12px}
+.phase .now b{color:var(--ink);font-size:18px}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.steps li{border-top:6px solid var(--grid);padding-top:10px;font-size:14px;color:var(--muted);min-width:0}
+.steps li b{display:block;font-size:16px;color:var(--ink2);font-weight:600;margin-bottom:2px}
+.steps li.done{border-top-color:var(--s3)}
+.steps li.done b::before{content:"✓ ";color:var(--s3)}
+.steps li.current{border-top-color:var(--ink)}
+.steps li.current b{color:var(--ink)}
+.steps li.current b::after{content:"Now";margin-left:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:var(--ink);color:var(--surface);border-radius:4px;padding:1px 5px;vertical-align:1px}
+.status{display:flex;align-items:flex-start;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px;max-width:560px}
+.status .ico{width:28px;height:28px;border-radius:50%;background:var(--serious);color:#0b0b0b;display:grid;place-items:center;font-weight:800;flex:none}
+.status.on_track .ico{background:var(--good);color:#fff}
+.status.at_risk .ico{background:var(--warn);color:#0b0b0b}
+.status.blocked .ico{background:var(--crit);color:#fff}
+.status b{display:block;font-size:16px}
+.status.blocked{background:color-mix(in srgb,var(--crit) 9%,var(--surface));border-color:color-mix(in srgb,var(--crit) 35%,transparent);box-shadow:inset 4px 0 0 var(--crit)}
+.status.at_risk{background:color-mix(in srgb,var(--warn) 10%,var(--surface));border-color:color-mix(in srgb,var(--warn) 40%,transparent);box-shadow:inset 4px 0 0 var(--warn)}
+.status.blocked b{color:var(--badtext)}
+.status ul{margin:4px 0 0;padding-left:16px;color:var(--ink2);font-size:13px}
+.status ul li{margin:1px 0}
+.tabs{display:flex;gap:4px;border:1px solid var(--border);border-radius:999px;padding:3px;background:var(--surface)}
+.tabs button{font:inherit;font-size:13px;font-weight:600;border:0;background:none;color:var(--ink2);border-radius:999px;padding:5px 14px;cursor:pointer}
+.tabs button.on{background:var(--ink);color:var(--surface)}
+.tabs.mini{padding:2px}.tabs.mini button{font-size:11px;padding:3px 10px}
+.cardhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
+.cardhead h2{margin:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px}
+.card h2{font-size:16px;font-weight:650;margin:0 0 4px;letter-spacing:-.01em}
+.card .hint{color:var(--muted);font-size:12px;margin:0 0 12px}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:16px}
+.kpi{display:flex;flex-direction:column}
+.kpi>svg,.kpi>.strip{margin-top:auto!important;padding-top:10px}
+.kpi .lab{color:var(--ink2);font-size:13px;overflow-wrap:anywhere}
+.kpi .val{font-size:32px;font-weight:650;line-height:1.1;margin:4px 0 2px}
+.kpi .val small{font-size:14px;color:var(--ink2);font-weight:500}
+.kpi .delta{font-size:12px;color:var(--ink2)}
+.kpi svg{display:block}
+.kpis>*,.row>*{min-width:0}
+.strip{display:flex;flex-wrap:wrap;gap:3px;margin-top:10px}
+.strip.ci{display:grid;grid-template-columns:repeat(7,14px);gap:4px}
+.strip i{width:14px;height:14px;border-radius:3px;display:grid;place-items:center;font-style:normal;font-size:10px;font-weight:800;color:#fff}
+.strip i.ok{background:var(--good)}.strip i.fail{background:var(--crit)}
+.row{display:grid;gap:16px;margin-bottom:16px}
+.r-queue{grid-template-columns:1.4fr 1fr}
+.r-main{grid-template-columns:1.75fr 1fr}
+.r-two{grid-template-columns:1fr 1fr}
+.queue{list-style:none;margin:0;padding:0;counter-reset:q}
+.queue li{display:flex;gap:10px;align-items:baseline;padding:8px 0;border-top:1px solid var(--grid);font-size:13px}
+.queue li:first-child{border-top:0}
+.queue li::before{counter-increment:q;content:counter(q);color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums;width:1.4em;flex:none;text-align:right}
+.queue .verb{font-weight:600;flex:none;white-space:nowrap}
+.queue .r0 .verb{color:var(--badtext)}
+.queue .why{color:var(--muted);font-size:12px}
+.queue .goto{margin-left:auto;font:inherit;font-size:11px;font-weight:600;color:var(--ink2);background:none;border:1px solid var(--border);border-radius:999px;padding:1px 9px;cursor:pointer;white-space:nowrap}
+.queue .goto:hover{color:var(--s1);border-color:color-mix(in srgb,var(--s1) 40%,transparent);background:color-mix(in srgb,var(--s1) 10%,transparent)}
+.queue .goto+.hide{margin-left:0}
+.queue .hide{margin-left:auto;font:inherit;font-size:11px;color:var(--muted);background:none;border:0;cursor:pointer;white-space:nowrap}
+.queue .hide:hover{color:var(--ink)}
+.queue li.hid{opacity:.55}
+.queue li.hid::before,.queue li.morerow::before{counter-increment:none;content:""}
+.queue li.morerow{border-top:0}
+.queue li:not(.hid)+li.hid{border-top:1px dashed var(--border)}
+.owners td,.owners th{padding:6px}
+#owners tr{cursor:pointer}
+.owners button.prs{background:none;border:0;padding:0;font:inherit;color:var(--s1);cursor:pointer}.owners button.prs:hover,.owners button.prs:focus-visible{text-decoration:underline}
+.owners .sml{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.owners td.over{color:var(--badtext);font-weight:600}.owners td.near{color:var(--warntext);font-weight:600}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{position:sticky;top:0;background:var(--surface);z-index:1;text-align:left;font-weight:600;color:var(--ink2);font-size:12px;padding:8px 8px;border-bottom:1px solid var(--axis);white-space:nowrap;cursor:pointer;user-select:none}
+.tbl th.num,.tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
+.tbl th:hover{color:var(--ink)}
+.tbl th .arr{color:var(--muted);font-size:10px;margin-left:3px}
+.tbl td{padding:8px;border-bottom:1px solid var(--grid);vertical-align:middle}
+.tbl tr:hover td{background:var(--wash)}
+.tbl tr.flash td{background:color-mix(in srgb,var(--s1) 22%,var(--surface))}
+.tscroll{overflow:auto;max-height:max(320px,calc(100vh - 360px));border-top:1px solid var(--axis);border-bottom:1px solid var(--axis)}
+details.fold>summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;gap:8px;margin-bottom:2px}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::before{content:"▸";color:var(--ink2);font-size:16px;line-height:1;width:12px;transition:transform .12s}
+details.fold[open]>summary::before{transform:rotate(90deg)}
+details.fold>summary h2{margin:0}
+details.fold>summary:hover h2{text-decoration:underline}
+details.fold .count{color:var(--muted);font-size:12px}
+.more{font:inherit;font-size:12px;font-weight:600;color:var(--s1);background:none;border:0;padding:10px 0 0;cursor:pointer}
+.more:hover{text-decoration:underline}
+.filters{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.filters button{font:inherit;font-size:12px;border:1px solid var(--border);background:var(--page);color:var(--ink2);border-radius:999px;padding:3px 12px;cursor:pointer}
+.filters button.on{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.filters .ghlink{margin-left:auto}
+html.tv .wrap{max-width:1900px}
+html.tv .countdown .big{font-size:120px}
+html.tv .kpi .val{font-size:44px}
+html.tv .card h2{font-size:22px}html.tv .hint{font-size:15px}
+html.tv .kpi .lab{font-size:17px}html.tv .phase .now{font-size:20px}html.tv .phase .now b{font-size:24px}
+html.tv .steps{gap:12px}html.tv .steps li{border-top-width:8px;padding-top:14px;font-size:18px}html.tv .steps li b{font-size:22px;margin-bottom:4px}
+html.tv .steps li.current b::after{font-size:12px;padding:2px 7px}
+html.tv .tscroll{max-height:none}
+@media (max-width:1100px){.r-queue{grid-template-columns:1fr}.tbl.owners{width:auto;max-width:640px}}
+@media (max-width:980px){.kpis{grid-template-columns:repeat(2,1fr)}.kpis>:last-child:nth-child(odd){grid-column:1/-1}.r-main,.r-two{grid-template-columns:1fr}}
+@media (max-width:520px){.kpi .val{font-size:26px}
+  .hero{padding:16px}.countdown .big{font-size:56px}.steps{grid-template-columns:repeat(2,1fr);row-gap:12px}}
   :root {
     --ok-bg: #d8f3dc;
     --ok-fg: #1b5e20;
@@ -61,12 +169,10 @@
     }
   }
   body { max-width: 640px; margin: 2.5rem auto; }
-  h1 { margin-bottom: 0.35rem; }
-  .brand-rule { margin-bottom: 1.5rem; }
   ul { list-style: none; margin: 0; padding: 0; }
   li {
     border: 1px solid var(--border);
-    border-radius: var(--radius-m);
+    border-radius: 12px;
     margin-bottom: 0.6rem;
   }
   li a {
@@ -77,13 +183,13 @@
     font-weight: 600;
     font-size: 1.05rem;
   }
-  li:hover { background: var(--card-bg); }
+  li:hover { background: var(--surface); }
   .empty { color: var(--muted); }
   .lvl {
     font-size: 0.7rem;
     font-weight: 600;
     padding: 0.25rem 0.65rem;
-    border-radius: var(--radius-pill);
+    border-radius: 999px;
   }
   .lvl.on_track { background: var(--ok-bg); color: var(--ok-fg); }
   .lvl.at_risk { background: var(--behind-bg); color: var(--behind-fg); }
@@ -91,8 +197,8 @@
 </style>
 </head>
 <body>
-  <h1>DuckDB Extension Release Status</h1>
-  <div class="brand-rule"></div>
+  <div class="wrap">
+  <header><div><h1>DuckDB Extension Release Status</h1><div class="sub">One page per release; newest first.</div></div></header>
   
   <ul>
     
@@ -112,5 +218,6 @@
     
   </ul>
   
+  </div>
 </body>
 </html>
