@@ -123,7 +123,8 @@ details.fold>summary::before{content:"▸";color:var(--ink2);font-size:16px;line
 details.fold[open]>summary::before{transform:rotate(90deg)}
 details.fold>summary h2{margin:0}
 details.fold>summary:hover h2{text-decoration:underline}
-details.fold .count{color:var(--muted);font-size:12px}details.fold .count:empty{display:none}
+details.fold .count,.card h2 .count{color:var(--muted);font-size:12px;font-weight:400}details.fold .count:empty{display:none}
+details.fold .count:not(:empty)+.count:not(:empty)::before{content:"· "}
 details.fold .count.stale{color:var(--warntext);font-weight:600}
 .more{font:inherit;font-size:12px;font-weight:600;color:var(--s1);background:none;border:0;padding:10px 0 0;cursor:pointer}
 .more:hover{text-decoration:underline}
