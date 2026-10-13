@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DuckDB Extension Release Status</title>
 <style>
-/* Shared by the dashboard and the site index: palette (light, dark, and the dashboard's theme toggle), page and heading */
+/* Shared by the dashboard and the site index: palette (light and dark), page and heading */
 :root{
   color-scheme:light;
   --page:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
@@ -19,7 +19,7 @@
   --must:var(--s1);--nice:var(--s2);--must-ink:#fff;--nice-ink:#fff;
 }
 @media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
+  :root{
     color-scheme:dark;
     --page:#0d0d0d;--surface:#1a1a19;--ink:#fff;--ink2:#c3c2b7;--muted:#898781;
     --grid:#2c2c2a;--axis:#383835;--border:rgba(255,255,255,.10);--wash:rgba(255,255,255,.04);
@@ -27,14 +27,6 @@
     --o1:#184f95;--o2:#1c5cab;--o3:#2a78d6;--o4:#5598e7;--o5:#86b6ef;
     --goodtext:#0ca30c;--badtext:#e66767;--warntext:#f0b429;
   }
-}
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --page:#0d0d0d;--surface:#1a1a19;--ink:#fff;--ink2:#c3c2b7;--muted:#898781;
-  --grid:#2c2c2a;--axis:#383835;--border:rgba(255,255,255,.10);--wash:rgba(255,255,255,.04);
-  --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s7:#9085e9;
-  --o1:#184f95;--o2:#1c5cab;--o3:#2a78d6;--o4:#5598e7;--o5:#86b6ef;
-  --goodtext:#0ca30c;--badtext:#e66767;--warntext:#f0b429;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--page);color:var(--ink);font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
