@@ -85,7 +85,7 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .strip i{width:14px;height:14px;border-radius:3px;display:grid;place-items:center;font-style:normal;font-size:10px;font-weight:800;color:#fff}
 .strip i.ok{background:var(--good)}.strip i.fail{background:var(--crit)}
 .row{display:grid;gap:16px;margin-bottom:16px}
-.r-queue{grid-template-columns:1.4fr 1fr;align-items:start}
+.r-queue{grid-template-columns:1.4fr 1fr}
 .r-main{grid-template-columns:1.75fr 1fr}
 .r-two{grid-template-columns:1fr 1fr}
 .queue{list-style:none;margin:0;padding:0;counter-reset:q}
@@ -97,13 +97,12 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .queue .why{color:var(--muted);font-size:12px}
 .queue .goto{margin-left:auto;font:inherit;font-size:11px;font-weight:600;color:var(--ink2);background:none;border:1px solid var(--border);border-radius:999px;padding:1px 9px;cursor:pointer;white-space:nowrap}
 .queue .goto:hover{color:var(--s1);border-color:color-mix(in srgb,var(--s1) 40%,transparent);background:color-mix(in srgb,var(--s1) 10%,transparent)}
-.queue .goto+.hide{margin-left:0}
-.queue .hide{margin-left:auto;font:inherit;font-size:11px;color:var(--muted);background:none;border:0;cursor:pointer;white-space:nowrap}
-.queue .hide:hover{color:var(--ink)}
-.queue li.hid{opacity:.55}
-.queue li.hid::before,.queue li.morerow::before{counter-increment:none;content:""}
+.queue input.done{margin:2px 0 0;flex:none;align-self:flex-start;accent-color:var(--s1)}
+.queue li.done>:not(input,textarea){opacity:.55}
+.queue li.done .verb{text-decoration:line-through}
+.queue textarea.note{flex:1 1 8em;min-width:6em;font-size:12px;border-color:var(--border)}
+.queue li.morerow::before{counter-increment:none;content:""}
 .queue li.morerow{border-top:0}
-.queue li:not(.hid)+li.hid{border-top:1px dashed var(--border)}
 .owners td,.owners th{padding:6px}
 #owners tr{cursor:pointer}
 .owners button.prs{background:none;border:0;padding:0;font:inherit;color:var(--s1);cursor:pointer}.owners button.prs:hover,.owners button.prs:focus-visible{text-decoration:underline}
@@ -124,7 +123,8 @@ details.fold>summary::before{content:"▸";color:var(--ink2);font-size:16px;line
 details.fold[open]>summary::before{transform:rotate(90deg)}
 details.fold>summary h2{margin:0}
 details.fold>summary:hover h2{text-decoration:underline}
-details.fold .count{color:var(--muted);font-size:12px}
+details.fold .count{color:var(--muted);font-size:12px}details.fold .count:empty{display:none}
+details.fold .count.stale{color:var(--warntext);font-weight:600}
 .more{font:inherit;font-size:12px;font-weight:600;color:var(--s1);background:none;border:0;padding:10px 0 0;cursor:pointer}
 .more:hover{text-decoration:underline}
 .filters{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
@@ -199,7 +199,7 @@ html.tv .tscroll{max-height:none}
       <span>v2.0.0</span>
       
       
-        <span class="lvl blocked">Blocked</span>
+        <span class="lvl at_risk">At risk</span>
       
     </a></li>
     
