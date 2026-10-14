@@ -94,15 +94,25 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .queue li::before{counter-increment:q;content:counter(q);color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums;width:1.4em;flex:none;text-align:right}
 .queue .verb{font-weight:600;flex:none;white-space:nowrap}
 .queue .r0 .verb{color:var(--badtext)}
+/* The verb wraps first (20x the shrink weight); only then does the why ellipsize. The who span (first .why) never shrinks. */
+.queue .k-check .verb{white-space:normal;flex:0 20 auto;font-weight:500}
+.queue .k-check .verb code{font-size:12px;overflow-wrap:anywhere}
+.queue .k-check .why{flex:none;white-space:nowrap}
+.queue .k-check span.why:last-of-type{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
 .queue .why{color:var(--muted);font-size:12px}
 .queue .goto{margin-left:auto;font:inherit;font-size:11px;font-weight:600;color:var(--ink2);background:none;border:1px solid var(--border);border-radius:999px;padding:1px 9px;cursor:pointer;white-space:nowrap}
-.queue .goto:hover{color:var(--s1);border-color:color-mix(in srgb,var(--s1) 40%,transparent);background:color-mix(in srgb,var(--s1) 10%,transparent)}
+.queue .goto:hover{color:var(--s1);border-color:color-mix(in srgb,var(--s1) 40%,transparent);background:color-mix(in srgb,var(--s1) 10%,transparent);text-decoration:none}
 .queue input.done{margin:2px 0 0;flex:none;align-self:flex-start;accent-color:var(--s1)}
 .queue li.done>:not(input,textarea){opacity:.55}
 .queue li.done .verb{text-decoration:line-through}
 .queue textarea.note{flex:1 1 8em;min-width:6em;font-size:12px;border-color:var(--border)}
-.queue li.morerow::before{counter-increment:none;content:""}
+.queue li.morerow::before,.queue li.sec::before{counter-increment:none;content:""}
 .queue li.morerow{border-top:0}
+.queue li.sec{padding:18px 0 6px;border-top:2px solid var(--axis);font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink)}
+.queue li.sec:first-child{padding-top:6px;border-top:0}
+.queue li.sec .verb{font-weight:700}
+.queue li.sec .count{color:var(--muted)}
+.queue li.sec+li{border-top:0}
 .owners td,.owners th{padding:6px}
 #owners tr{cursor:pointer}
 .owners button.prs{background:none;border:0;padding:0;font:inherit;color:var(--s1);cursor:pointer}.owners button.prs:hover,.owners button.prs:focus-visible{text-decoration:underline}
@@ -142,7 +152,7 @@ html.tv .steps li.current b::after{font-size:12px;padding:2px 7px}
 html.tv .tscroll{max-height:none}
 @media (max-width:1100px){.r-queue{grid-template-columns:1fr}.tbl.owners{width:auto;max-width:640px}}
 @media (max-width:980px){.kpis{grid-template-columns:repeat(2,1fr)}.kpis>:last-child:nth-child(odd){grid-column:1/-1}.r-main,.r-two{grid-template-columns:1fr}}
-@media (max-width:520px){.kpi .val{font-size:26px}
+@media (max-width:520px){.kpi .val{font-size:26px}.queue .k-check .verb{flex-shrink:1}.queue .k-check .why{flex:0 1 auto;white-space:normal}.queue .k-check span.why:last-of-type{min-width:auto;overflow:visible}
   .hero{padding:16px}.countdown .big{font-size:56px}.steps{grid-template-columns:repeat(2,1fr);row-gap:12px}}
   :root {
     --ok-bg: #d8f3dc;
@@ -200,7 +210,7 @@ html.tv .tscroll{max-height:none}
       <span>v2.0.0</span>
       
       
-        <span class="lvl at_risk">At risk</span>
+        <span class="lvl blocked">Blocked</span>
       
     </a></li>
     
