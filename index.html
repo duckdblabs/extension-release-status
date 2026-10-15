@@ -17,6 +17,7 @@
   --goodtext:#006300;--badtext:#b42f2f;--warntext:#b26a00;
   /* Series colours: overridden with the GitHub label colours when generate.py could fetch them. */
   --blocker:#9f1d1d;--must:var(--s1);--nice:var(--s2);--blocker-ink:#fff;--must-ink:#fff;--nice-ink:#fff;
+  --blocker-line:var(--blocker);
 }
 @media (prefers-color-scheme:dark){
   :root{
@@ -26,6 +27,7 @@
     --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s7:#9085e9;
     --o1:#184f95;--o2:#1c5cab;--o3:#2a78d6;--o4:#5598e7;--o5:#86b6ef;
     --goodtext:#0ca30c;--badtext:#e66767;--warntext:#f0b429;
+    --blocker-line:#f07892;
   }
 }
 *{box-sizing:border-box}
@@ -152,8 +154,8 @@ html.tv .tscroll{max-height:none}
 @media (max-width:1100px){.r-queue{grid-template-columns:1fr}.tbl.owners{width:auto;max-width:640px}}
 @media (max-width:980px){.kpis{grid-template-columns:repeat(2,1fr)}.kpis>:last-child:nth-child(odd){grid-column:1/-1}.r-main,.r-two{grid-template-columns:1fr}}
 @media (max-width:520px){.kpi .val{font-size:26px}
-  /* The who and why spans each take their own line under the verb; beside it they shrink into word-per-line columns. */
-  .queue li:is(.k-check,.k-subissue){flex-wrap:wrap;row-gap:2px}.queue :is(.k-check,.k-subissue) .verb{flex:1 1 0}.queue :is(.k-check,.k-subissue) .why{white-space:normal;flex:1 1 100%;order:3;padding-left:48px}.queue :is(.k-check,.k-subissue) span.why:last-of-type{max-width:none}
+  /* The who and why share one caption line under the verb (the ::after breaks the row); a basis-0 why can't wrap away from the who. */
+  .queue li:is(.k-check,.k-subissue){flex-wrap:wrap;row-gap:2px}.queue li:is(.k-check,.k-subissue)::after{content:"";flex-basis:100%;order:2}.queue :is(.k-check,.k-subissue) .verb{flex:1 1 0}.queue :is(.k-check,.k-subissue) .why{white-space:normal;order:3}.queue :is(.k-check,.k-subissue) span.why:last-of-type{max-width:none;flex:1 1 0;min-width:0}.queue :is(.k-check,.k-subissue) .verb+.why{padding-left:48px}.queue :is(.k-check,.k-subissue) .verb+.why .sep{display:none}
   .hero{padding:16px}.countdown .big{font-size:56px}.steps{grid-template-columns:repeat(2,1fr);row-gap:12px}}
   :root {
     --ok-bg: #d8f3dc;
