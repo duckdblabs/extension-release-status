@@ -5,28 +5,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DuckDB Extension Release Status</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Ccircle cx='250' cy='250' r='250' fill='%231a1a1a'/%3E%3Cg fill='%23fff100'%3E%3Ccircle cx='190.05' cy='250' r='103.41'/%3E%3Cpath d='M376.138,212.784h-49.147v74.433h49.147c20.554,0,37.216-16.663,37.216-37.217S396.692,212.784,376.138,212.784Z'/%3E%3C/g%3E%3C/svg%3E">
 <style>
-/* Shared by the dashboard and the site index: palette (light and dark), page and heading */
+/* Shared palette from the DuckDB design manual (duckdb.org/design/manual): brand yellow, the two secondaries, and its syntax palette for states. */
 :root{
   color-scheme:light;
-  --page:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
-  --grid:#e1e0d9;--axis:#c3c2b7;--border:rgba(11,11,11,.10);--wash:rgba(11,11,11,.035);
-  --s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s7:#4a3aa7;
-  --o1:#86b6ef;--o2:#5598e7;--o3:#2a78d6;--o4:#1c5cab;--o5:#104281;
-  --good:#0ca30c;--warn:#fab219;--serious:#ec835a;--crit:#d03b3b;
-  --goodtext:#006300;--badtext:#b42f2f;--warntext:#b26a00;
+  --page:#f9f9f7;--surface:#fcfcfb;--ink:#0d0d0d;--ink2:#52514e;--muted:#898781;
+  --grid:#e1e0d9;--axis:#c3c2b7;--border:rgba(13,13,13,.10);--wash:rgba(13,13,13,.035);
+  --brand:#fff100;--brand-ink:#0d0d0d;--logo-disc:#1a1a1a;--logo-duck:#fff100;
+  /* Maya Blue and Hot Orange fail AA under white or as text on white, so pills on them take dark ink and links use --link. */
+  --s1:#2eafff;--s2:#ff6900;--s3:#008700;--s7:#7b68ee;--link:#005fff;
+  --o1:#c4e8ff;--o2:#86d0ff;--o3:#2eafff;--o4:#1684c9;--o5:#0c5a8c;
+  --good:#008700;--warn:#fab219;--serious:#ff6900;--crit:#d70000;
+  --goodtext:#008700;--badtext:#d70000;--warntext:#875f00;
   /* Series colours: overridden with the GitHub label colours when generate.py could fetch them. */
-  --blocker:#9f1d1d;--must:var(--s1);--nice:var(--s2);--blocker-ink:#fff;--must-ink:#fff;--nice-ink:#fff;
+  --blocker:#9f1d1d;--must:var(--s1);--nice:var(--s2);--blocker-ink:#fff;--must-ink:#0d0d0d;--nice-ink:#0d0d0d;
   --blocker-line:var(--blocker);
 }
 @media (prefers-color-scheme:dark){
   :root{
     color-scheme:dark;
-    --page:#0d0d0d;--surface:#1a1a19;--ink:#fff;--ink2:#c3c2b7;--muted:#898781;
-    --grid:#2c2c2a;--axis:#383835;--border:rgba(255,255,255,.10);--wash:rgba(255,255,255,.04);
-    --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s7:#9085e9;
-    --o1:#184f95;--o2:#1c5cab;--o3:#2a78d6;--o4:#5598e7;--o5:#86b6ef;
-    --goodtext:#0ca30c;--badtext:#e66767;--warntext:#f0b429;
+    --page:#0d0d0d;--surface:#1e1e1e;--ink:#fff;--ink2:#c3c2b7;--muted:#898781;
+    --grid:#2c2c2c;--axis:#383838;--border:rgba(255,255,255,.10);--wash:rgba(255,255,255,.04);
+    --logo-disc:#fff100;--logo-duck:#1d1d1b;
+    --s3:#00af00;--s7:#9d8fff;--link:#5fafff;
+    --o1:#0c5a8c;--o2:#1684c9;--o3:#2eafff;--o4:#86d0ff;--o5:#c4e8ff;
+    --good:#00af00;
+    --goodtext:#00af00;--badtext:#ff6a6a;--warntext:#ffd700;
     --blocker-line:#ff4d2e;
   }
 }
@@ -40,8 +45,10 @@ html.tint-ext{--page:#e5ddf7;--surface:#f5f1fd;--grid:#d8d0ef;--axis:#aa9fcd;--i
 *{box-sizing:border-box}
 body{margin:0;background:var(--page);color:var(--ink);font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
 h1{font-size:34px;line-height:1.15;margin:0 0 6px;font-weight:700;letter-spacing:-.02em}
+.brand{display:flex;align-items:flex-start;gap:14px;min-width:0}
+.brand-mark{flex:none;width:40px;height:40px}
 /* Components shared by the release dashboard and the extension status page: tabs, cards, tiles, hero, status, queue, owner and data tables */
-a{color:var(--s1);text-decoration:none}a:hover{text-decoration:underline}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
 .wrap{max-width:1600px;margin:0 auto;padding:24px 24px 48px}
 header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:20px}
 .sub{color:var(--ink2)}
@@ -53,17 +60,22 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .phase .now{font-size:15px;color:var(--ink2);margin-bottom:12px}
 .phase .now b{color:var(--ink);font-size:18px}
 .steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.steps li{border-top:6px solid var(--grid);padding-top:10px;font-size:14px;color:var(--muted);min-width:0}
+/* Railroad track: the rail's right overhang must equal the .steps gap (6px, 12px on tv) so it joins the next junction. */
+.steps li{position:relative;padding-top:24px;font-size:14px;color:var(--muted);min-width:0}
+.steps li::before{content:"";position:absolute;left:0;right:-6px;top:6px;height:3px;border-radius:2px;background:var(--grid)}
+.steps li:last-child::before{right:0}
+.steps li::after{content:"";position:absolute;left:0;top:0;width:15px;height:15px;border-radius:50%;background:var(--surface);border:3px solid var(--axis)}
 .steps li b{display:block;font-size:16px;color:var(--ink2);font-weight:600;margin-bottom:2px}
-.steps li.done{border-top-color:var(--s3)}
+.steps li.done::before{background:var(--s3)}
+.steps li.done::after{background:var(--s3);border-color:var(--s3)}
 .steps li.done b::before{content:"✓ ";color:var(--s3)}
-.steps li.current{border-top-color:var(--ink)}
+.steps li.current::after{background:var(--brand);border-color:var(--ink)}
 .steps li.current b{color:var(--ink)}
-.steps li.current b::after{content:"Now";margin-left:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:var(--ink);color:var(--surface);border-radius:4px;padding:1px 5px;vertical-align:1px}
+.steps li.current b::after{content:"Now";margin-left:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:var(--brand);color:var(--brand-ink);border-radius:4px;padding:1px 5px;vertical-align:1px}
 .status{display:flex;align-items:flex-start;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px;max-width:560px}
-.status .ico{width:28px;height:28px;border-radius:50%;background:var(--serious);color:#0b0b0b;display:grid;place-items:center;font-weight:800;flex:none}
+.status .ico{width:28px;height:28px;border-radius:50%;background:var(--serious);color:var(--brand-ink);display:grid;place-items:center;font-weight:800;flex:none}
 .status.on_track .ico{background:var(--good);color:#fff}
-.status.at_risk .ico{background:var(--warn);color:#0b0b0b}
+.status.at_risk .ico{background:var(--warn);color:var(--brand-ink)}
 .status.blocked .ico{background:var(--crit);color:#fff}
 .status b{display:block;font-size:16px}
 /* 22 and 24%, not 9 and 10: a tinted surface swallows a wash that thin, and this card has to win the eye */
@@ -112,7 +124,7 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .queue :is(.k-check,.k-subissue) span.why:last-of-type{max-width:40%;overflow:hidden;text-overflow:ellipsis;overflow-wrap:anywhere}
 .queue .why{color:var(--muted);font-size:12px}
 .queue .goto{margin-left:auto;font:inherit;font-size:11px;font-weight:600;color:var(--ink2);background:none;border:1px solid var(--border);border-radius:999px;padding:1px 9px;cursor:pointer;white-space:nowrap}
-.queue .goto:hover{color:var(--s1);border-color:color-mix(in srgb,var(--s1) 40%,transparent);background:color-mix(in srgb,var(--s1) 10%,transparent);text-decoration:none}
+.queue .goto:hover{color:var(--link);border-color:color-mix(in srgb,var(--link) 40%,transparent);background:color-mix(in srgb,var(--link) 10%,transparent);text-decoration:none}
 .queue input.done{margin:2px 0 0;flex:none;align-self:flex-start;accent-color:var(--s1)}
 .queue li.done>:not(input,textarea){opacity:.55}
 .queue li.done .verb{text-decoration:line-through}
@@ -126,7 +138,7 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .queue li.sec+li{border-top:0}
 .owners td,.owners th{padding:6px}
 #owners tr{cursor:pointer}
-.owners button.prs{background:none;border:0;padding:0;font:inherit;color:var(--s1);cursor:pointer}.owners button.prs:hover,.owners button.prs:focus-visible{text-decoration:underline}
+.owners button.prs{background:none;border:0;padding:0;font:inherit;color:var(--link);cursor:pointer}.owners button.prs:hover,.owners button.prs:focus-visible{text-decoration:underline}
 .tbl{width:100%;border-collapse:collapse;font-size:13px}
 .tbl th{position:sticky;top:0;background:var(--surface);z-index:1;text-align:left;font-weight:600;color:var(--ink2);font-size:12px;padding:8px 8px;border-bottom:1px solid var(--axis);white-space:nowrap;cursor:pointer;user-select:none}
 .tbl th.num,.tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
@@ -145,7 +157,7 @@ details.fold>summary:hover h2{text-decoration:underline}
 details.fold .count,.card h2 .count{color:var(--muted);font-size:12px;font-weight:400}details.fold .count:empty{display:none}
 details.fold .count:not(:empty)+.count:not(:empty)::before{content:"· "}
 details.fold .count.stale{color:var(--warntext);font-weight:600}
-.more{font:inherit;font-size:12px;font-weight:600;color:var(--s1);background:none;border:0;padding:10px 0 0;cursor:pointer}
+.more{font:inherit;font-size:12px;font-weight:600;color:var(--link);background:none;border:0;padding:10px 0 0;cursor:pointer}
 .more:hover{text-decoration:underline}
 .filters{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
 .filters button{font:inherit;font-size:12px;border:1px solid var(--border);background:var(--page);color:var(--ink2);border-radius:999px;padding:3px 12px;cursor:pointer}
@@ -156,7 +168,7 @@ html.tv .countdown .big{font-size:120px}
 html.tv .kpi .val{font-size:44px}
 html.tv .card h2{font-size:22px}html.tv .hint{font-size:15px}
 html.tv .kpi .lab{font-size:17px}html.tv .phase .now{font-size:20px}html.tv .phase .now b{font-size:24px}
-html.tv .steps{gap:12px}html.tv .steps li{border-top-width:8px;padding-top:14px;font-size:18px}html.tv .steps li b{font-size:22px;margin-bottom:4px}
+html.tv .steps{gap:12px}html.tv .steps li{padding-top:30px;font-size:18px}html.tv .steps li::before{height:4px;top:8px;right:-12px}html.tv .steps li::after{width:20px;height:20px;border-width:4px}html.tv .steps li b{font-size:22px;margin-bottom:4px}
 html.tv .steps li.current b::after{font-size:12px;padding:2px 7px}
 html.tv .tscroll{max-height:none}
 @media (max-width:1250px){.kpis{grid-template-columns:repeat(3,1fr)}}
@@ -165,7 +177,7 @@ html.tv .tscroll{max-height:none}
 @media (max-width:520px){.kpi .val{font-size:26px}
   /* The who and why share one caption line under the verb (the ::after breaks the row); a basis-0 why can't wrap away from the who. */
   .queue li:is(.k-check,.k-subissue){flex-wrap:wrap;row-gap:2px}.queue li:is(.k-check,.k-subissue)::after{content:"";flex-basis:100%;order:2}.queue :is(.k-check,.k-subissue) .verb{flex:1 1 0}.queue :is(.k-check,.k-subissue) .why{white-space:normal;order:3}.queue :is(.k-check,.k-subissue) span.why:last-of-type{max-width:none;flex:1 1 0;min-width:0}.queue :is(.k-check,.k-subissue) .verb+.why{padding-left:48px}.queue :is(.k-check,.k-subissue) .verb+.why .sep{display:none}
-  .hero{padding:16px}.countdown .big{font-size:56px}.steps{grid-template-columns:repeat(2,1fr);row-gap:12px}}
+  .hero{padding:16px}.countdown .big{font-size:56px}.steps{grid-template-columns:repeat(2,1fr);row-gap:12px}.steps li:nth-child(2n)::before{right:0}}
   :root {
     --ok-bg: #d8f3dc;
     --ok-fg: #1b5e20;
@@ -214,7 +226,7 @@ html.tv .tscroll{max-height:none}
 </head>
 <body>
   <div class="wrap">
-  <header><div><h1>DuckDB Extension Release Status</h1><div class="sub">One page per release; newest first.</div></div></header>
+  <header><div class="brand"><svg class="brand-mark" viewBox="0 0 500 500" role="img" aria-label="DuckDB"><circle cx="250" cy="250" r="250" fill="var(--logo-disc)"/><g fill="var(--logo-duck)"><circle cx="190.05" cy="250" r="103.41"/><path d="M376.138,212.784h-49.147v74.433h49.147c20.554,0,37.216-16.663,37.216-37.217S396.692,212.784,376.138,212.784Z"/></g></svg><div><h1>DuckDB Extension Release Status</h1><div class="sub">One page per release; newest first.</div></div></div></header>
   
   <ul>
     

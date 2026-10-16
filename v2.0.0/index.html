@@ -5,31 +5,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DuckDB Extension Status &mdash; v2.0.0</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Ccircle cx='250' cy='250' r='250' fill='%231a1a1a'/%3E%3Cg fill='%23fff100'%3E%3Ccircle cx='190.05' cy='250' r='103.41'/%3E%3Cpath d='M376.138,212.784h-49.147v74.433h49.147c20.554,0,37.216-16.663,37.216-37.217S396.692,212.784,376.138,212.784Z'/%3E%3C/g%3E%3C/svg%3E">
 <style>
-/* Shared by the dashboard and the site index: palette (light and dark), page and heading */
+/* Shared palette from the DuckDB design manual (duckdb.org/design/manual): brand yellow, the two secondaries, and its syntax palette for states. */
 :root{
   color-scheme:light;
-  --page:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
-  --grid:#e1e0d9;--axis:#c3c2b7;--border:rgba(11,11,11,.10);--wash:rgba(11,11,11,.035);
-  --s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s7:#4a3aa7;
-  --o1:#86b6ef;--o2:#5598e7;--o3:#2a78d6;--o4:#1c5cab;--o5:#104281;
-  --good:#0ca30c;--warn:#fab219;--serious:#ec835a;--crit:#d03b3b;
-  --goodtext:#006300;--badtext:#b42f2f;--warntext:#b26a00;
+  --page:#f9f9f7;--surface:#fcfcfb;--ink:#0d0d0d;--ink2:#52514e;--muted:#898781;
+  --grid:#e1e0d9;--axis:#c3c2b7;--border:rgba(13,13,13,.10);--wash:rgba(13,13,13,.035);
+  --brand:#fff100;--brand-ink:#0d0d0d;--logo-disc:#1a1a1a;--logo-duck:#fff100;
+  /* Maya Blue and Hot Orange fail AA under white or as text on white, so pills on them take dark ink and links use --link. */
+  --s1:#2eafff;--s2:#ff6900;--s3:#008700;--s7:#7b68ee;--link:#005fff;
+  --o1:#c4e8ff;--o2:#86d0ff;--o3:#2eafff;--o4:#1684c9;--o5:#0c5a8c;
+  --good:#008700;--warn:#fab219;--serious:#ff6900;--crit:#d70000;
+  --goodtext:#008700;--badtext:#d70000;--warntext:#875f00;
   /* Series colours: overridden with the GitHub label colours when generate.py could fetch them. */
-  --blocker:#9f1d1d;--must:var(--s1);--nice:var(--s2);--blocker-ink:#fff;--must-ink:#fff;--nice-ink:#fff;
+  --blocker:#9f1d1d;--must:var(--s1);--nice:var(--s2);--blocker-ink:#fff;--must-ink:#0d0d0d;--nice-ink:#0d0d0d;
   --blocker-line:var(--blocker);
 }
 @media (prefers-color-scheme:dark){
   :root{
     color-scheme:dark;
-    --page:#0d0d0d;--surface:#1a1a19;--ink:#fff;--ink2:#c3c2b7;--muted:#898781;
-    --grid:#2c2c2a;--axis:#383835;--border:rgba(255,255,255,.10);--wash:rgba(255,255,255,.04);
-    --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s7:#9085e9;
-    --o1:#184f95;--o2:#1c5cab;--o3:#2a78d6;--o4:#5598e7;--o5:#86b6ef;
-    --goodtext:#0ca30c;--badtext:#e66767;--warntext:#f0b429;
+    --page:#0d0d0d;--surface:#1e1e1e;--ink:#fff;--ink2:#c3c2b7;--muted:#898781;
+    --grid:#2c2c2c;--axis:#383838;--border:rgba(255,255,255,.10);--wash:rgba(255,255,255,.04);
+    --logo-disc:#fff100;--logo-duck:#1d1d1b;
+    --s3:#00af00;--s7:#9d8fff;--link:#5fafff;
+    --o1:#0c5a8c;--o2:#1684c9;--o3:#2eafff;--o4:#86d0ff;--o5:#c4e8ff;
+    --good:#00af00;
+    --goodtext:#00af00;--badtext:#ff6a6a;--warntext:#ffd700;
     --blocker-line:#ff4d2e;
   }
 }
@@ -43,8 +45,10 @@ html.tint-ext{--page:#e5ddf7;--surface:#f5f1fd;--grid:#d8d0ef;--axis:#aa9fcd;--i
 *{box-sizing:border-box}
 body{margin:0;background:var(--page);color:var(--ink);font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
 h1{font-size:34px;line-height:1.15;margin:0 0 6px;font-weight:700;letter-spacing:-.02em}
+.brand{display:flex;align-items:flex-start;gap:14px;min-width:0}
+.brand-mark{flex:none;width:40px;height:40px}
 /* Components shared by the release dashboard and the extension status page: tabs, cards, tiles, hero, status, queue, owner and data tables */
-a{color:var(--s1);text-decoration:none}a:hover{text-decoration:underline}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
 .wrap{max-width:1600px;margin:0 auto;padding:24px 24px 48px}
 header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:20px}
 .sub{color:var(--ink2)}
@@ -56,17 +60,22 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .phase .now{font-size:15px;color:var(--ink2);margin-bottom:12px}
 .phase .now b{color:var(--ink);font-size:18px}
 .steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.steps li{border-top:6px solid var(--grid);padding-top:10px;font-size:14px;color:var(--muted);min-width:0}
+/* Railroad track: the rail's right overhang must equal the .steps gap (6px, 12px on tv) so it joins the next junction. */
+.steps li{position:relative;padding-top:24px;font-size:14px;color:var(--muted);min-width:0}
+.steps li::before{content:"";position:absolute;left:0;right:-6px;top:6px;height:3px;border-radius:2px;background:var(--grid)}
+.steps li:last-child::before{right:0}
+.steps li::after{content:"";position:absolute;left:0;top:0;width:15px;height:15px;border-radius:50%;background:var(--surface);border:3px solid var(--axis)}
 .steps li b{display:block;font-size:16px;color:var(--ink2);font-weight:600;margin-bottom:2px}
-.steps li.done{border-top-color:var(--s3)}
+.steps li.done::before{background:var(--s3)}
+.steps li.done::after{background:var(--s3);border-color:var(--s3)}
 .steps li.done b::before{content:"✓ ";color:var(--s3)}
-.steps li.current{border-top-color:var(--ink)}
+.steps li.current::after{background:var(--brand);border-color:var(--ink)}
 .steps li.current b{color:var(--ink)}
-.steps li.current b::after{content:"Now";margin-left:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:var(--ink);color:var(--surface);border-radius:4px;padding:1px 5px;vertical-align:1px}
+.steps li.current b::after{content:"Now";margin-left:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:var(--brand);color:var(--brand-ink);border-radius:4px;padding:1px 5px;vertical-align:1px}
 .status{display:flex;align-items:flex-start;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px;max-width:560px}
-.status .ico{width:28px;height:28px;border-radius:50%;background:var(--serious);color:#0b0b0b;display:grid;place-items:center;font-weight:800;flex:none}
+.status .ico{width:28px;height:28px;border-radius:50%;background:var(--serious);color:var(--brand-ink);display:grid;place-items:center;font-weight:800;flex:none}
 .status.on_track .ico{background:var(--good);color:#fff}
-.status.at_risk .ico{background:var(--warn);color:#0b0b0b}
+.status.at_risk .ico{background:var(--warn);color:var(--brand-ink)}
 .status.blocked .ico{background:var(--crit);color:#fff}
 .status b{display:block;font-size:16px}
 /* 22 and 24%, not 9 and 10: a tinted surface swallows a wash that thin, and this card has to win the eye */
@@ -115,7 +124,7 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .queue :is(.k-check,.k-subissue) span.why:last-of-type{max-width:40%;overflow:hidden;text-overflow:ellipsis;overflow-wrap:anywhere}
 .queue .why{color:var(--muted);font-size:12px}
 .queue .goto{margin-left:auto;font:inherit;font-size:11px;font-weight:600;color:var(--ink2);background:none;border:1px solid var(--border);border-radius:999px;padding:1px 9px;cursor:pointer;white-space:nowrap}
-.queue .goto:hover{color:var(--s1);border-color:color-mix(in srgb,var(--s1) 40%,transparent);background:color-mix(in srgb,var(--s1) 10%,transparent);text-decoration:none}
+.queue .goto:hover{color:var(--link);border-color:color-mix(in srgb,var(--link) 40%,transparent);background:color-mix(in srgb,var(--link) 10%,transparent);text-decoration:none}
 .queue input.done{margin:2px 0 0;flex:none;align-self:flex-start;accent-color:var(--s1)}
 .queue li.done>:not(input,textarea){opacity:.55}
 .queue li.done .verb{text-decoration:line-through}
@@ -129,7 +138,7 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .queue li.sec+li{border-top:0}
 .owners td,.owners th{padding:6px}
 #owners tr{cursor:pointer}
-.owners button.prs{background:none;border:0;padding:0;font:inherit;color:var(--s1);cursor:pointer}.owners button.prs:hover,.owners button.prs:focus-visible{text-decoration:underline}
+.owners button.prs{background:none;border:0;padding:0;font:inherit;color:var(--link);cursor:pointer}.owners button.prs:hover,.owners button.prs:focus-visible{text-decoration:underline}
 .tbl{width:100%;border-collapse:collapse;font-size:13px}
 .tbl th{position:sticky;top:0;background:var(--surface);z-index:1;text-align:left;font-weight:600;color:var(--ink2);font-size:12px;padding:8px 8px;border-bottom:1px solid var(--axis);white-space:nowrap;cursor:pointer;user-select:none}
 .tbl th.num,.tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
@@ -148,7 +157,7 @@ details.fold>summary:hover h2{text-decoration:underline}
 details.fold .count,.card h2 .count{color:var(--muted);font-size:12px;font-weight:400}details.fold .count:empty{display:none}
 details.fold .count:not(:empty)+.count:not(:empty)::before{content:"· "}
 details.fold .count.stale{color:var(--warntext);font-weight:600}
-.more{font:inherit;font-size:12px;font-weight:600;color:var(--s1);background:none;border:0;padding:10px 0 0;cursor:pointer}
+.more{font:inherit;font-size:12px;font-weight:600;color:var(--link);background:none;border:0;padding:10px 0 0;cursor:pointer}
 .more:hover{text-decoration:underline}
 .filters{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
 .filters button{font:inherit;font-size:12px;border:1px solid var(--border);background:var(--page);color:var(--ink2);border-radius:999px;padding:3px 12px;cursor:pointer}
@@ -159,7 +168,7 @@ html.tv .countdown .big{font-size:120px}
 html.tv .kpi .val{font-size:44px}
 html.tv .card h2{font-size:22px}html.tv .hint{font-size:15px}
 html.tv .kpi .lab{font-size:17px}html.tv .phase .now{font-size:20px}html.tv .phase .now b{font-size:24px}
-html.tv .steps{gap:12px}html.tv .steps li{border-top-width:8px;padding-top:14px;font-size:18px}html.tv .steps li b{font-size:22px;margin-bottom:4px}
+html.tv .steps{gap:12px}html.tv .steps li{padding-top:30px;font-size:18px}html.tv .steps li::before{height:4px;top:8px;right:-12px}html.tv .steps li::after{width:20px;height:20px;border-width:4px}html.tv .steps li b{font-size:22px;margin-bottom:4px}
 html.tv .steps li.current b::after{font-size:12px;padding:2px 7px}
 html.tv .tscroll{max-height:none}
 @media (max-width:1250px){.kpis{grid-template-columns:repeat(3,1fr)}}
@@ -168,7 +177,7 @@ html.tv .tscroll{max-height:none}
 @media (max-width:520px){.kpi .val{font-size:26px}
   /* The who and why share one caption line under the verb (the ::after breaks the row); a basis-0 why can't wrap away from the who. */
   .queue li:is(.k-check,.k-subissue){flex-wrap:wrap;row-gap:2px}.queue li:is(.k-check,.k-subissue)::after{content:"";flex-basis:100%;order:2}.queue :is(.k-check,.k-subissue) .verb{flex:1 1 0}.queue :is(.k-check,.k-subissue) .why{white-space:normal;order:3}.queue :is(.k-check,.k-subissue) span.why:last-of-type{max-width:none;flex:1 1 0;min-width:0}.queue :is(.k-check,.k-subissue) .verb+.why{padding-left:48px}.queue :is(.k-check,.k-subissue) .verb+.why .sep{display:none}
-  .hero{padding:16px}.countdown .big{font-size:56px}.steps{grid-template-columns:repeat(2,1fr);row-gap:12px}}
+  .hero{padding:16px}.countdown .big{font-size:56px}.steps{grid-template-columns:repeat(2,1fr);row-gap:12px}.steps li:nth-child(2n)::before{right:0}}
   /* This page's own: the two state axes' colours, badges, chips, popovers and the table's cell details */
   :root {
     --ok-bg: #d8f3dc; --ok-fg: #1b5e20;
@@ -198,7 +207,7 @@ html.tv .tscroll{max-height:none}
   .queue .r0 .verb a { color: var(--badtext); }
   .posted { opacity: 0.55; }
   .posted-tag { font-size: 11px; color: var(--goodtext); white-space: nowrap; }
-  button.unpost { font: inherit; font-size: 12px; color: var(--s1); background: none; border: 0; padding: 0; cursor: pointer; }
+  button.unpost { font: inherit; font-size: 12px; color: var(--link); background: none; border: 0; padding: 0; cursor: pointer; }
   /* Chips: one line that scrolls on a narrow screen */
   .chips { display: flex; align-items: center; gap: 6px; overflow-x: auto; white-space: nowrap; margin: 0 0 10px; padding: 3px; }
   .chip-group { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-left: 8px; }
@@ -211,7 +220,7 @@ html.tv .tscroll{max-height:none}
   .chip.none, .chip.held { border-color: var(--border); color: var(--muted); --ring: var(--muted); }
   .chip[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--ring); }
   .chip.all[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ring); }
-  .chip:focus-visible, .tip-trigger:focus-visible { outline: 2px solid var(--s1); outline-offset: 1px; }
+  .chip:focus-visible, .tip-trigger:focus-visible { outline: 2px solid var(--link); outline-offset: 1px; }
   .chip-change { font-size: 11px; font-weight: 500; margin-left: 4px; opacity: .85; }
   .badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; border: 0; font-family: inherit; cursor: help; }
   .badge.none { color: var(--muted); font-weight: 500; padding-left: 0; padding-right: 0; }
@@ -227,7 +236,7 @@ html.tv .tscroll{max-height:none}
   #ext-table td:nth-child(7) a { white-space: nowrap; }
   #ext-table tr.flash td { background: color-mix(in srgb, var(--s1) 22%, var(--surface)); transition: background .3s; }
   th button.sort { all: unset; display: flex; align-items: center; gap: 4px; width: 100%; cursor: pointer; font-weight: 600; }
-  th button.sort:focus-visible { outline: 2px solid var(--s1); outline-offset: -2px; }
+  th button.sort:focus-visible { outline: 2px solid var(--link); outline-offset: -2px; }
   .sort-icon { color: var(--muted); font-size: 10px; }
   .sort-icon::before { content: "\2195"; }
   th[aria-sort="ascending"] .sort-icon::before { content: "\25B2"; color: var(--ink); }
@@ -254,11 +263,11 @@ html.tv .tscroll{max-height:none}
   .branch-odd { background: var(--patches-bg); color: var(--patches-fg); border: 1px solid var(--patches-line); font-weight: 600; }
   .behind-count { font-size: 11px; color: var(--muted); margin-left: 4px; }
   .commit-range code { background: none; padding: 0; }
-  code { font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace; font-size: .85em; background: var(--wash); padding: 1px 4px; border-radius: 4px; }
+  code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .85em; background: var(--wash); padding: 1px 4px; border-radius: 4px; }
   .ci-dot { display: inline-flex; align-items: center; justify-content: center; width: 15px; height: 15px; border-radius: 50%; font-size: 9px; font-weight: 700; color: #fff; vertical-align: -0.15em; line-height: 1; margin-right: 4px; }
   .ci-dot.passed { background: var(--good); } .ci-dot.passed::before { content: "\2713"; }
   .ci-dot.failed { background: var(--crit); } .ci-dot.failed::before { content: "\2715"; }
-  .ci-dot.pending { background: var(--warn); } .ci-dot.pending::before { content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #fff; }
+  .ci-dot.pending { border: 3px solid var(--warn); }
   .ci-dot.draft { background: var(--muted); }
   .ready { list-style: none; margin: 0; padding: 0; font-size: 13px; }
   .ready li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-top: 1px solid var(--grid); }
@@ -267,7 +276,7 @@ html.tv .tscroll{max-height:none}
   .ready .pr-state { margin-left: auto; white-space: nowrap; }
   .actor { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; border-radius: 4px; padding: 0 5px; margin-right: 6px; vertical-align: 1px; border: 1px solid var(--border); color: var(--ink2); }
   .actor.extension { border-color: var(--warn); color: var(--warntext); }
-  .actor.duckdb { border-color: var(--s1); color: var(--s1); }
+  .actor.duckdb { border-color: var(--link); color: var(--link); }
   .action-trigger { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: help; text-decoration: underline dotted var(--muted); text-underline-offset: 3px; text-align: left; }
   .action-label { text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
   /* Popover and legend */
@@ -296,7 +305,7 @@ html.tv .tscroll{max-height:none}
   .hint .sq { width: 10px; height: 10px; margin: 0 2px 0 4px; }
   .ext-head { align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
   #ext-search { font: inherit; font-size: 13px; padding: 5px 10px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--ink); flex: 1 1 16rem; min-width: 0; max-width: 24rem; }
-  #ext-search:focus-visible { outline: 2px solid var(--s1); outline-offset: 1px; }
+  #ext-search:focus-visible { outline: 2px solid var(--link); outline-offset: 1px; }
   .ext-group { margin-bottom: 20px; }
   .ext-group h2 { font-size: 14px; font-weight: 700; margin: 0 0 8px; }
   .ext-group .count { color: var(--muted); font-weight: 400; margin-left: 4px; }
@@ -366,10 +375,13 @@ html.tv .tscroll{max-height:none}
 
   <div class="wrap">
     <header>
+      <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 500 500" role="img" aria-label="DuckDB"><circle cx="250" cy="250" r="250" fill="var(--logo-disc)"/><g fill="var(--logo-duck)"><circle cx="190.05" cy="250" r="103.41"/><path d="M376.138,212.784h-49.147v74.433h49.147c20.554,0,37.216-16.663,37.216-37.217S396.692,212.784,376.138,212.784Z"/></g></svg>
       <div>
         <h1>DuckDB Extension Status <span class="muted">v2.0.0</span></h1>
-        <div class="sub"><a href="../">&larr; all releases</a> &middot; branch v2.0-cyanoptera &middot; generated 16-10-2026 10:11 CEST by the <a href="https://github.com/duckdblabs/duckdb-automations/actions/runs/38871943900" data-run>Extension status page run</a> &middot; last bump run <a href="https://github.com/duckdblabs/duckdb-automations/actions/runs/38870613297">16-10-2026 10:02 CEST</a>
+        <div class="sub"><a href="../">&larr; all releases</a> &middot; branch v2.0-cyanoptera &middot; generated 16-10-2026 10:48 CEST by the <a href="https://github.com/duckdblabs/duckdb-automations/actions/runs/38876055961" data-run>Extension status page run</a> &middot; last bump run <a href="https://github.com/duckdblabs/duckdb-automations/actions/runs/38870613297">16-10-2026 10:02 CEST</a>
           &middot; <a href="#legend" target="_self" id="legend-link">Legend</a></div>
+      </div>
       </div>
       <nav class="tabs" id="tabs" aria-label="Views">
         <button data-tab="work">Work queue</button>
@@ -394,13 +406,13 @@ html.tv .tscroll{max-height:none}
           <div class="cardhead"><h2 id="moves-h">Next moves</h2></div>
           
           <ol class="queue" id="moves">
-            <li class="r0" data-id="0:Fix CI on iceberg patch PR">
-              <span class="verb"><a href="https://github.com/duckdb/duckdb-iceberg/pull/1601">Fix CI on iceberg patch PR</a></span> <span class="why">&middot; CI failed</span> <button type="button" class="goto" data-goto="iceberg">in table &darr;</button>
+            <li class="r0" data-id="0:Fix CI on sqlsmith patch PR">
+              <span class="verb"><a href="https://github.com/duckdb/duckdb-sqlsmith/pull/80">Fix CI on sqlsmith patch PR</a></span> <span class="why">&middot; CI failed</span> <button type="button" class="goto" data-goto="sqlsmith">in table &darr;</button>
             </li>
           </ol>
           <button type="button" class="more" id="moves-all" data-list="moves" hidden>Show all 1</button>
           
-          <p class="hint bot-will">The bot will bump 6 extensions on the next ExtensionRelease run (azure, delta, encodings, excel, iceberg, unity_catalog).</p>
+          <p class="hint bot-will">The bot will bump 7 extensions on the next ExtensionRelease run (azure, delta, encodings, excel, httpfs, iceberg, unity_catalog).</p>
         </div>
         <div class="card" id="ready">
         <div class="cardhead"><h2>Ready to merge <span class="count">0</span></h2>
@@ -420,29 +432,29 @@ html.tv .tscroll{max-height:none}
           
           <span class="chip-group">Pin</span>
           
-          <button type="button" class="chip behind" aria-pressed="false" data-axis="pin" data-value="Behind" title="No change since the report generated 16-10-2026 10:02 CEST">Behind <strong>7</strong></button>
+          <button type="button" class="chip behind" aria-pressed="false" data-axis="pin" data-value="Behind" title="Up 1 since the report generated 16-10-2026 10:11 CEST">Behind <strong>8</strong><span class="chip-change">&#x2191;1</span></button>
           
-          <button type="button" class="chip held" aria-pressed="false" data-axis="pin" data-value="Held" title="No change since the report generated 16-10-2026 10:02 CEST">Held <strong>2</strong></button>
+          <button type="button" class="chip held" aria-pressed="false" data-axis="pin" data-value="Held" title="No change since the report generated 16-10-2026 10:11 CEST">Held <strong>2</strong></button>
           
-          <button type="button" class="chip ok" aria-pressed="false" data-axis="pin" data-value="Up to date" title="No change since the report generated 16-10-2026 10:02 CEST">Up to date <strong>11</strong></button>
+          <button type="button" class="chip ok" aria-pressed="false" data-axis="pin" data-value="Up to date" title="Down 1 since the report generated 16-10-2026 10:11 CEST">Up to date <strong>10</strong><span class="chip-change">&#x2193;1</span></button>
           
-          <button type="button" class="chip skipped" aria-pressed="false" data-axis="pin" data-value="Skipped" title="No change since the report generated 16-10-2026 10:02 CEST">Skipped <strong>4</strong></button>
+          <button type="button" class="chip skipped" aria-pressed="false" data-axis="pin" data-value="Skipped" title="No change since the report generated 16-10-2026 10:11 CEST">Skipped <strong>4</strong></button>
           
           
           <span class="chip-group">Patches</span>
           
-          <button type="button" class="chip blocked" aria-pressed="false" data-axis="patches" data-value="Broken" title="No change since the report generated 16-10-2026 10:02 CEST">Broken <strong>2</strong></button>
+          <button type="button" class="chip blocked" aria-pressed="false" data-axis="patches" data-value="Broken" title="No change since the report generated 16-10-2026 10:11 CEST">Broken <strong>2</strong></button>
           
-          <button type="button" class="chip patches" aria-pressed="false" data-axis="patches" data-value="Carried" title="No change since the report generated 16-10-2026 10:02 CEST">Carried <strong>5</strong></button>
+          <button type="button" class="chip patches" aria-pressed="false" data-axis="patches" data-value="Carried" title="No change since the report generated 16-10-2026 10:11 CEST">Carried <strong>5</strong></button>
           
-          <button type="button" class="chip none" aria-pressed="false" data-axis="patches" data-value="None" title="No change since the report generated 16-10-2026 10:02 CEST">None <strong>13</strong></button>
+          <button type="button" class="chip none" aria-pressed="false" data-axis="patches" data-value="None" title="No change since the report generated 16-10-2026 10:11 CEST">None <strong>13</strong></button>
           
           
         </div>
         
         
         
-        <p class="hint">Since yesterday: no longer broken <a href="#row-legacy_parser" target="_self">legacy_parser</a> &middot; caught up <a href="#row-aws" target="_self">aws</a>, <a href="#row-glue" target="_self">glue</a>, <a href="#row-httpfs" target="_self">httpfs</a>, <a href="#row-legacy_parser" target="_self">legacy_parser</a>, <a href="#row-postgres_scanner" target="_self">postgres_scanner</a>, <a href="#row-quack" target="_self">quack</a>, <a href="#row-spatial" target="_self">spatial</a>, <a href="#row-sqlite_scanner" target="_self">sqlite_scanner</a>, <a href="#row-vss" target="_self">vss</a></p>
+        <p class="hint">Since yesterday: no longer broken <a href="#row-legacy_parser" target="_self">legacy_parser</a> &middot; caught up <a href="#row-aws" target="_self">aws</a>, <a href="#row-glue" target="_self">glue</a>, <a href="#row-legacy_parser" target="_self">legacy_parser</a>, <a href="#row-postgres_scanner" target="_self">postgres_scanner</a>, <a href="#row-quack" target="_self">quack</a>, <a href="#row-spatial" target="_self">spatial</a>, <a href="#row-sqlite_scanner" target="_self">sqlite_scanner</a>, <a href="#row-vss" target="_self">vss</a></p>
         
         <div class="tscroll">
         <table class="tbl" id="ext-table">
@@ -473,6 +485,21 @@ html.tv .tscroll{max-height:none}
             
             
             
+            <tr id="row-httpfs" data-pin="Behind" data-patches="Carried" data-tier="0">
+              <td data-sort="0-httpfs"><a href="https://github.com/duckdb/duckdb-httpfs">httpfs</a>
+                <span class="sub"><span class="tier core">core</span></span></td>
+              <td data-sort="1"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="httpfs">Behind</button></td>
+              <td data-sort="10"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried" data-ext="httpfs">Carried</button></td>
+              <td class="detail"><span class="muted">main</span></td>
+              <td class="detail" data-sort="6"><a class="commit-range" href="https://github.com/duckdb/duckdb-httpfs/compare/6c07db62fb7b3acc8197ab10680efc9bfc2c2ef2...2174b462678979089e8bf1f2fc1328d6eb306450"><code>6c07db6</code> &rarr; <code>2174b46</code></a><span class="behind-count" title="6 commits behind">+6</span></td>
+              <td><span class="actor bot">bot</span><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="httpfs">Bump</button></td>
+              <td data-sort="0"><span class="link-pair pr-state">merged: <a href="https://github.com/duckdb/duckdb-httpfs/pull/484">Patch #484</a>, <a href="https://github.com/duckdb/duckdb-httpfs/pull/480">Bump #480</a></span></td>
+              <td data-sort="-1"><span class="muted">&mdash;</span></td>
+            </tr>
+            
+            
+            
+            
             <tr id="row-iceberg" data-pin="Behind" data-patches="Carried" data-tier="0">
               <td data-sort="0-iceberg"><a href="https://github.com/duckdb/duckdb-iceberg">iceberg</a>
                 <span class="sub"><span class="tier core">core</span></span></td>
@@ -481,22 +508,7 @@ html.tv .tscroll{max-height:none}
               <td class="detail"><span class="muted">main</span></td>
               <td class="detail" data-sort="2"><a class="commit-range" href="https://github.com/duckdb/duckdb-iceberg/compare/10eafd0b340c946e4a6ba7b6c7244c6a270327b0...47852f2df60ccae25243e3b04f1d5a6dc690b322"><code>10eafd0</code> &rarr; <code>47852f2</code></a><span class="behind-count" title="2 commits behind">+2</span></td>
               <td><span class="actor bot">bot</span><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="iceberg">Bump</button></td>
-              <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-iceberg/pull/1601" data-postable=""><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/duckdb-iceberg/pull/1601">Patch PR</a><button type="button" class="copy-btn mini post-btn" data-copy="iceberg patch - https://github.com/duckdb/duckdb-iceberg/pull/1601" title="Copy for the channel">&#x29C9;</button></span><span class="sub stuck">idle 0d</span></td>
-              <td data-sort="-1"><span class="muted">&mdash;</span></td>
-            </tr>
-            
-            
-            
-            
-            <tr id="row-httpfs" data-pin="Up to date" data-patches="Carried" data-tier="0">
-              <td data-sort="0-httpfs"><a href="https://github.com/duckdb/duckdb-httpfs">httpfs</a>
-                <span class="sub"><span class="tier core">core</span></span></td>
-              <td data-sort="21"><button type="button" class="badge ok tip-trigger" data-tip="tip-pin-Up-to-date" data-ext="httpfs">Up to date</button></td>
-              <td data-sort="12"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried" data-ext="httpfs">Carried</button></td>
-              <td class="detail"><span class="muted">main</span></td>
-              <td class="detail" data-sort="0"><a class="commit-range" href="https://github.com/duckdb/duckdb-httpfs/commit/6c07db62fb7b3acc8197ab10680efc9bfc2c2ef2"><code>6c07db6</code></a></td>
-              <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-none" data-ext="httpfs">None</button></td>
-              <td data-sort="0"><span class="link-pair pr-state">merged: <a href="https://github.com/duckdb/duckdb-httpfs/pull/484">Patch #484</a>, <a href="https://github.com/duckdb/duckdb-httpfs/pull/480">Bump #480</a></span></td>
+              <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-iceberg/pull/1602" data-postable=""><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/duckdb-iceberg/pull/1602">Patch PR</a><button type="button" class="copy-btn mini post-btn" data-copy="iceberg patch - https://github.com/duckdb/duckdb-iceberg/pull/1602" title="Copy for the channel">&#x29C9;</button> <span class="pr-state">by @autograaf since 16-10-2026</span></span><span class="sub stuck">idle 0d</span></td>
               <td data-sort="-1"><span class="muted">&mdash;</span></td>
             </tr>
             
@@ -766,7 +778,7 @@ html.tv .tscroll{max-height:none}
               <td class="detail"><span class="muted">main</span></td>
               <td class="detail" data-sort="0"><a class="commit-range" href="https://github.com/duckdb/duckdb-sqlsmith/commit/0521e4c4325e7972e484f60de8adde1557defc3d"><code>0521e4c</code></a></td>
               <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-none" data-ext="sqlsmith">None</button></td>
-              <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-sqlsmith/pull/80" data-postable=""><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/duckdb-sqlsmith/pull/80">Patch PR</a><button type="button" class="copy-btn mini post-btn" data-copy="sqlsmith patch - https://github.com/duckdb/duckdb-sqlsmith/pull/80" title="Copy for the channel">&#x29C9;</button></span><span class="sub stuck">idle 0d</span></td>
+              <td data-sort="1"><span class="link-pair" data-posted-url="https://github.com/duckdb/duckdb-sqlsmith/pull/80" data-postable=""><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/duckdb-sqlsmith/pull/80">Patch PR</a><button type="button" class="copy-btn mini post-btn" data-copy="sqlsmith patch - https://github.com/duckdb/duckdb-sqlsmith/pull/80" title="Copy for the channel">&#x29C9;</button></span><span class="sub stuck">idle 0d</span></td>
               <td data-sort="-1"><span class="muted">&mdash;</span></td>
             </tr>
             
@@ -779,7 +791,7 @@ html.tv .tscroll{max-height:none}
               <td data-sort="33"><button type="button" class="badge skipped tip-trigger" data-tip="tip-pin-Skipped" data-ext="ducklake">Skipped</button></td>
               <td data-sort="33"><button type="button" class="badge skipped tip-trigger" data-tip="tip-patches-Skipped" data-ext="ducklake">Skipped</button></td>
               <td class="detail"><span class="muted">main</span></td>
-              <td class="detail" data-sort="540"><a class="commit-range" href="https://github.com/duckdb/ducklake/compare/80e6155e415b922ce27a0f67f02fc62edd508f37...243fb52ee32de3f9d7985fb39f4e6c1fe97666c4"><code>80e6155</code> &rarr; <code>243fb52</code></a><span class="behind-count" title="540 commits behind">+540</span></td>
+              <td class="detail" data-sort="564"><a class="commit-range" href="https://github.com/duckdb/ducklake/compare/80e6155e415b922ce27a0f67f02fc62edd508f37...b9a59df1832c7f5ddbac88b3f232d285371405fc"><code>80e6155</code> &rarr; <code>b9a59df</code></a><span class="behind-count" title="564 commits behind">+564</span></td>
               <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-skip" data-ext="ducklake">Not managed here</button><div class="sub" title="handles its own versioning">handles its own versioning</div></td>
               <td data-sort="0"><span class="muted">&mdash;</span></td>
               <td data-sort="-1"><span class="muted">&mdash;</span></td>
@@ -947,11 +959,11 @@ html.tv .tscroll{max-height:none}
           <article class="ext-card card" id="ext-iceberg" data-name="iceberg">
             <div class="ext-title"><a href="https://github.com/duckdb/duckdb-iceberg">iceberg</a> <span class="tier core">core</span>
               <span class="badges"><span class="badge behind">Behind</span> <span class="badge patches">Carried</span></span></div>
-            <p class="ext-say"><span class="actor extension">extension</span>The patch PR in the extension repo is red. Fix its CI, then merge it.</p>
+            <p class="ext-say"><span class="actor extension">extension</span>The patch PR in the extension repo is waiting on CI. Merge it once green.</p>
             
             
             <ul class="ext-links">
-              <li><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/duckdb-iceberg/pull/1601">Patch PR #1601</a></li>
+              <li><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/duckdb-iceberg/pull/1602">Patch PR #1602</a> <span class="pr-state">by @autograaf</span></li>
               
               
             </ul>
@@ -983,11 +995,11 @@ html.tv .tscroll{max-height:none}
           <article class="ext-card card" id="ext-sqlsmith" data-name="sqlsmith">
             <div class="ext-title"><a href="https://github.com/duckdb/duckdb-sqlsmith">sqlsmith</a> <span class="tier experimental">experimental</span>
               <span class="badges"><span class="badge ok">Up to date</span> <span class="badge patches">Carried</span></span></div>
-            <p class="ext-say"><span class="actor extension">extension</span>The patch PR in the extension repo is waiting on CI. Merge it once green.</p>
+            <p class="ext-say"><span class="actor extension">extension</span>The patch PR in the extension repo is red. Fix its CI, then merge it.</p>
             
             
             <ul class="ext-links">
-              <li><span class="ci-dot pending" title="CI pending"></span><a href="https://github.com/duckdb/duckdb-sqlsmith/pull/80">Patch PR #80</a></li>
+              <li><span class="ci-dot failed" title="CI failed"></span><a href="https://github.com/duckdb/duckdb-sqlsmith/pull/80">Patch PR #80</a></li>
               
               
             </ul>
@@ -1001,8 +1013,20 @@ html.tv .tscroll{max-height:none}
       </div>
       
       <div class="ext-group" data-group="duckdb">
-        <h2>Waiting on duckdb <span class="count">7</span></h2>
+        <h2>Waiting on duckdb <span class="count">8</span></h2>
         <div class="ext-cards">
+          
+          
+          <article class="ext-card card" id="ext-httpfs" data-name="httpfs">
+            <div class="ext-title"><a href="https://github.com/duckdb/duckdb-httpfs">httpfs</a> <span class="tier core">core</span>
+              <span class="badges"><span class="badge behind">Behind</span> <span class="badge patches">Carried</span></span></div>
+            <p class="ext-say"><span class="actor bot">bot</span>The bot bumps the pin on its next run. Nothing to do on the extension side.</p>
+            
+            
+            <div class="ext-foot"><span>6 commits behind</span><span>duckdb carries 1 patch</span>
+              <span class="cells" title="Last 6 days, oldest left"><i class="sq none" title="09-10: none"></i><i class="sq behind" title="12-10: behind"></i><i class="sq behind" title="13-10: behind"></i><i class="sq behind" title="14-10: behind"></i><i class="sq behind" title="15-10: behind"></i><i class="sq behind" title="16-10: behind"></i></span>
+            </div>
+          </article>
           
           
           <article class="ext-card card" id="ext-azure" data-name="azure">
@@ -1092,20 +1116,8 @@ html.tv .tscroll{max-height:none}
       </div>
       
       <div class="ext-group" data-group="ok">
-        <h2>Up to date <span class="count">10</span></h2>
+        <h2>Up to date <span class="count">9</span></h2>
         <div class="ext-cards">
-          
-          
-          <article class="ext-card card" id="ext-httpfs" data-name="httpfs">
-            <div class="ext-title"><a href="https://github.com/duckdb/duckdb-httpfs">httpfs</a> <span class="tier core">core</span>
-              <span class="badges"><span class="badge ok">Up to date</span> <span class="badge patches">Carried</span></span></div>
-            <p class="ext-say">Up to date. duckdb still carries 1 patch; upstreaming it removes that burden.</p>
-            
-            
-            <div class="ext-foot"><span>duckdb carries 1 patch</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq none" title="09-10: none"></i><i class="sq behind" title="12-10: behind"></i><i class="sq behind" title="13-10: behind"></i><i class="sq behind" title="14-10: behind"></i><i class="sq behind" title="15-10: behind"></i><i class="sq ok" title="16-10: ok"></i></span>
-            </div>
-          </article>
           
           
           <article class="ext-card card" id="ext-aws" data-name="aws">
@@ -1229,7 +1241,7 @@ html.tv .tscroll{max-height:none}
             <p class="ext-say">Not managed by this script (handles its own versioning). Listed for the overview; its pin and patches are the extension&#39;s own.</p>
             
             
-            <div class="ext-foot"><span>540 commits behind</span><span>duckdb carries 6 patches</span>
+            <div class="ext-foot"><span>564 commits behind</span><span>duckdb carries 6 patches</span>
               <span class="cells" title="Last 6 days, oldest left"><i class="sq none" title="09-10: none"></i><i class="sq broken" title="12-10: broken"></i><i class="sq none" title="13-10: none"></i><i class="sq none" title="14-10: none"></i><i class="sq none" title="15-10: none"></i><i class="sq none" title="16-10: none"></i></span>
             </div>
           </article>
@@ -1277,7 +1289,7 @@ html.tv .tscroll{max-height:none}
     </section>
   </div>
 
-  <script type="application/json" id="report-summary">{"generated_at": "16-10-2026 10:11 CEST", "counts": {"pin": {"Behind": 7, "Held": 2, "Up to date": 11, "Skipped": 4}, "patches": {"Broken": 2, "Carried": 5, "None": 13}}, "attempts": {"aws": {"patch": {"outcome": "skipped", "detail": "its duckdb refs moved 2 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "azure": {"bump": {"outcome": "skipped", "detail": "its pin moved 6 day(s) ago; plain bumps wait 7", "at": "2026-10-16T07:59:19.599721+00:00"}, "patch": {"outcome": "skipped", "detail": "its duckdb refs moved 2 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "delta": {"bump": {"outcome": "skipped", "detail": "its pin moved 0 day(s) ago; plain bumps wait 7", "at": "2026-10-16T07:59:19.599721+00:00"}, "patch": {"outcome": "skipped", "detail": "its duckdb refs moved 2 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "encodings": {"bump": {"outcome": "skipped", "detail": "its pin moved 6 day(s) ago; plain bumps wait 7", "at": "2026-10-16T07:59:19.599721+00:00"}, "patch": {"outcome": "skipped", "detail": "its duckdb refs moved 3 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "excel": {"bump": {"outcome": "skipped", "detail": "its pin moved 6 day(s) ago; plain bumps wait 7", "at": "2026-10-16T07:59:19.599721+00:00"}, "patch": {"outcome": "skipped", "detail": "its duckdb refs moved 1 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "fts": {"patch": {"outcome": "skipped", "detail": "@EtgarDev has https://github.com/duckdb/duckdb-fts/pull/83 open since 09-10-2026 moving the duckdb pin; waiting for it", "at": "2026-10-16T08:01:56.161566+00:00"}}, "glue": {"patch": {"outcome": "skipped", "detail": "its duckdb refs moved 1 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "httpfs": {"patch": {"outcome": "skipped", "detail": "@h4nsmuller has https://github.com/duckdb/duckdb-httpfs/pull/482 open since 12-10-2026 moving the duckdb pin; waiting for it", "at": "2026-10-16T08:01:56.161566+00:00"}}, "iceberg": {"bump": {"outcome": "skipped", "detail": "its pin moved 0 day(s) ago; plain bumps wait 7", "at": "2026-10-16T07:59:19.599721+00:00"}, "patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-iceberg/pull/1601", "at": "2026-10-16T08:01:56.161566+00:00"}}, "legacy_parser": {"patch": {"outcome": "skipped", "detail": "its duckdb refs moved 1 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "mysql_scanner": {"patch": {"outcome": "skipped", "detail": "its duckdb refs moved 3 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "postgres_scanner": {"patch": {"outcome": "skipped", "detail": "its duckdb refs moved 3 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "quack": {"patch": {"outcome": "skipped", "detail": "@evertlammerts has https://github.com/duckdb/duckdb-quack/pull/273 open since 21-09-2026 moving the duckdb pin; waiting for it", "at": "2026-10-16T08:01:56.161566+00:00"}}, "spatial": {"patch": {"outcome": "skipped", "detail": "its duckdb refs moved 2 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "sqlite_scanner": {"patch": {"outcome": "skipped", "detail": "its duckdb refs moved 1 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "sqlsmith": {"patch": {"outcome": "updated", "detail": "https://github.com/duckdb/duckdb-sqlsmith/pull/80", "at": "2026-10-16T08:01:56.161566+00:00"}}, "unity_catalog": {"bump": {"outcome": "skipped", "detail": "its pin moved 6 day(s) ago; plain bumps wait 7", "at": "2026-10-16T07:59:19.599721+00:00"}, "patch": {"outcome": "skipped", "detail": "its duckdb refs moved 2 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "vss": {"patch": {"outcome": "skipped", "detail": "its duckdb refs moved 3 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}}, "run": {"workflow": "Extension status page", "run_url": "https://github.com/duckdblabs/duckdb-automations/actions/runs/38871943900", "at": "2026-10-16T08:11:37.773238+00:00", "steps": {}, "last_bump_run": {"workflow": "Extension release run", "run_url": "https://github.com/duckdblabs/duckdb-automations/actions/runs/38870613297", "at": "2026-10-16T08:02:48.913892+00:00", "steps": {"bump": "ok", "patch": "ok"}}}, "history": [{"day": "2026-10-09", "counts": {"pin": {"Behind": 21, "Up to date": 0}, "patches": {"Broken": 6, "Carried": 12, "None": 3}}, "broken": ["aws", "fts", "iceberg", "inet", "postgres_scanner", "quack"], "behind": ["avro", "aws", "azure", "delta", "ducklake", "encodings", "excel", "fts", "glue", "httpfs", "iceberg", "inet", "legacy_parser", "mysql_scanner", "postgres_scanner", "quack", "spatial", "sqlite_scanner", "sqlsmith", "unity_catalog", "vss"]}, {"day": "2026-10-12", "counts": {"pin": {"Behind": 20, "Up to date": 1}, "patches": {"Broken": 5, "Carried": 10, "None": 6}}, "broken": ["aws", "ducklake", "fts", "inet", "quack"], "behind": ["avro", "aws", "azure", "delta", "ducklake", "encodings", "excel", "fts", "glue", "httpfs", "iceberg", "inet", "legacy_parser", "mysql_scanner", "postgres_scanner", "quack", "spatial", "sqlite_scanner", "unity_catalog", "vss"], "states": {"aws": "B", "ducklake": "B", "delta": "H", "httpfs": "H", "iceberg": "H", "azure": "H", "spatial": "H", "fts": "B", "inet": "B", "avro": "H", "glue": "H", "mysql_scanner": "H", "postgres_scanner": "H", "sqlite_scanner": "H", "vss": "H", "encodings": "H", "excel": "H", "legacy_parser": "H", "unity_catalog": "H", "quack": "B", "sqlsmith": "K"}}, {"day": "2026-10-13", "counts": {"pin": {"Behind": 17, "Held": 2, "Up to date": 1, "Skipped": 4}, "patches": {"Broken": 3, "Carried": 11, "None": 6}}, "broken": ["fts", "inet", "quack"], "behind": ["aws", "azure", "delta", "encodings", "excel", "fts", "glue", "httpfs", "iceberg", "legacy_parser", "mysql_scanner", "postgres_scanner", "quack", "spatial", "sqlite_scanner", "unity_catalog", "vss"], "states": {"aws": "H", "delta": "H", "httpfs": "H", "iceberg": "H", "spatial": "H", "azure": "H", "fts": "B", "inet": "B", "glue": "H", "legacy_parser": "H", "sqlite_scanner": "H", "vss": "H", "avro": "K", "encodings": "H", "excel": "H", "mysql_scanner": "H", "postgres_scanner": "H", "unity_catalog": "H", "quack": "B", "sqlsmith": "K", "ducklake": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-14", "counts": {"pin": {"Behind": 15, "Held": 2, "Up to date": 3, "Skipped": 4}, "patches": {"Broken": 2, "Carried": 12, "None": 6}}, "broken": ["fts", "inet"], "behind": ["aws", "azure", "delta", "encodings", "excel", "fts", "glue", "httpfs", "iceberg", "legacy_parser", "quack", "spatial", "sqlite_scanner", "unity_catalog", "vss"], "states": {"aws": "H", "delta": "H", "httpfs": "H", "iceberg": "H", "spatial": "H", "azure": "H", "fts": "B", "inet": "B", "glue": "H", "legacy_parser": "H", "sqlite_scanner": "H", "vss": "H", "avro": "K", "encodings": "H", "excel": "H", "unity_catalog": "H", "mysql_scanner": "K", "postgres_scanner": "K", "quack": "H", "sqlsmith": "K", "ducklake": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-15", "counts": {"pin": {"Behind": 16, "Held": 2, "Up to date": 2, "Skipped": 4}, "patches": {"Broken": 3, "Carried": 11, "None": 6}}, "broken": ["fts", "inet", "legacy_parser"], "behind": ["aws", "azure", "delta", "encodings", "excel", "fts", "glue", "httpfs", "iceberg", "legacy_parser", "postgres_scanner", "quack", "spatial", "sqlite_scanner", "unity_catalog", "vss"], "states": {"aws": "H", "delta": "H", "httpfs": "H", "iceberg": "H", "spatial": "H", "azure": "H", "fts": "B", "legacy_parser": "B", "inet": "B", "glue": "H", "sqlite_scanner": "H", "vss": "H", "avro": "K", "encodings": "H", "excel": "H", "postgres_scanner": "H", "unity_catalog": "H", "mysql_scanner": "K", "quack": "H", "sqlsmith": "K", "ducklake": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-16", "counts": {"pin": {"Behind": 7, "Held": 2, "Up to date": 11, "Skipped": 4}, "patches": {"Broken": 2, "Carried": 5, "None": 13}}, "broken": ["fts", "inet"], "behind": ["azure", "delta", "encodings", "excel", "fts", "iceberg", "unity_catalog"], "states": {"iceberg": "H", "httpfs": "K", "azure": "H", "delta": "H", "aws": "K", "spatial": "K", "fts": "B", "inet": "B", "avro": "K", "encodings": "H", "excel": "H", "unity_catalog": "H", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}], "level": "at_risk"}</script>
+  <script type="application/json" id="report-summary">{"generated_at": "16-10-2026 10:48 CEST", "counts": {"pin": {"Behind": 8, "Held": 2, "Up to date": 10, "Skipped": 4}, "patches": {"Broken": 2, "Carried": 5, "None": 13}}, "attempts": {"aws": {"patch": {"outcome": "skipped", "detail": "its duckdb refs moved 2 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "azure": {"bump": {"outcome": "skipped", "detail": "its pin moved 6 day(s) ago; plain bumps wait 7", "at": "2026-10-16T07:59:19.599721+00:00"}, "patch": {"outcome": "skipped", "detail": "its duckdb refs moved 2 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "delta": {"bump": {"outcome": "skipped", "detail": "its pin moved 0 day(s) ago; plain bumps wait 7", "at": "2026-10-16T07:59:19.599721+00:00"}, "patch": {"outcome": "skipped", "detail": "its duckdb refs moved 2 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "encodings": {"bump": {"outcome": "skipped", "detail": "its pin moved 6 day(s) ago; plain bumps wait 7", "at": "2026-10-16T07:59:19.599721+00:00"}, "patch": {"outcome": "skipped", "detail": "its duckdb refs moved 3 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "excel": {"bump": {"outcome": "skipped", "detail": "its pin moved 6 day(s) ago; plain bumps wait 7", "at": "2026-10-16T07:59:19.599721+00:00"}, "patch": {"outcome": "skipped", "detail": "its duckdb refs moved 1 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "fts": {"patch": {"outcome": "skipped", "detail": "@EtgarDev has https://github.com/duckdb/duckdb-fts/pull/83 open since 09-10-2026 moving the duckdb pin; waiting for it", "at": "2026-10-16T08:01:56.161566+00:00"}}, "glue": {"patch": {"outcome": "skipped", "detail": "its duckdb refs moved 1 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "httpfs": {"patch": {"outcome": "skipped", "detail": "@h4nsmuller has https://github.com/duckdb/duckdb-httpfs/pull/482 open since 12-10-2026 moving the duckdb pin; waiting for it", "at": "2026-10-16T08:01:56.161566+00:00"}}, "iceberg": {"bump": {"outcome": "skipped", "detail": "its pin moved 0 day(s) ago; plain bumps wait 7", "at": "2026-10-16T07:59:19.599721+00:00"}, "patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-iceberg/pull/1601", "at": "2026-10-16T08:01:56.161566+00:00"}}, "legacy_parser": {"patch": {"outcome": "skipped", "detail": "its duckdb refs moved 1 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "mysql_scanner": {"patch": {"outcome": "skipped", "detail": "its duckdb refs moved 3 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "postgres_scanner": {"patch": {"outcome": "skipped", "detail": "its duckdb refs moved 3 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "quack": {"patch": {"outcome": "skipped", "detail": "@evertlammerts has https://github.com/duckdb/duckdb-quack/pull/273 open since 21-09-2026 moving the duckdb pin; waiting for it", "at": "2026-10-16T08:01:56.161566+00:00"}}, "spatial": {"patch": {"outcome": "skipped", "detail": "its duckdb refs moved 2 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "sqlite_scanner": {"patch": {"outcome": "skipped", "detail": "its duckdb refs moved 1 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "sqlsmith": {"patch": {"outcome": "updated", "detail": "https://github.com/duckdb/duckdb-sqlsmith/pull/80", "at": "2026-10-16T08:01:56.161566+00:00"}}, "unity_catalog": {"bump": {"outcome": "skipped", "detail": "its pin moved 6 day(s) ago; plain bumps wait 7", "at": "2026-10-16T07:59:19.599721+00:00"}, "patch": {"outcome": "skipped", "detail": "its duckdb refs moved 2 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}, "vss": {"patch": {"outcome": "skipped", "detail": "its duckdb refs moved 3 day(s) ago; plain bumps wait 7", "at": "2026-10-16T08:01:56.161566+00:00"}}}, "run": {"workflow": "Extension status page", "run_url": "https://github.com/duckdblabs/duckdb-automations/actions/runs/38876055961", "at": "2026-10-16T08:48:35.851063+00:00", "steps": {}, "last_bump_run": {"workflow": "Extension release run", "run_url": "https://github.com/duckdblabs/duckdb-automations/actions/runs/38870613297", "at": "2026-10-16T08:02:48.913892+00:00", "steps": {"bump": "ok", "patch": "ok"}}}, "history": [{"day": "2026-10-09", "counts": {"pin": {"Behind": 21, "Up to date": 0}, "patches": {"Broken": 6, "Carried": 12, "None": 3}}, "broken": ["aws", "fts", "iceberg", "inet", "postgres_scanner", "quack"], "behind": ["avro", "aws", "azure", "delta", "ducklake", "encodings", "excel", "fts", "glue", "httpfs", "iceberg", "inet", "legacy_parser", "mysql_scanner", "postgres_scanner", "quack", "spatial", "sqlite_scanner", "sqlsmith", "unity_catalog", "vss"]}, {"day": "2026-10-12", "counts": {"pin": {"Behind": 20, "Up to date": 1}, "patches": {"Broken": 5, "Carried": 10, "None": 6}}, "broken": ["aws", "ducklake", "fts", "inet", "quack"], "behind": ["avro", "aws", "azure", "delta", "ducklake", "encodings", "excel", "fts", "glue", "httpfs", "iceberg", "inet", "legacy_parser", "mysql_scanner", "postgres_scanner", "quack", "spatial", "sqlite_scanner", "unity_catalog", "vss"], "states": {"aws": "B", "ducklake": "B", "delta": "H", "httpfs": "H", "iceberg": "H", "azure": "H", "spatial": "H", "fts": "B", "inet": "B", "avro": "H", "glue": "H", "mysql_scanner": "H", "postgres_scanner": "H", "sqlite_scanner": "H", "vss": "H", "encodings": "H", "excel": "H", "legacy_parser": "H", "unity_catalog": "H", "quack": "B", "sqlsmith": "K"}}, {"day": "2026-10-13", "counts": {"pin": {"Behind": 17, "Held": 2, "Up to date": 1, "Skipped": 4}, "patches": {"Broken": 3, "Carried": 11, "None": 6}}, "broken": ["fts", "inet", "quack"], "behind": ["aws", "azure", "delta", "encodings", "excel", "fts", "glue", "httpfs", "iceberg", "legacy_parser", "mysql_scanner", "postgres_scanner", "quack", "spatial", "sqlite_scanner", "unity_catalog", "vss"], "states": {"aws": "H", "delta": "H", "httpfs": "H", "iceberg": "H", "spatial": "H", "azure": "H", "fts": "B", "inet": "B", "glue": "H", "legacy_parser": "H", "sqlite_scanner": "H", "vss": "H", "avro": "K", "encodings": "H", "excel": "H", "mysql_scanner": "H", "postgres_scanner": "H", "unity_catalog": "H", "quack": "B", "sqlsmith": "K", "ducklake": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-14", "counts": {"pin": {"Behind": 15, "Held": 2, "Up to date": 3, "Skipped": 4}, "patches": {"Broken": 2, "Carried": 12, "None": 6}}, "broken": ["fts", "inet"], "behind": ["aws", "azure", "delta", "encodings", "excel", "fts", "glue", "httpfs", "iceberg", "legacy_parser", "quack", "spatial", "sqlite_scanner", "unity_catalog", "vss"], "states": {"aws": "H", "delta": "H", "httpfs": "H", "iceberg": "H", "spatial": "H", "azure": "H", "fts": "B", "inet": "B", "glue": "H", "legacy_parser": "H", "sqlite_scanner": "H", "vss": "H", "avro": "K", "encodings": "H", "excel": "H", "unity_catalog": "H", "mysql_scanner": "K", "postgres_scanner": "K", "quack": "H", "sqlsmith": "K", "ducklake": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-15", "counts": {"pin": {"Behind": 16, "Held": 2, "Up to date": 2, "Skipped": 4}, "patches": {"Broken": 3, "Carried": 11, "None": 6}}, "broken": ["fts", "inet", "legacy_parser"], "behind": ["aws", "azure", "delta", "encodings", "excel", "fts", "glue", "httpfs", "iceberg", "legacy_parser", "postgres_scanner", "quack", "spatial", "sqlite_scanner", "unity_catalog", "vss"], "states": {"aws": "H", "delta": "H", "httpfs": "H", "iceberg": "H", "spatial": "H", "azure": "H", "fts": "B", "legacy_parser": "B", "inet": "B", "glue": "H", "sqlite_scanner": "H", "vss": "H", "avro": "K", "encodings": "H", "excel": "H", "postgres_scanner": "H", "unity_catalog": "H", "mysql_scanner": "K", "quack": "H", "sqlsmith": "K", "ducklake": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-16", "counts": {"pin": {"Behind": 8, "Held": 2, "Up to date": 10, "Skipped": 4}, "patches": {"Broken": 2, "Carried": 5, "None": 13}}, "broken": ["fts", "inet"], "behind": ["azure", "delta", "encodings", "excel", "fts", "httpfs", "iceberg", "unity_catalog"], "states": {"httpfs": "H", "iceberg": "H", "azure": "H", "delta": "H", "aws": "K", "spatial": "K", "fts": "B", "inet": "B", "avro": "K", "encodings": "H", "excel": "H", "unity_catalog": "H", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}], "level": "at_risk"}</script>
   <script>
   (function () {
     var table = document.getElementById('ext-table');
