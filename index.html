@@ -13,8 +13,8 @@
   --page:#f9f9f7;--surface:#fcfcfb;--ink:#0d0d0d;--ink2:#52514e;--muted:#898781;
   --grid:#e1e0d9;--axis:#c3c2b7;--border:rgba(13,13,13,.10);--wash:rgba(13,13,13,.035);
   --brand:#fff100;--brand-ink:#0d0d0d;--logo-disc:#1a1a1a;--logo-duck:#fff100;
-  /* Maya Blue and Hot Orange fail AA under white or as text on white, so pills on them take dark ink and links use --link. */
-  --s1:#2eafff;--s2:#ff6900;--s3:#008700;--s7:#7b68ee;--link:#005fff;
+  /* Maya Blue (#2eafff) is under 3:1 on white, so light mode draws marks in its darker step and links in --link; pills on the secondaries take dark ink. */
+  --s1:#1684c9;--s2:#ff6900;--s3:#008700;--s7:#7b68ee;--link:#005fff;
   --o1:#c4e8ff;--o2:#86d0ff;--o3:#2eafff;--o4:#1684c9;--o5:#0c5a8c;
   --good:#008700;--warn:#fab219;--serious:#ff6900;--crit:#d70000;
   --goodtext:#008700;--badtext:#d70000;--warntext:#875f00;
@@ -28,7 +28,7 @@
     --page:#0d0d0d;--surface:#1e1e1e;--ink:#fff;--ink2:#c3c2b7;--muted:#898781;
     --grid:#2c2c2c;--axis:#383838;--border:rgba(255,255,255,.10);--wash:rgba(255,255,255,.04);
     --logo-disc:#fff100;--logo-duck:#1d1d1b;
-    --s3:#00af00;--s7:#9d8fff;--link:#5fafff;
+    --s1:#2eafff;--s3:#00af00;--s7:#9d8fff;--link:#5fafff;
     --o1:#0c5a8c;--o2:#1684c9;--o3:#2eafff;--o4:#86d0ff;--o5:#c4e8ff;
     --good:#00af00;
     --goodtext:#00af00;--badtext:#ff6a6a;--warntext:#ffd700;
@@ -63,7 +63,7 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 /* Railroad track: the rail's right overhang must equal the .steps gap (6px, 12px on tv) so it joins the next junction. */
 .steps li{position:relative;padding-top:24px;font-size:14px;color:var(--muted);min-width:0}
 .steps li::before{content:"";position:absolute;left:0;right:-6px;top:6px;height:3px;border-radius:2px;background:var(--grid)}
-.steps li:last-child::before{right:0}
+.steps li:last-child::before{display:none}
 .steps li::after{content:"";position:absolute;left:0;top:0;width:15px;height:15px;border-radius:50%;background:var(--surface);border:3px solid var(--axis)}
 .steps li b{display:block;font-size:16px;color:var(--ink2);font-weight:600;margin-bottom:2px}
 .steps li.done::before{background:var(--s3)}
@@ -177,9 +177,12 @@ html.tv .tscroll{max-height:none}
 @media (max-width:1100px){.r-queue{grid-template-columns:1fr}.tbl.owners{width:auto;max-width:640px}}
 @media (max-width:980px){.kpis{grid-template-columns:repeat(2,1fr)}.kpis>:last-child:nth-child(odd){grid-column:1/-1}.r-main,.r-two{grid-template-columns:1fr}}
 @media (max-width:520px){.kpi .val{font-size:26px}
-  /* The who and why share one caption line under the verb (the ::after breaks the row); a basis-0 why can't wrap away from the who. */
-  .queue li:is(.k-check,.k-subissue){flex-wrap:wrap;row-gap:2px}.queue li:is(.k-check,.k-subissue)::after{content:"";flex-basis:100%;order:2}.queue :is(.k-check,.k-subissue) .verb{flex:1 1 0}.queue :is(.k-check,.k-subissue) .why{white-space:normal;order:3}.queue :is(.k-check,.k-subissue) span.why:last-of-type{max-width:none;flex:1 1 0;min-width:0}.queue :is(.k-check,.k-subissue) .verb+.why{padding-left:48px}.queue :is(.k-check,.k-subissue) .verb+.why .sep{display:none}
-  .hero{padding:16px}.countdown .big{font-size:56px}.steps{grid-template-columns:repeat(2,1fr);row-gap:12px}.steps li:nth-child(2n)::before{right:0}}
+  /* Every caption drops under the verb, indented to its text column; the title keeps the checkbox's line. */
+  .queue li{flex-wrap:wrap}.queue .verb{white-space:normal;min-width:0;flex:1 1 0}.queue li.sec .verb{flex:none}.queue span.why{flex:0 0 100%;white-space:normal;order:3;padding-left:48px}.queue span.why .sep{display:none}.queue .goto{order:2}
+  .queue li.done span.why{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}textarea.tri.note{flex-basis:calc(100% - 48px);max-width:calc(100% - 48px);margin-left:48px;order:4}
+  /* Checklist rows keep who and why on one caption line (the ::after breaks the row); a basis-0 why can't wrap away from the who. */
+  .queue li:is(.k-check,.k-subissue){row-gap:2px}.queue li:is(.k-check,.k-subissue)::after{content:"";flex-basis:100%;order:2}.queue :is(.k-check,.k-subissue) .verb{flex:1 1 0}.queue :is(.k-check,.k-subissue) .why{white-space:normal}.queue :is(.k-check,.k-subissue) span.why:last-of-type{max-width:none;flex:1 1 0;min-width:0}.queue :is(.k-check,.k-subissue) .why+.why{padding-left:0}.queue :is(.k-check,.k-subissue) .why+.why .sep{display:inline}
+  .hero{padding:16px}.countdown .big{font-size:56px}.steps{grid-template-columns:repeat(2,1fr);row-gap:12px}.steps li:nth-child(2n)::before{display:none}}
   :root {
     --ok-bg: #d8f3dc;
     --ok-fg: #1b5e20;
