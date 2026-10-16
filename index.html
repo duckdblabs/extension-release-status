@@ -66,9 +66,9 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .steps li:last-child::before{display:none}
 .steps li::after{content:"";position:absolute;left:0;top:0;width:15px;height:15px;border-radius:50%;background:var(--surface);border:3px solid var(--axis)}
 .steps li b{display:block;font-size:16px;color:var(--ink2);font-weight:600;margin-bottom:2px}
-.steps li.done::before{background:var(--s3)}
-.steps li.done::after{background:var(--s3);border-color:var(--s3)}
-.steps li.done b::before{content:"✓ ";color:var(--s3)}
+.steps li.done::before{background:var(--ink2)}
+.steps li.done::after{background:var(--ink2);border-color:var(--ink2)}
+.steps li.done b::before{content:"✓ "}
 .steps li.current::after{background:var(--brand);border-color:var(--ink)}
 .steps li.current b{color:var(--ink)}
 .steps li.current b::after{content:"Now";margin-left:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:var(--brand);color:var(--brand-ink);border-radius:4px;padding:1px 5px;vertical-align:1px}
