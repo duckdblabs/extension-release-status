@@ -105,6 +105,8 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .kpis>*,.row>*{min-width:0}
 .strip{display:flex;flex-wrap:wrap;gap:3px;margin-top:10px}
 .strip.ci{display:grid;grid-template-columns:repeat(7,14px);gap:4px}
+.kpi>.cirows{margin-top:auto;padding-top:4px}.cirow+.cirow{margin-top:4px}
+.cihead{display:block;font-size:12px;line-height:1.2;color:var(--ink2)}.cihead b{font-size:14px;color:var(--ink)}.cirow .strip{margin-top:3px}
 .strip i{width:14px;height:14px;border-radius:3px;display:grid;place-items:center;font-style:normal;font-size:10px;font-weight:800;color:#fff}
 .strip i.ok{background:var(--good)}.strip i.fail{background:var(--crit)}
 .row{display:grid;gap:16px;margin-bottom:16px}
