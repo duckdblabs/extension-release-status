@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="tint-ext">
 <head>
 <base target="_blank">
 <meta charset="utf-8">
@@ -30,6 +30,13 @@
     --blocker-line:#ff4d2e;
   }
 }
+/* Violet, not sand, for the extension page: amber, green and red are taken by its own pin and patch states */
+html.tint-release{--page:#d7e8f4;--surface:#ecf4fa;--grid:#c8dbe9;--axis:#9db2c4;--ink2:#454b55;--muted:#676d77}
+html.tint-ext{--page:#e5ddf7;--surface:#f5f1fd;--grid:#d8d0ef;--axis:#aa9fcd;--ink2:#4a4559;--muted:#6c677e}
+@media (prefers-color-scheme:dark){
+  html.tint-release{--page:#0c1b2b;--surface:#18283a;--grid:#293a4d;--axis:#374a5e;--ink2:#c0c9d6;--muted:#89909b}
+  html.tint-ext{--page:#191331;--surface:#262040;--grid:#383055;--axis:#473e68;--ink2:#c8c3da;--muted:#918ca2}
+}
 *{box-sizing:border-box}
 body{margin:0;background:var(--page);color:var(--ink);font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
 h1{font-size:34px;line-height:1.15;margin:0 0 6px;font-weight:700;letter-spacing:-.02em}
@@ -59,8 +66,9 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .status.at_risk .ico{background:var(--warn);color:#0b0b0b}
 .status.blocked .ico{background:var(--crit);color:#fff}
 .status b{display:block;font-size:16px}
-.status.blocked{background:color-mix(in srgb,var(--crit) 9%,var(--surface));border-color:color-mix(in srgb,var(--crit) 35%,transparent);box-shadow:inset 4px 0 0 var(--crit)}
-.status.at_risk{background:color-mix(in srgb,var(--warn) 10%,var(--surface));border-color:color-mix(in srgb,var(--warn) 40%,transparent);box-shadow:inset 4px 0 0 var(--warn)}
+/* 22 and 24%, not 9 and 10: a tinted surface swallows a wash that thin, and this card has to win the eye */
+.status.blocked{background:color-mix(in srgb,var(--crit) 22%,var(--surface));border-color:color-mix(in srgb,var(--crit) 35%,transparent);box-shadow:inset 4px 0 0 var(--crit)}
+.status.at_risk{background:color-mix(in srgb,var(--warn) 24%,var(--surface));border-color:color-mix(in srgb,var(--warn) 40%,transparent);box-shadow:inset 4px 0 0 var(--warn)}
 .status.blocked b{color:var(--badtext)}
 .status ul{margin:4px 0 0;padding-left:16px;color:var(--ink2);font-size:13px}
 .status ul li{margin:1px 0}
