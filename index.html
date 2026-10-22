@@ -90,6 +90,7 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .tabs.mini{padding:2px}.tabs.mini button{font-size:11px;padding:3px 10px}
 .cardhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
 .cardhead h2{margin:0}
+.cardhead .more{padding:0}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px}
 .card h2{font-size:16px;font-weight:650;margin:0 0 4px;letter-spacing:-.01em}
 .card .hint{color:var(--muted);font-size:12px;margin:0 0 12px}
@@ -107,10 +108,16 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .strip.ci{display:grid;grid-template-columns:repeat(7,14px);gap:4px}
 .kpi>.cirows{margin-top:auto;padding-top:4px}.cirow+.cirow{margin-top:8px}
 .cihead{display:block;font-size:12px;line-height:1.2;color:var(--ink2)}.cihead b{font-size:14px;color:var(--ink)}.cirow .strip{margin-top:3px}
-.strip i{width:14px;height:14px;border-radius:3px;display:grid;place-items:center;font-style:normal;font-size:10px;font-weight:800;color:#fff}
-.strip i.ok{background:var(--good)}.strip i.fail{background:var(--crit)}
+.strip i,.sq{width:14px;height:14px;border-radius:3px;display:grid;place-items:center;font-style:normal;font-size:10px;font-weight:800;color:#fff}
+/* .sq: the same square loose in text or a legend; the status page colours it per state */
+.sq{display:inline-block;vertical-align:middle;background:var(--grid)}
+.strip i.ok,.sq.ok{background:var(--good)}.strip i.fail,.sq.broken{background:var(--crit)}.sq.behind{background:var(--warn)}.sq.held{background:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--ink2);margin-bottom:6px}
+.legend i{display:inline-block;width:12px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.legend i.sq{height:10px;width:10px;border-radius:3px}
 .row{display:grid;gap:16px;margin-bottom:16px}
-.r-queue{grid-template-columns:1.4fr 1fr}
+/* start, not stretch: a short By owner or Ready card keeps its own height next to a long queue */
+.r-queue{grid-template-columns:1.4fr 1fr;align-items:start}
 .stack{display:flex;flex-direction:column;gap:16px;min-width:0}
 .r-main{grid-template-columns:1.75fr 1fr}
 .r-two{grid-template-columns:1fr 1fr}
@@ -119,7 +126,9 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .queue li:first-child{border-top:0}
 .queue li::before{counter-increment:q;content:counter(q);color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums;width:1.4em;flex:none;text-align:right}
 .queue .verb{font-weight:600;flex:none;white-space:nowrap}
-.queue .r0 .verb{color:var(--badtext)}
+/* Verbs are one colour, link or not; the red counter alone says "release-blocking" */
+.queue .verb a{color:var(--ink)}
+.queue .r0::before{color:var(--badtext);font-weight:800}
 /* Neither why span shrinks; the last one is capped at 40% of the row and ellipsizes there, so a long why can't push a short step onto two lines while a short why keeps its natural width. */
 .queue :is(.k-check,.k-subissue) .verb{white-space:normal;flex:0 1 auto;font-weight:500}
 .queue .k-check .verb code{font-size:12px;overflow-wrap:anywhere}
@@ -146,6 +155,8 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .tbl th{position:sticky;top:0;background:var(--surface);z-index:1;text-align:left;font-weight:600;color:var(--ink2);font-size:12px;padding:8px 8px;border-bottom:1px solid var(--axis);white-space:nowrap;cursor:pointer;user-select:none}
 .tbl th.num,.tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
 .tbl th:hover{color:var(--ink)}
+/* Short table that scrolls with the page: a sticky header would float alone; wrapped headers keep its seven columns inside the card */
+.tbl.owners th{position:static;white-space:normal}
 .tbl th .arr{color:var(--muted);font-size:10px;margin-left:3px}
 .tbl td{padding:8px;border-bottom:1px solid var(--grid);vertical-align:middle}
 .tbl tr:hover td{background:var(--wash)}
@@ -175,8 +186,10 @@ html.tv .kpi .lab{font-size:17px}html.tv .phase .now{font-size:20px}html.tv .pha
 html.tv .steps{gap:12px}html.tv .steps li{padding-top:30px;font-size:18px}html.tv .steps li::before{height:4px;top:8px;right:-12px}html.tv .steps li::after{width:20px;height:20px;border-width:4px}html.tv .steps li b{font-size:22px;margin-bottom:4px}
 html.tv .steps li.current b::after{font-size:12px;padding:2px 7px}
 html.tv .tscroll{max-height:none}
+/* Sideways containment only: a height cap would scroll the static header out of view after Show all */
+.tscroll.owners-scroll{max-height:none}
 @media (max-width:1250px){.kpis{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:1100px){.r-queue{grid-template-columns:1fr}.tbl.owners{width:auto;max-width:640px}}
+@media (max-width:1100px){.r-queue{grid-template-columns:1fr}}
 @media (max-width:980px){.kpis{grid-template-columns:repeat(2,1fr)}.kpis>:last-child:nth-child(odd){grid-column:1/-1}.r-main,.r-two{grid-template-columns:1fr}}
 @media (max-width:520px){.kpi .val{font-size:26px}
   /* Every caption drops under the verb, indented to its text column; the title keeps the checkbox's line. */
@@ -185,24 +198,24 @@ html.tv .tscroll{max-height:none}
   /* Checklist rows keep who and why on one caption line (the ::after breaks the row); a basis-0 why can't wrap away from the who. */
   .queue li:is(.k-check,.k-subissue){row-gap:2px}.queue li:is(.k-check,.k-subissue)::after{content:"";flex-basis:100%;order:2}.queue :is(.k-check,.k-subissue) .verb{flex:1 1 0}.queue :is(.k-check,.k-subissue) .why{white-space:normal}.queue :is(.k-check,.k-subissue) span.why:last-of-type{max-width:none;flex:1 1 0;min-width:0}.queue :is(.k-check,.k-subissue) .why+.why{padding-left:0}.queue :is(.k-check,.k-subissue) .why+.why .sep{display:inline}
   .hero{padding:16px}.countdown .big{font-size:56px}.steps{grid-template-columns:repeat(2,1fr);row-gap:12px}.steps li:nth-child(2n)::before{display:none}}
-  :root {
-    --ok-bg: #d8f3dc;
-    --ok-fg: #1b5e20;
-    --behind-bg: #ffe8cc;
-    --behind-fg: #8a4b00;
-    --blocked-bg: #c0362c;
-    --blocked-fg: #ffffff;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --ok-bg: #1b3a24;
-      --ok-fg: #8fe3a5;
-      --behind-bg: #4a2f0f;
-      --behind-fg: #ffc987;
-      --blocked-bg: #d1453b;
-      --blocked-fg: #ffffff;
-    }
-  }
+/* Shared by the extension status page and its release index: the two state axes' colours and the badge pills */
+:root {
+  --ok-bg: #d8f3dc; --ok-fg: #1b5e20;
+  --behind-bg: #ffe8cc; --behind-fg: #8a4b00;
+  --patches-bg: #fff6c2; --patches-fg: #5c4a00; --patches-line: #d4b800;
+  --blocked-bg: var(--crit); --blocked-fg: #fff;
+}
+@media (prefers-color-scheme: dark) {
+  /* Washes over the tinted surface, like the status card's, so the pills don't float as warm hex on the purple */
+  :root { --ok-bg: color-mix(in srgb, var(--good) 28%, var(--surface)); --ok-fg: #8fe3a5;
+          --behind-bg: color-mix(in srgb, var(--warn) 30%, var(--surface)); --behind-fg: #ffc987;
+          --patches-bg: color-mix(in srgb, var(--patches-line) 28%, var(--surface)); --patches-fg: #e8dc6a; --patches-line: #a89a12; }
+}
+.badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; border: 0; background: transparent; font-family: inherit; }
+.badge.ok, .chip.ok { background: var(--ok-bg); color: var(--ok-fg); --ring: var(--ok-fg); }
+.badge.behind, .chip.behind { background: var(--behind-bg); color: var(--behind-fg); --ring: var(--behind-fg); }
+.badge.patches, .chip.patches { background: var(--patches-bg); color: var(--patches-fg); box-shadow: inset 0 0 0 1px var(--patches-line); --ring: var(--patches-fg); }
+.badge.blocked, .chip.blocked { background: var(--blocked-bg); color: var(--blocked-fg); --ring: var(--blocked-fg); }
   body { max-width: 640px; margin: 2.5rem auto; }
   ul { list-style: none; margin: 0; padding: 0; }
   li {
@@ -220,15 +233,6 @@ html.tv .tscroll{max-height:none}
   }
   li:hover { background: var(--surface); }
   .empty { color: var(--muted); }
-  .lvl {
-    font-size: 0.7rem;
-    font-weight: 600;
-    padding: 0.25rem 0.65rem;
-    border-radius: 999px;
-  }
-  .lvl.on_track { background: var(--ok-bg); color: var(--ok-fg); }
-  .lvl.at_risk { background: var(--behind-bg); color: var(--behind-fg); }
-  .lvl.blocked { background: var(--blocked-bg); color: var(--blocked-fg); }
 </style>
 </head>
 <body>
@@ -240,17 +244,13 @@ html.tv .tscroll{max-height:none}
     <li><a href="v2.0.1/">
       <span>v2.0.1</span>
       
-      
-        <span class="lvl at_risk">At risk</span>
-      
+      <span class="badge behind">At risk</span>
     </a></li>
     
     <li><a href="v2.0.0/">
       <span>v2.0.0</span>
       
-      
-        <span class="lvl blocked">Blocked</span>
-      
+      <span class="badge blocked">Blocked</span>
     </a></li>
     
     <li><a href="v1.5.6/">
