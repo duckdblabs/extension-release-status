@@ -126,8 +126,8 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .queue li:first-child{border-top:0}
 .queue li::before{counter-increment:q;content:counter(q);color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums;width:1.4em;flex:none;text-align:right}
 .queue .verb{font-weight:600;flex:none;white-space:nowrap}
-/* Verbs are one colour, link or not; the red counter alone says "release-blocking" */
-.queue .verb a{color:var(--ink)}
+/* Verbs are one colour, link or not; a muted underline marks the clickable ones before hover */
+.queue .verb a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--grid);text-underline-offset:2px}
 .queue .r0::before{color:var(--badtext);font-weight:800}
 /* Neither why span shrinks; the last one is capped at 40% of the row and ellipsizes there, so a long why can't push a short step onto two lines while a short why keeps its natural width. */
 .queue :is(.k-check,.k-subissue) .verb{white-space:normal;flex:0 1 auto;font-weight:500}
@@ -156,7 +156,7 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .tbl th.num,.tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
 .tbl th:hover{color:var(--ink)}
 /* Short table that scrolls with the page: a sticky header would float alone; wrapped headers keep its seven columns inside the card */
-.tbl.owners th{position:static;white-space:normal}
+.tbl.owners th{position:static;white-space:normal;vertical-align:bottom}
 .tbl th .arr{color:var(--muted);font-size:10px;margin-left:3px}
 .tbl td{padding:8px;border-bottom:1px solid var(--grid);vertical-align:middle}
 .tbl tr:hover td{background:var(--wash)}
@@ -171,7 +171,14 @@ details.fold>summary:hover h2{text-decoration:underline}
 details.fold .count,.card h2 .count{color:var(--muted);font-size:12px;font-weight:400}details.fold .count:empty{display:none}
 details.fold .count:not(:empty)+.count:not(:empty)::before{content:"· "}
 details.fold .count.stale,.card h2 .count.stale{color:var(--warntext);font-weight:600}
-.tbl.dates th{cursor:default}.tbl.published td{white-space:normal}.tbl.published td.next{min-width:180px}.tbl.published .muted{color:var(--muted)}.tbl.dates td.muted{color:var(--muted)}.tbl.dates td.off,.tbl.dates tr.off td:first-child{color:var(--warntext);font-weight:600}
+.tbl.dates th{cursor:default}.tbl.dates th:hover{color:var(--ink2)}.tbl.dates td{font-variant-numeric:tabular-nums}
+/* No hover wash: these rows do nothing on click */
+.tbl.dates tr:hover td{background:none}
+/* Dates only: the published table's chase texts must keep wrapping */
+.tbl.dates:not(.published) td:not(:first-child){white-space:nowrap}
+.tbl.published td{white-space:normal}.tbl.published .muted{color:var(--muted)}.tbl.dates td.muted{color:var(--muted)}.tbl.dates td.off,.tbl.dates tr.off td:first-child{color:var(--warntext);font-weight:600}
+/* The overdue channel's name is a link: keep the warning colour over the link blue */
+.tbl.dates tr.off td:first-child a{color:inherit}
 .more{font:inherit;font-size:12px;font-weight:600;color:var(--link);background:none;border:0;padding:10px 0 0;cursor:pointer}
 .more:hover{text-decoration:underline}
 .filters{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
