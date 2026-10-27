@@ -237,7 +237,6 @@ html.tv .tscroll{max-height:none}
   .queue .copy-btn, .queue .goto { flex: none; }
   /* The shared .queue li { display: flex } would otherwise beat [hidden] */
   #moves li[hidden], #ready-list li[hidden], .ext-card[hidden], .link-pair[hidden] { display: none; }
-  .queue .r0 .verb a { color: var(--badtext); }
   /* The shared li.sec uppercases its whole line; the hint beside this heading carries a command */
   #after-release { margin-top: 10px; }
   #after-release .sec .why { text-transform: none; letter-spacing: 0; white-space: normal; }
@@ -401,6 +400,8 @@ html.tv .tscroll{max-height:none}
   
   <template id="tip-action-check"><p class="tip-title">Check patches by hand</p><p class="meaning">The patches couldn't be checked (e.g. the clone failed); the reason is under the label. Rerun the status check, or check them by hand.</p></template>
   
+  <template id="tip-action-check_commit"><p class="tip-title">Check commit by hand</p><p class="meaning">Fetching the latest commit on the target branch failed, so there is nothing to bump to. Rerun the status check, or check the repo by hand.</p></template>
+  
   <template id="tip-action-hold"><p class="tip-title">Wait for next commit / Nothing: held this release / Finish the open PR</p><p class="meaning">The tip doesn't build against this release, so the pin stays; the reason is under the label. "Wait for next commit": the next commit on the branch lifts it. "Nothing: held this release": the extension moved off duckdb's API, and only the hold list in duckdb-automations lifts it. "Finish the open PR": a PR is still open on it, so the hold isn't final until that PR is merged or closed.</p></template>
   
   <template id="tip-action-skip"><p class="tip-title">Not managed here</p><p class="meaning">Listed for the overview only; the reason is under the label. The bot never bumps, patches or merges this extension forward.</p></template>
@@ -415,7 +416,7 @@ html.tv .tscroll{max-height:none}
       <svg class="brand-mark" viewBox="0 0 500 500" role="img" aria-label="DuckDB"><circle cx="250" cy="250" r="250" fill="var(--logo-disc)"/><g fill="var(--logo-duck)"><circle cx="190.05" cy="250" r="103.41"/><path d="M376.138,212.784h-49.147v74.433h49.147c20.554,0,37.216-16.663,37.216-37.217S396.692,212.784,376.138,212.784Z"/></g></svg>
       <div>
         <h1>DuckDB Extension Status <span class="muted">v2.0.1</span></h1>
-        <div class="sub"><a href="../">&larr; all releases</a> &middot; branch v2.0-cyanoptera &middot; generated 27-10-2026 14:10 CET by the <a href="https://github.com/duckdblabs/duckdb-automations/actions/runs/40509613652" data-run>Extension status page run</a>
+        <div class="sub"><a href="../">&larr; all releases</a> &middot; branch v2.0-cyanoptera &middot; generated 27-10-2026 15:19 CET by the <a href="https://github.com/duckdblabs/duckdb-automations/actions/runs/40519818468" data-run>Extension status page run</a>
           &middot; <a href="#legend" target="_self" id="legend-link">Legend</a></div>
       </div>
       </div>
@@ -509,22 +510,22 @@ html.tv .tscroll{max-height:none}
           
           <span class="chip-group">Pin</span>
           
-          <button type="button" class="chip behind" aria-pressed="false" data-axis="pin" data-value="Behind" title="No change since the report generated 27-10-2026 13:37 CET">Behind <strong>2</strong></button>
+          <button type="button" class="chip behind" aria-pressed="false" data-axis="pin" data-value="Behind" title="No change since the report generated 27-10-2026 14:10 CET">Behind <strong>2</strong></button>
           
-          <button type="button" class="chip held" aria-pressed="false" data-axis="pin" data-value="Held" title="No change since the report generated 27-10-2026 13:37 CET">Held <strong>2</strong></button>
+          <button type="button" class="chip held" aria-pressed="false" data-axis="pin" data-value="Held" title="No change since the report generated 27-10-2026 14:10 CET">Held <strong>2</strong></button>
           
-          <button type="button" class="chip ok" aria-pressed="false" data-axis="pin" data-value="Up to date" title="No change since the report generated 27-10-2026 13:37 CET">Up to date <strong>16</strong></button>
+          <button type="button" class="chip ok" aria-pressed="false" data-axis="pin" data-value="Up to date" title="No change since the report generated 27-10-2026 14:10 CET">Up to date <strong>16</strong></button>
           
-          <button type="button" class="chip skipped" aria-pressed="false" data-axis="pin" data-value="Skipped" title="No change since the report generated 27-10-2026 13:37 CET">Skipped <strong>5</strong></button>
+          <button type="button" class="chip skipped" aria-pressed="false" data-axis="pin" data-value="Skipped" title="No change since the report generated 27-10-2026 14:10 CET">Skipped <strong>5</strong></button>
           
           
           <span class="chip-group">Patches</span>
           
-          <button type="button" class="chip blocked" aria-pressed="false" data-axis="patches" data-value="Broken" title="No change since the report generated 27-10-2026 13:37 CET">Broken <strong>3</strong></button>
+          <button type="button" class="chip blocked" aria-pressed="false" data-axis="patches" data-value="Broken" title="No change since the report generated 27-10-2026 14:10 CET">Broken <strong>3</strong></button>
           
-          <button type="button" class="chip patches" aria-pressed="false" data-axis="patches" data-value="Carried" title="No change since the report generated 27-10-2026 13:37 CET">Carried <strong>1</strong></button>
+          <button type="button" class="chip patches" aria-pressed="false" data-axis="patches" data-value="Carried" title="No change since the report generated 27-10-2026 14:10 CET">Carried <strong>1</strong></button>
           
-          <button type="button" class="chip none" aria-pressed="false" data-axis="patches" data-value="None" title="No change since the report generated 27-10-2026 13:37 CET">None <strong>16</strong></button>
+          <button type="button" class="chip none" aria-pressed="false" data-axis="patches" data-value="None" title="No change since the report generated 27-10-2026 14:10 CET">None <strong>16</strong></button>
           
           
         </div>
@@ -997,6 +998,9 @@ html.tv .tscroll{max-height:none}
             <dt><span class="action-label">Check patches by hand</span></dt>
             <dd><p class="meaning">The patches couldn't be checked (e.g. the clone failed); the reason is under the label. Rerun the status check, or check them by hand.</p></dd>
             
+            <dt><span class="action-label">Check commit by hand</span></dt>
+            <dd><p class="meaning">Fetching the latest commit on the target branch failed, so there is nothing to bump to. Rerun the status check, or check the repo by hand.</p></dd>
+            
             <dt><span class="action-label">Wait for next commit / Nothing: held this release / Finish the open PR</span></dt>
             <dd><p class="meaning">The tip doesn't build against this release, so the pin stays; the reason is under the label. "Wait for next commit": the next commit on the branch lifts it. "Nothing: held this release": the extension moved off duckdb's API, and only the hold list in duckdb-automations lifts it. "Finish the open PR": a PR is still open on it, so the hold isn't final until that PR is merged or closed.</p></dd>
             
@@ -1375,7 +1379,7 @@ html.tv .tscroll{max-height:none}
     </section>
   </div>
 
-  <script type="application/json" id="report-summary">{"generated_at": "27-10-2026 14:10 CET", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "attempts": {}, "run": {"workflow": "Extension status page", "run_url": "https://github.com/duckdblabs/duckdb-automations/actions/runs/40509613652", "at": "2026-10-27T13:10:42.211753+00:00", "steps": {}}, "history": [{"day": "2026-10-22", "counts": {"pin": {"Behind": 1, "Held": 2, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 2, "Carried": 1, "None": 17}}, "broken": ["fts"], "behind": ["spatial"], "states": {"spatial": "H", "aws": "K", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "inet": "P", "fts": "B", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-23", "counts": {"pin": {"Behind": 1, "Held": 2, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 2, "Carried": 2, "None": 16}}, "broken": ["fts"], "behind": ["spatial"], "states": {"aws": "K", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "inet": "P", "fts": "B", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-27", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}], "level": "blocked"}</script>
+  <script type="application/json" id="report-summary">{"generated_at": "27-10-2026 15:19 CET", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "attempts": {}, "run": {"workflow": "Extension status page", "run_url": "https://github.com/duckdblabs/duckdb-automations/actions/runs/40519818468", "at": "2026-10-27T14:19:11.340735+00:00", "steps": {}}, "history": [{"day": "2026-10-22", "counts": {"pin": {"Behind": 1, "Held": 2, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 2, "Carried": 1, "None": 17}}, "broken": ["fts"], "behind": ["spatial"], "states": {"spatial": "H", "aws": "K", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "inet": "P", "fts": "B", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-23", "counts": {"pin": {"Behind": 1, "Held": 2, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 2, "Carried": 2, "None": 16}}, "broken": ["fts"], "behind": ["spatial"], "states": {"aws": "K", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "inet": "P", "fts": "B", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-27", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}], "level": "blocked"}</script>
   <script>
 // Top-level tabs shared by the release dashboard and the extension status page; opts.names[0] is the fallback tab, onShow runs after the hash write.
 function tabSwitcher(opts) {
