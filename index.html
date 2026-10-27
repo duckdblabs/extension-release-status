@@ -56,10 +56,12 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .countdown{display:flex;align-items:baseline;gap:10px;flex:none}
 .countdown .big{font-size:72px;font-weight:700;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .countdown .unit{font-size:18px;color:var(--ink2);font-weight:500}
+.countdown .fine{font-size:13px;color:var(--muted)}
+.countdown.post{display:grid;grid-template-columns:auto auto;row-gap:0}  /* words and number on the first row, the date under the words on the second */
 .phase{flex:1 1 520px;min-width:0}
 .phase .now{font-size:15px;color:var(--ink2);margin-bottom:12px}
 .phase .now b{color:var(--ink);font-size:18px}
-.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr) auto;gap:6px}  /* the undated last step takes only its label's width, so the dated ones keep room for a name, badge and date on two lines */
 /* Railroad track: the rail's right overhang must equal the .steps gap (6px, 12px on tv) so it joins the next junction. */
 .steps li{position:relative;padding-top:24px;font-size:14px;color:var(--muted);min-width:0}
 .steps li::before{content:"";position:absolute;left:0;right:-6px;top:6px;height:3px;border-radius:2px;background:var(--grid)}

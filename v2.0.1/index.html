@@ -56,10 +56,12 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .countdown{display:flex;align-items:baseline;gap:10px;flex:none}
 .countdown .big{font-size:72px;font-weight:700;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .countdown .unit{font-size:18px;color:var(--ink2);font-weight:500}
+.countdown .fine{font-size:13px;color:var(--muted)}
+.countdown.post{display:grid;grid-template-columns:auto auto;row-gap:0}  /* words and number on the first row, the date under the words on the second */
 .phase{flex:1 1 520px;min-width:0}
 .phase .now{font-size:15px;color:var(--ink2);margin-bottom:12px}
 .phase .now b{color:var(--ink);font-size:18px}
-.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr) auto;gap:6px}  /* the undated last step takes only its label's width, so the dated ones keep room for a name, badge and date on two lines */
 /* Railroad track: the rail's right overhang must equal the .steps gap (6px, 12px on tv) so it joins the next junction. */
 .steps li{position:relative;padding-top:24px;font-size:14px;color:var(--muted);min-width:0}
 .steps li::before{content:"";position:absolute;left:0;right:-6px;top:6px;height:3px;border-radius:2px;background:var(--grid)}
@@ -416,7 +418,7 @@ html.tv .tscroll{max-height:none}
       <svg class="brand-mark" viewBox="0 0 500 500" role="img" aria-label="DuckDB"><circle cx="250" cy="250" r="250" fill="var(--logo-disc)"/><g fill="var(--logo-duck)"><circle cx="190.05" cy="250" r="103.41"/><path d="M376.138,212.784h-49.147v74.433h49.147c20.554,0,37.216-16.663,37.216-37.217S396.692,212.784,376.138,212.784Z"/></g></svg>
       <div>
         <h1>DuckDB Extension Status <span class="muted">v2.0.1</span></h1>
-        <div class="sub"><a href="../">&larr; all releases</a> &middot; branch v2.0-cyanoptera &middot; generated 27-10-2026 15:19 CET by the <a href="https://github.com/duckdblabs/duckdb-automations/actions/runs/40519818468" data-run>Extension status page run</a>
+        <div class="sub"><a href="../">&larr; all releases</a> &middot; branch v2.0-cyanoptera &middot; generated 27-10-2026 16:35 CET by the <a href="https://github.com/duckdblabs/duckdb-automations/actions/runs/40532371810" data-run>Extension status page run</a>
           &middot; <a href="#legend" target="_self" id="legend-link">Legend</a></div>
       </div>
       </div>
@@ -510,22 +512,22 @@ html.tv .tscroll{max-height:none}
           
           <span class="chip-group">Pin</span>
           
-          <button type="button" class="chip behind" aria-pressed="false" data-axis="pin" data-value="Behind" title="No change since the report generated 27-10-2026 14:10 CET">Behind <strong>2</strong></button>
+          <button type="button" class="chip behind" aria-pressed="false" data-axis="pin" data-value="Behind" title="No change since the report generated 27-10-2026 15:19 CET">Behind <strong>2</strong></button>
           
-          <button type="button" class="chip held" aria-pressed="false" data-axis="pin" data-value="Held" title="No change since the report generated 27-10-2026 14:10 CET">Held <strong>2</strong></button>
+          <button type="button" class="chip held" aria-pressed="false" data-axis="pin" data-value="Held" title="No change since the report generated 27-10-2026 15:19 CET">Held <strong>2</strong></button>
           
-          <button type="button" class="chip ok" aria-pressed="false" data-axis="pin" data-value="Up to date" title="No change since the report generated 27-10-2026 14:10 CET">Up to date <strong>16</strong></button>
+          <button type="button" class="chip ok" aria-pressed="false" data-axis="pin" data-value="Up to date" title="No change since the report generated 27-10-2026 15:19 CET">Up to date <strong>16</strong></button>
           
-          <button type="button" class="chip skipped" aria-pressed="false" data-axis="pin" data-value="Skipped" title="No change since the report generated 27-10-2026 14:10 CET">Skipped <strong>5</strong></button>
+          <button type="button" class="chip skipped" aria-pressed="false" data-axis="pin" data-value="Skipped" title="No change since the report generated 27-10-2026 15:19 CET">Skipped <strong>5</strong></button>
           
           
           <span class="chip-group">Patches</span>
           
-          <button type="button" class="chip blocked" aria-pressed="false" data-axis="patches" data-value="Broken" title="No change since the report generated 27-10-2026 14:10 CET">Broken <strong>3</strong></button>
+          <button type="button" class="chip blocked" aria-pressed="false" data-axis="patches" data-value="Broken" title="No change since the report generated 27-10-2026 15:19 CET">Broken <strong>3</strong></button>
           
-          <button type="button" class="chip patches" aria-pressed="false" data-axis="patches" data-value="Carried" title="No change since the report generated 27-10-2026 14:10 CET">Carried <strong>1</strong></button>
+          <button type="button" class="chip patches" aria-pressed="false" data-axis="patches" data-value="Carried" title="No change since the report generated 27-10-2026 15:19 CET">Carried <strong>1</strong></button>
           
-          <button type="button" class="chip none" aria-pressed="false" data-axis="patches" data-value="None" title="No change since the report generated 27-10-2026 14:10 CET">None <strong>16</strong></button>
+          <button type="button" class="chip none" aria-pressed="false" data-axis="patches" data-value="None" title="No change since the report generated 27-10-2026 15:19 CET">None <strong>16</strong></button>
           
           
         </div>
@@ -1379,7 +1381,7 @@ html.tv .tscroll{max-height:none}
     </section>
   </div>
 
-  <script type="application/json" id="report-summary">{"generated_at": "27-10-2026 15:19 CET", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "attempts": {}, "run": {"workflow": "Extension status page", "run_url": "https://github.com/duckdblabs/duckdb-automations/actions/runs/40519818468", "at": "2026-10-27T14:19:11.340735+00:00", "steps": {}}, "history": [{"day": "2026-10-22", "counts": {"pin": {"Behind": 1, "Held": 2, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 2, "Carried": 1, "None": 17}}, "broken": ["fts"], "behind": ["spatial"], "states": {"spatial": "H", "aws": "K", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "inet": "P", "fts": "B", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-23", "counts": {"pin": {"Behind": 1, "Held": 2, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 2, "Carried": 2, "None": 16}}, "broken": ["fts"], "behind": ["spatial"], "states": {"aws": "K", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "inet": "P", "fts": "B", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-27", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}], "level": "blocked"}</script>
+  <script type="application/json" id="report-summary">{"generated_at": "27-10-2026 16:35 CET", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "attempts": {}, "run": {"workflow": "Extension status page", "run_url": "https://github.com/duckdblabs/duckdb-automations/actions/runs/40532371810", "at": "2026-10-27T15:35:54.135833+00:00", "steps": {}}, "history": [{"day": "2026-10-22", "counts": {"pin": {"Behind": 1, "Held": 2, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 2, "Carried": 1, "None": 17}}, "broken": ["fts"], "behind": ["spatial"], "states": {"spatial": "H", "aws": "K", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "inet": "P", "fts": "B", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-23", "counts": {"pin": {"Behind": 1, "Held": 2, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 2, "Carried": 2, "None": 16}}, "broken": ["fts"], "behind": ["spatial"], "states": {"aws": "K", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "inet": "P", "fts": "B", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-27", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}], "level": "blocked"}</script>
   <script>
 // Top-level tabs shared by the release dashboard and the extension status page; opts.names[0] is the fallback tab, onShow runs after the hash write.
 function tabSwitcher(opts) {
