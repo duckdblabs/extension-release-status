@@ -178,6 +178,8 @@ details.fold .count.stale,.card h2 .count.stale{color:var(--warntext);font-weigh
 .tbl.dates tr:hover td{background:none}
 /* Dates only: the published table's chase texts must keep wrapping */
 .tbl.dates:not(.published) td:not(:first-child){white-space:nowrap}
+/* The verdict's causes may run long; as specific as the nowrap rule above so it wins */
+.tbl.dates:not(.published) td.wrap{white-space:normal}.tbl.dates td.good{color:var(--good)}
 .tbl.published td{white-space:normal}.tbl.published .muted{color:var(--muted)}.tbl.dates td.muted{color:var(--muted)}.tbl.dates td.off,.tbl.dates tr.off td:first-child{color:var(--warntext);font-weight:600}
 /* The overdue channel's name is a link: keep the warning colour over the link blue */
 .tbl.dates tr.off td:first-child a{color:inherit}
