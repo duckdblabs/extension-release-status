@@ -20,7 +20,8 @@
   --goodtext:#008700;--badtext:#d70000;--warntext:#875f00;
   /* Series colours: overridden with the GitHub label colours when generate.py could fetch them. */
   --blocker:#9f1d1d;--must:var(--s1);--nice:var(--s2);--blocker-ink:#fff;--must-ink:#0d0d0d;--nice-ink:#0d0d0d;
-  --blocker-line:var(--blocker);
+  --unlabeled:var(--s7);--unlabeled-ink:#fff;
+  --blocker-line:var(--blocker);--nice-line:var(--nice);
 }
 @media (prefers-color-scheme:dark){
   :root{
@@ -32,7 +33,7 @@
     --o1:#0c5a8c;--o2:#1684c9;--o3:#2eafff;--o4:#86d0ff;--o5:#c4e8ff;
     --good:#00af00;
     --goodtext:#00af00;--badtext:#ff6a6a;--warntext:#ffd700;
-    --blocker-line:#ff4d2e;
+    --blocker-line:#ff4d2e;--nice-line:#ffb020;--unlabeled-ink:#0d0d0d;
   }
 }
 /* Violet, not sand, for the extension page: amber, green and red are taken by its own pin and patch states */
