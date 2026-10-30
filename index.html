@@ -19,9 +19,8 @@
   --good:#008700;--warn:#fab219;--serious:#ff6900;--crit:#d70000;
   --goodtext:#008700;--badtext:#d70000;--warntext:#875f00;
   /* Series colours: overridden with the GitHub label colours when generate.py could fetch them. */
-  --blocker:#9f1d1d;--must:var(--s1);--nice:var(--s2);--blocker-ink:#fff;--must-ink:#0d0d0d;--nice-ink:#0d0d0d;
+  --blocker:#b60205;--must:#fe3193;--nice:#435f9d;--blocker-ink:#fff;--must-ink:#fff;--nice-ink:#fff;
   --unlabeled:var(--s7);--unlabeled-ink:#fff;
-  --blocker-line:var(--blocker);--nice-line:var(--nice);
 }
 @media (prefers-color-scheme:dark){
   :root{
@@ -33,7 +32,7 @@
     --o1:#0c5a8c;--o2:#1684c9;--o3:#2eafff;--o4:#86d0ff;--o5:#c4e8ff;
     --good:#00af00;
     --goodtext:#00af00;--badtext:#ff6a6a;--warntext:#ffd700;
-    --blocker-line:#ff4d2e;--nice-line:#ffb020;--unlabeled-ink:#0d0d0d;
+    --unlabeled-ink:#0d0d0d;
   }
 }
 /* Violet, not sand, for the extension page: amber, green and red are taken by its own pin and patch states */
@@ -101,24 +100,20 @@ h2[title]{cursor:help;text-decoration:underline dotted var(--muted);text-underli
 /* Implicit columns: the tile count varies (the freeze tile appears on freeze day), and each gets an equal share. */
 .kpis{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:16px;margin-bottom:16px}
 .kpi{display:flex;flex-direction:column}
-.kpi>svg,.kpi>.strip{margin-top:auto!important;padding-top:10px}
-.kpi .lab{color:var(--ink2);font-size:13px;overflow-wrap:anywhere}.kpi .lab .lbl{max-width:100%;white-space:normal}
+.kpi .lab{color:var(--ink2);font-size:13px;overflow-wrap:anywhere}
 @media (min-width:1251px){.kpi .lab{min-height:2.9em}}
 .kpi .val{font-size:32px;font-weight:650;line-height:1.1;margin:4px 0 2px}
 .kpi .val small{font-size:14px;color:var(--ink2);font-weight:500}
 .kpi .delta{font-size:12px;color:var(--ink2)}
-.kpi svg{display:block}
 .kpis>*,.row>*{min-width:0}
 .strip{display:flex;flex-wrap:wrap;gap:3px;margin-top:10px}
-.kpi>.cirows{margin-top:auto;padding-top:4px}.cirow+.cirow{margin-top:8px}
-.cihead{display:block;font-size:12px;line-height:1.2;color:var(--ink2)}.cihead b{font-size:14px;color:var(--ink)}
 .strip i,.sq{width:14px;height:14px;border-radius:3px;display:grid;place-items:center;font-style:normal;font-size:10px;font-weight:800;color:#fff}
 /* .sq: the same square loose in text or a legend; the status page colours it per state */
 .sq{display:inline-block;vertical-align:middle;background:var(--grid)}
 .strip i.ok,.sq.ok{background:var(--good)}.strip i.fail,.sq.broken{background:var(--crit)}.sq.behind{background:var(--warn)}.sq.held{background:var(--muted)}
 .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--ink2);margin-bottom:6px}
 .legend i{display:inline-block;width:12px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
-.legend i.sq{height:10px;width:10px;border-radius:3px}.legend i.sq.hollow{background:none;border:1px solid var(--axis)}
+.legend i.sq{height:10px;width:10px;border-radius:3px}
 .row{display:grid;gap:16px;margin-bottom:16px}
 /* start, not stretch: a short By owner or Ready card keeps its own height next to a long queue */
 .r-queue{grid-template-columns:1.4fr 1fr;align-items:start}
@@ -196,7 +191,7 @@ html.tv .countdown .big{font-size:120px}
 html.tv .kpi .val{font-size:44px}
 html.tv .card h2{font-size:22px}html.tv .hint{font-size:15px}
 html.tv .kpi .lab{font-size:17px}html.tv .phase .now{font-size:20px}html.tv .phase .now b{font-size:24px}
-html.tv .steps{gap:12px}html.tv .steps li{padding-top:30px;font-size:18px}html.tv .steps li::before{height:4px;top:8px;right:-12px}html.tv .steps li::after{width:20px;height:20px;border-width:4px}html.tv .steps li b{font-size:22px;margin-bottom:4px}
+html.tv .steps{gap:12px}html.tv .steps li{padding-top:30px;font-size:15px}html.tv .steps li::before{height:4px;top:8px;right:-12px}html.tv .steps li::after{width:20px;height:20px;border-width:4px}html.tv .steps li b{font-size:17px;margin-bottom:4px}  /* under the 22px card titles; at 22px the dated steps wrapped at 1024 */
 html.tv .steps li.current b::after{font-size:12px;padding:2px 7px}
 html.tv .tscroll{max-height:none}
 /* Sideways containment only: a height cap would scroll the static header out of view after Show all */
