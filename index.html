@@ -96,7 +96,8 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .cardhead .more{padding:0}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px}
 .card h2{font-size:16px;font-weight:650;margin:0 0 4px;letter-spacing:-.01em}
-.card .hint{color:var(--muted);font-size:12px;margin:0 0 12px}
+h2[title]{cursor:help;text-decoration:underline dotted var(--muted);text-underline-offset:3px}  /* says a tooltip exists, which a hover alone can't on touch screens */
+.card .hint{color:var(--muted);font-size:12px;margin:0 0 12px}.card .hint:empty{display:none}
 /* Implicit columns: the tile count varies (the freeze tile appears on freeze day), and each gets an equal share. */
 .kpis{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:16px;margin-bottom:16px}
 .kpi{display:flex;flex-direction:column}
@@ -109,9 +110,8 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 .kpi svg{display:block}
 .kpis>*,.row>*{min-width:0}
 .strip{display:flex;flex-wrap:wrap;gap:3px;margin-top:10px}
-.strip.ci{display:grid;grid-template-columns:repeat(7,14px);gap:4px}
 .kpi>.cirows{margin-top:auto;padding-top:4px}.cirow+.cirow{margin-top:8px}
-.cihead{display:block;font-size:12px;line-height:1.2;color:var(--ink2)}.cihead b{font-size:14px;color:var(--ink)}.cirow .strip{margin-top:3px}
+.cihead{display:block;font-size:12px;line-height:1.2;color:var(--ink2)}.cihead b{font-size:14px;color:var(--ink)}
 .strip i,.sq{width:14px;height:14px;border-radius:3px;display:grid;place-items:center;font-style:normal;font-size:10px;font-weight:800;color:#fff}
 /* .sq: the same square loose in text or a legend; the status page colours it per state */
 .sq{display:inline-block;vertical-align:middle;background:var(--grid)}
