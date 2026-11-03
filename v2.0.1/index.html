@@ -417,7 +417,7 @@ html.tv .tscroll{max-height:none}
       <svg class="brand-mark" viewBox="0 0 500 500" role="img" aria-label="DuckDB"><circle cx="250" cy="250" r="250" fill="var(--logo-disc)"/><g fill="var(--logo-duck)"><circle cx="190.05" cy="250" r="103.41"/><path d="M376.138,212.784h-49.147v74.433h49.147c20.554,0,37.216-16.663,37.216-37.217S396.692,212.784,376.138,212.784Z"/></g></svg>
       <div>
         <h1>DuckDB Extension Status <span class="muted">v2.0.1</span></h1>
-        <div class="sub"><a href="../">&larr; all releases</a> &middot; branch v2.0-cyanoptera &middot; generated 30-10-2026 14:58 CET by the <a href="https://github.com/duckdblabs/duckdb-automations/actions/runs/41067619921" data-run>Extension status page run</a>
+        <div class="sub"><a href="../">&larr; all releases</a> &middot; branch v2.0-cyanoptera &middot; generated 03-11-2026 11:01 CET by the <a href="https://github.com/duckdblabs/duckdb-automations/actions/runs/41615626493" data-run>Extension status page run</a>
           &middot; <a href="#legend" target="_self" id="legend-link">Legend</a></div>
       </div>
       </div>
@@ -432,8 +432,8 @@ html.tv .tscroll{max-height:none}
       <div class="status blocked" id="status" role="status">
         <div class="ico" aria-hidden="true">✕</div>
         <div>
-          <b>Blocked <span class="muted">&middot; release in 19 days (18-11-2026)</span></b>
-          <ul><li class="blocked">1 core extension carries patches that no longer apply, no fix PR open → fix them on the extension side <a href="#" target="_self" class="status-link" data-target="table:broken-core">show</a></li><li class="at_risk">1 extension carries patches that no longer apply, no fix PR open → fix them on the extension side <a href="#" target="_self" class="status-link" data-target="table:broken">show</a></li><li class="at_risk">2 broken extensions with nobody on them → find someone <a href="#" target="_self" class="status-link" data-target="queue">show</a></li></ul>
+          <b>Blocked <span class="muted">&middot; release in 15 days (18-11-2026)</span></b>
+          <ul><li class="blocked">1 core extension carries patches that no longer apply, no fix PR open → fix them on the extension side <a href="#" target="_self" class="status-link" data-target="table:broken-core">show</a></li><li class="at_risk">1 extension carries patches that no longer apply, no fix PR open → fix them on the extension side <a href="#" target="_self" class="status-link" data-target="table:broken">show</a></li><li class="at_risk">1 broken extension with nobody on it → find someone <a href="#" target="_self" class="status-link" data-target="queue">show</a></li><li class="at_risk">1 extension has been behind for 7+ days → bump them <a href="#" target="_self" class="status-link" data-target="table:behind">show</a></li></ul>
           <div id="bump-line"><span class="muted">No open bump PR on duckdb/duckdb.</span>
           </div>
         </div>
@@ -447,13 +447,10 @@ html.tv .tscroll{max-height:none}
             <li class="r1" data-id="1:Find someone to apply aws patches">
               <span class="verb">Find someone to apply aws patches</span> <span class="why">&middot; broken patches (stops at 0004-environment-through-os-util.patch), nobody on it</span> <button type="button" class="goto" data-goto="aws">in table &darr;</button>
             </li>
-            <li class="r1" data-id="1:Find someone to apply fts patches">
-              <span class="verb">Find someone to apply fts patches</span> <span class="why">&middot; broken patches (stops at 0002-fts-indexing-includes.patch), nobody on it</span> <button type="button" class="goto" data-goto="fts">in table &darr;</button>
-            </li>
           </ol>
-          <button type="button" class="more" id="moves-all" data-list="moves" hidden>Show all 2</button>
+          <button type="button" class="more" id="moves-all" data-list="moves" hidden>Show all 1</button>
           
-          <p class="hint bot-will">The bot will bump 1 extension on the next ExtensionRelease run (spatial).</p>
+          <p class="hint bot-will">The bot will bump 2 extensions on the next ExtensionRelease run (iceberg, spatial).</p>
           <ul class="queue" id="after-release">
             <li class="sec"><span class="verb">After release</span> <span class="why">released by hand, not by the bot; <code>python3 -m release.extensions.extension_util --current-base v2.0.0 --release-type patch status --post-release-items</code> prints these as a checklist for the Post release issue</span></li>
             <li data-id="after:avro">
@@ -463,7 +460,7 @@ html.tv .tscroll{max-height:none}
             </li>
             <li data-id="after:ducklake">
               <span class="verb">Release ducklake by hand</span>
-              <span class="why">&middot; handles its own versioning &middot; pin 417a9117f5, tip 4c7bb6ad17</span>
+              <span class="why">&middot; handles its own versioning &middot; pin 417a9117f5, tip c506b268d9</span>
               <button type="button" class="goto" data-goto="ducklake">in table &darr;</button>
             </li>
             <li data-id="after:inet">
@@ -473,7 +470,7 @@ html.tv .tscroll{max-height:none}
             </li>
             <li data-id="after:lance">
               <span class="verb">Release lance by hand</span>
-              <span class="why">&middot; external team distributes &middot; pin 86118537da, tip f85960d954</span>
+              <span class="why">&middot; external team distributes &middot; pin 86118537da, tip 0f439d6377</span>
               <button type="button" class="goto" data-goto="lance">in table &darr;</button>
             </li>
             <li data-id="after:odbc_scanner">
@@ -511,27 +508,29 @@ html.tv .tscroll{max-height:none}
           
           <span class="chip-group">Pin</span>
           
-          <button type="button" class="chip behind" aria-pressed="false" data-axis="pin" data-value="Behind" title="No change since the report generated 30-10-2026 12:30 CET">Behind <strong>2</strong></button>
+          <button type="button" class="chip behind" aria-pressed="false" data-axis="pin" data-value="Behind" title="Up 1 since the report generated 30-10-2026 14:58 CET">Behind <strong>3</strong><span class="chip-change">&#x2191;1</span></button>
           
-          <button type="button" class="chip held" aria-pressed="false" data-axis="pin" data-value="Held" title="No change since the report generated 30-10-2026 12:30 CET">Held <strong>2</strong></button>
+          <button type="button" class="chip held" aria-pressed="false" data-axis="pin" data-value="Held" title="No change since the report generated 30-10-2026 14:58 CET">Held <strong>2</strong></button>
           
-          <button type="button" class="chip ok" aria-pressed="false" data-axis="pin" data-value="Up to date" title="No change since the report generated 30-10-2026 12:30 CET">Up to date <strong>16</strong></button>
+          <button type="button" class="chip ok" aria-pressed="false" data-axis="pin" data-value="Up to date" title="Down 1 since the report generated 30-10-2026 14:58 CET">Up to date <strong>15</strong><span class="chip-change">&#x2193;1</span></button>
           
-          <button type="button" class="chip skipped" aria-pressed="false" data-axis="pin" data-value="Skipped" title="No change since the report generated 30-10-2026 12:30 CET">Skipped <strong>5</strong></button>
+          <button type="button" class="chip skipped" aria-pressed="false" data-axis="pin" data-value="Skipped" title="No change since the report generated 30-10-2026 14:58 CET">Skipped <strong>5</strong></button>
           
           
           <span class="chip-group">Patches</span>
           
-          <button type="button" class="chip blocked" aria-pressed="false" data-axis="patches" data-value="Broken" title="No change since the report generated 30-10-2026 12:30 CET">Broken <strong>3</strong></button>
+          <button type="button" class="chip blocked" aria-pressed="false" data-axis="patches" data-value="Broken" title="No change since the report generated 30-10-2026 14:58 CET">Broken <strong>3</strong></button>
           
-          <button type="button" class="chip patches" aria-pressed="false" data-axis="patches" data-value="Carried" title="No change since the report generated 30-10-2026 12:30 CET">Carried <strong>1</strong></button>
+          <button type="button" class="chip patches" aria-pressed="false" data-axis="patches" data-value="Carried" title="No change since the report generated 30-10-2026 14:58 CET">Carried <strong>1</strong></button>
           
-          <button type="button" class="chip none" aria-pressed="false" data-axis="patches" data-value="None" title="No change since the report generated 30-10-2026 12:30 CET">None <strong>16</strong></button>
+          <button type="button" class="chip none" aria-pressed="false" data-axis="patches" data-value="None" title="No change since the report generated 30-10-2026 14:58 CET">None <strong>16</strong></button>
           
           
         </div>
         
         
+        
+        <p class="hint">Since yesterday: now behind <a href="#row-iceberg" target="_self">iceberg</a></p>
         
         <div class="tscroll">
         <table class="tbl" id="ext-table">
@@ -577,13 +576,28 @@ html.tv .tscroll{max-height:none}
             
             
             
+            <tr id="row-iceberg" data-pin="Behind" data-patches="None" data-tier="0">
+              <td data-sort="0-iceberg"><a href="https://github.com/duckdb/duckdb-iceberg">iceberg</a>
+                <span class="sub"><span class="tier core">core</span></span></td>
+              <td data-sort="2"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="iceberg">Behind</button></td>
+              <td data-sort="20"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="iceberg">None</button></td>
+              <td class="detail"><code class="branch-odd" title="Differs from main, which most extensions target">v2.0-cyanoptera</code></td>
+              <td class="detail" data-sort="92"><a class="commit-range" href="https://github.com/duckdb/duckdb-iceberg/compare/4c0c0874c48ec82a3e29910554891d04bcc0e988...c8251d64c9c92271bf752468166281d066806252"><code>4c0c087</code> &rarr; <code>c8251d6</code></a><span class="behind-count" title="92 commits behind">+92</span></td>
+              <td><span class="actor bot">bot</span><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="iceberg">Bump</button></td>
+              <td class="related" data-sort="0"><span class="muted">&mdash;</span></td>
+              <td class="related" data-sort="-1"><span class="muted">&mdash;</span></td>
+            </tr>
+            
+            
+            
+            
             <tr id="row-spatial" data-pin="Behind" data-patches="None" data-tier="0">
               <td data-sort="0-spatial"><a href="https://github.com/duckdb/duckdb-spatial">spatial</a>
                 <span class="sub"><span class="tier core">core</span></span></td>
               <td data-sort="2"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind" data-ext="spatial">Behind</button></td>
               <td data-sort="20"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="spatial">None</button></td>
               <td class="detail"><code class="branch-odd" title="targets v2.0-cyanoptera because its main already tracks the next DuckDB">v2.0-cyanoptera</code></td>
-              <td class="detail" data-sort="11"><a class="commit-range" href="https://github.com/duckdb/duckdb-spatial/compare/a3dbcd1781ec26c3a1be9bd622be05b376d6f47a...fb3fdc431accf7ce2476f2c0dd9494e5a8ac418b"><code>a3dbcd1</code> &rarr; <code>fb3fdc4</code></a><span class="behind-count" title="11 commits behind">+11</span></td>
+              <td class="detail" data-sort="15"><a class="commit-range" href="https://github.com/duckdb/duckdb-spatial/compare/a3dbcd1781ec26c3a1be9bd622be05b376d6f47a...d332807f4ffdcc4da0092fe760ef48266f548941"><code>a3dbcd1</code> &rarr; <code>d332807</code></a><span class="behind-count" title="15 commits behind">+15</span></td>
               <td><span class="actor bot">bot</span><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-bump" data-ext="spatial">Bump</button></td>
               <td class="related" data-sort="0"><span class="muted">&mdash;</span></td>
               <td class="related" data-sort="-1"><span class="muted">&mdash;</span></td>
@@ -637,21 +651,6 @@ html.tv .tscroll{max-height:none}
             
             
             
-            <tr id="row-iceberg" data-pin="Up to date" data-patches="None" data-tier="0">
-              <td data-sort="0-iceberg"><a href="https://github.com/duckdb/duckdb-iceberg">iceberg</a>
-                <span class="sub"><span class="tier core">core</span></span></td>
-              <td data-sort="22"><button type="button" class="badge ok tip-trigger" data-tip="tip-pin-Up-to-date" data-ext="iceberg">Up to date</button></td>
-              <td data-sort="22"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="iceberg">None</button></td>
-              <td class="detail"><span class="muted">main</span></td>
-              <td class="detail" data-sort="83"><a class="commit-range" href="https://github.com/duckdb/duckdb-iceberg/compare/4c0c0874c48ec82a3e29910554891d04bcc0e988...d058a049d1ca7bec6fd95b14017b90eb461f1eb0"><code>4c0c087</code> &rarr; <code>d058a04</code></a><span class="behind-count" title="83 commits behind">+83</span></td>
-              <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-none" data-ext="iceberg">None</button></td>
-              <td class="related" data-sort="0"><span class="muted">&mdash;</span></td>
-              <td class="related" data-sort="-1"><span class="muted">&mdash;</span></td>
-            </tr>
-            
-            
-            
-            
             <tr id="row-fts" data-pin="Behind" data-patches="Broken" data-tier="1">
               <td data-sort="1-fts"><a href="https://github.com/duckdb/duckdb-fts">fts</a>
                 <span class="sub"><span class="tier standard">standard</span></span></td>
@@ -660,8 +659,8 @@ html.tv .tscroll{max-height:none}
               <td class="detail"><code class="branch-odd" title="Differs from main, which most extensions target">v2.0-cyanoptera</code></td>
               <td class="detail" data-sort="55"><a class="commit-range" href="https://github.com/duckdb/duckdb-fts/compare/2266e67d01c737cb65114e77c7c672e58869a635...623ee80e0bd5a771347f7dd320915cc3ef2fb965"><code>2266e67</code> &rarr; <code>623ee80</code></a><span class="behind-count" title="55 commits behind">+55</span></td>
               <td><span class="actor extension">extension</span><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-apply_patches" data-ext="fts">Apply patches</button><div class="sub" title="0002-fts-indexing-includes.patch: neither applies nor reverses">stops at 0002-fts-indexing-includes.patch</div></td>
-              <td class="related" data-sort="0"><span class="muted">&mdash;</span></td>
-              <td class="related" data-sort="-1"><span class="muted">&mdash;</span></td>
+              <td class="related" data-sort="0"><span class="sub stuck">idle 0d</span><span class="muted">&mdash;</span></td>
+              <td class="related" data-sort="38"><span class="link-pair issue"><a href="https://github.com/duckdblabs/duckdb-internal/issues/11016" title="On duckdblabs/duckdb-internal, a private repo: opens for DuckDB Labs staff only">Patch failure</a> <span class="internal-tag">internal</span><span class="sub">open 38d &middot; idle 0d &middot; @kryonix</span></span></td>
             </tr>
             
             
@@ -733,7 +732,7 @@ html.tv .tscroll{max-height:none}
               <td data-sort="22"><button type="button" class="badge ok tip-trigger" data-tip="tip-pin-Up-to-date" data-ext="glue">Up to date</button></td>
               <td data-sort="22"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="glue">None</button></td>
               <td class="detail"><span class="muted">main</span></td>
-              <td class="detail" data-sort="105"><a class="commit-range" href="https://github.com/duckdb/duckdb-aws-glue/compare/8b310c81f227cf7630fd4ff52925f208f0d35278...2ad500022061a49190ae24d6fb0fc40f9e36cac2"><code>8b310c8</code> &rarr; <code>2ad5000</code></a><span class="behind-count" title="105 commits behind">+105</span></td>
+              <td class="detail" data-sort="107"><a class="commit-range" href="https://github.com/duckdb/duckdb-aws-glue/compare/8b310c81f227cf7630fd4ff52925f208f0d35278...ca1902a533802a6a1e7bb18380b6795b4c583e5a"><code>8b310c8</code> &rarr; <code>ca1902a</code></a><span class="behind-count" title="107 commits behind">+107</span></td>
               <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-none" data-ext="glue">None</button></td>
               <td class="related" data-sort="0"><span class="muted">&mdash;</span></td>
               <td class="related" data-sort="-1"><span class="muted">&mdash;</span></td>
@@ -778,7 +777,7 @@ html.tv .tscroll{max-height:none}
               <td data-sort="22"><button type="button" class="badge ok tip-trigger" data-tip="tip-pin-Up-to-date" data-ext="postgres_scanner">Up to date</button></td>
               <td data-sort="22"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="postgres_scanner">None</button></td>
               <td class="detail"><span class="muted">main</span></td>
-              <td class="detail" data-sort="13"><a class="commit-range" href="https://github.com/duckdb/duckdb-postgres/compare/c0f5a3c0c4b68b02afbf669d36d7f0e503985c88...c045f6cb5be12ef838a37f018fb5932b83e4712a"><code>c0f5a3c</code> &rarr; <code>c045f6c</code></a><span class="behind-count" title="13 commits behind">+13</span></td>
+              <td class="detail" data-sort="18"><a class="commit-range" href="https://github.com/duckdb/duckdb-postgres/compare/c0f5a3c0c4b68b02afbf669d36d7f0e503985c88...2a1871dfe28dcde47c083860fb5ddc2a5c56dc69"><code>c0f5a3c</code> &rarr; <code>2a1871d</code></a><span class="behind-count" title="18 commits behind">+18</span></td>
               <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-none" data-ext="postgres_scanner">None</button></td>
               <td class="related" data-sort="0"><span class="muted">&mdash;</span></td>
               <td class="related" data-sort="-1"><span class="muted">&mdash;</span></td>
@@ -793,7 +792,7 @@ html.tv .tscroll{max-height:none}
               <td data-sort="22"><button type="button" class="badge ok tip-trigger" data-tip="tip-pin-Up-to-date" data-ext="sqlite_scanner">Up to date</button></td>
               <td data-sort="22"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="sqlite_scanner">None</button></td>
               <td class="detail"><span class="muted">main</span></td>
-              <td class="detail" data-sort="24"><a class="commit-range" href="https://github.com/duckdb/duckdb-sqlite/compare/e223dc01493414cef6d5960744f1e048d59fc592...0d7b249c9a3ce230d4ccb39089e9ec80229699fb"><code>e223dc0</code> &rarr; <code>0d7b249</code></a><span class="behind-count" title="24 commits behind">+24</span></td>
+              <td class="detail" data-sort="26"><a class="commit-range" href="https://github.com/duckdb/duckdb-sqlite/compare/e223dc01493414cef6d5960744f1e048d59fc592...e56ef1ea965e02c73e2ab082b936235fe5874fb3"><code>e223dc0</code> &rarr; <code>e56ef1e</code></a><span class="behind-count" title="26 commits behind">+26</span></td>
               <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-none" data-ext="sqlite_scanner">None</button></td>
               <td class="related" data-sort="0"><span class="muted">&mdash;</span></td>
               <td class="related" data-sort="-1"><span class="muted">&mdash;</span></td>
@@ -868,7 +867,7 @@ html.tv .tscroll{max-height:none}
               <td data-sort="33"><button type="button" class="badge skipped tip-trigger" data-tip="tip-pin-Skipped" data-ext="ducklake">Skipped</button></td>
               <td data-sort="33"><button type="button" class="badge skipped tip-trigger" data-tip="tip-patches-Skipped" data-ext="ducklake">Skipped</button></td>
               <td class="detail"><code class="branch-odd" title="Differs from main, which most extensions target">v2.0-cyanoptera</code></td>
-              <td class="detail" data-sort="325"><a class="commit-range" href="https://github.com/duckdb/ducklake/compare/417a9117f590e8141742ac0579d02f6a90162e37...4c7bb6ad175814f05cfd1af69d90f8418bb04c16"><code>417a911</code> &rarr; <code>4c7bb6a</code></a><span class="behind-count" title="325 commits behind">+325</span></td>
+              <td class="detail" data-sort="328"><a class="commit-range" href="https://github.com/duckdb/ducklake/compare/417a9117f590e8141742ac0579d02f6a90162e37...c506b268d99b22537d995f84314b44c5b7bcdb2c"><code>417a911</code> &rarr; <code>c506b26</code></a><span class="behind-count" title="328 commits behind">+328</span></td>
               <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-skip" data-ext="ducklake">Not managed here</button><div class="sub" title="handles its own versioning">handles its own versioning</div></td>
               <td class="related" data-sort="0"><span class="muted">&mdash;</span></td>
               <td class="related" data-sort="-1"><span class="muted">&mdash;</span></td>
@@ -883,7 +882,7 @@ html.tv .tscroll{max-height:none}
               <td data-sort="33"><button type="button" class="badge skipped tip-trigger" data-tip="tip-pin-Skipped" data-ext="lance">Skipped</button></td>
               <td data-sort="33"><button type="button" class="badge skipped tip-trigger" data-tip="tip-patches-Skipped" data-ext="lance">Skipped</button></td>
               <td class="detail"><span class="muted">main</span></td>
-              <td class="detail" data-sort="15"><a class="commit-range" href="https://github.com/lance-format/lance-duckdb/compare/86118537da79138e6ec5c7358f2384c7ae650ab0...f85960d954cb0bebcb5647a7a55b940716463cfd"><code>8611853</code> &rarr; <code>f85960d</code></a><span class="behind-count" title="15 commits behind">+15</span></td>
+              <td class="detail" data-sort="23"><a class="commit-range" href="https://github.com/lance-format/lance-duckdb/compare/86118537da79138e6ec5c7358f2384c7ae650ab0...0f439d63771458b7f101862cb86cf51875c93b4e"><code>8611853</code> &rarr; <code>0f439d6</code></a><span class="behind-count" title="23 commits behind">+23</span></td>
               <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-skip" data-ext="lance">Not managed here</button><div class="sub" title="external team distributes">external team distributes</div></td>
               <td class="related" data-sort="0"><span class="muted">&mdash;</span></td>
               <td class="related" data-sort="-1"><span class="muted">&mdash;</span></td>
@@ -1058,7 +1057,7 @@ html.tv .tscroll{max-height:none}
             <div class="cmd"><button type="button" class="copy-btn">Copy</button><code><span class="word">python3</span> <span class="word">-m</span> <span class="word">release.extensions.extension_util</span> <span class="word">--current-base</span> <span class="word">v2.0.0</span> <span class="word">--release-type</span> <span class="word">patch</span> <span class="word">patch</span> <span class="word">--target</span> <span class="word">aws</span> <span class="word">--make-pr</span></code></div>
             
             <div class="ext-foot"><span>20 commits behind</span><span>duckdb carries 1 patch</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq broken" title="27-10: broken"></i><i class="sq broken" title="28-10: broken"></i><i class="sq broken" title="29-10: broken"></i><i class="sq broken" title="30-10: broken"></i></span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq broken" title="27-10: broken"></i><i class="sq broken" title="28-10: broken"></i><i class="sq broken" title="29-10: broken"></i><i class="sq broken" title="30-10: broken"></i><i class="sq broken" title="03-11: broken"></i></span>
             </div>
           </article>
           
@@ -1069,8 +1068,14 @@ html.tv .tscroll{max-height:none}
             <p class="ext-say"><span class="actor extension">extension</span>A carried patch no longer applies (stops at 0002-fts-indexing-includes.patch). Apply the patches on the extension&#39;s branch:</p>
             <div class="cmd"><button type="button" class="copy-btn">Copy</button><code><span class="word">python3</span> <span class="word">-m</span> <span class="word">release.extensions.extension_util</span> <span class="word">--current-base</span> <span class="word">v2.0.0</span> <span class="word">--release-type</span> <span class="word">patch</span> <span class="word">patch</span> <span class="word">--target</span> <span class="word">fts</span> <span class="word">--make-pr</span></code></div>
             
+            <ul class="ext-links">
+              
+              
+              <li class="issue"><a href="https://github.com/duckdblabs/duckdb-internal/issues/11016">Patch failure</a> <span class="internal-tag">internal</span> <span class="pr-state">open 38d · @kryonix</span></li>
+            </ul>
+            
             <div class="ext-foot"><span>55 commits behind</span><span>duckdb carries 3 patches</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq broken" title="22-10: broken"></i><i class="sq broken" title="23-10: broken"></i><i class="sq broken" title="27-10: broken"></i><i class="sq broken" title="28-10: broken"></i><i class="sq broken" title="29-10: broken"></i><i class="sq broken" title="30-10: broken"></i></span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq broken" title="22-10: broken"></i><i class="sq broken" title="23-10: broken"></i><i class="sq broken" title="27-10: broken"></i><i class="sq broken" title="28-10: broken"></i><i class="sq broken" title="29-10: broken"></i><i class="sq broken" title="30-10: broken"></i><i class="sq broken" title="03-11: broken"></i></span>
             </div>
           </article>
           
@@ -1078,8 +1083,20 @@ html.tv .tscroll{max-height:none}
       </div>
       
       <div class="ext-group" data-group="duckdb">
-        <h2>Waiting on duckdb <span class="count">3</span></h2>
+        <h2>Waiting on duckdb <span class="count">4</span></h2>
         <div class="ext-cards">
+          
+          
+          <article class="ext-card card" id="ext-iceberg" data-name="iceberg">
+            <div class="ext-title"><a href="https://github.com/duckdb/duckdb-iceberg">iceberg</a> <span class="tier core">core</span>
+              <span class="badges"><span class="badge behind">Behind</span> <span class="badge none">None</span></span></div>
+            <p class="ext-say"><span class="actor bot">bot</span>The bot bumps the pin on its next run. Nothing to do on the extension side.</p>
+            
+            
+            <div class="ext-foot"><span>92 commits behind</span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i><i class="sq behind" title="03-11: behind"></i></span>
+            </div>
+          </article>
           
           
           <article class="ext-card card" id="ext-spatial" data-name="spatial">
@@ -1088,8 +1105,8 @@ html.tv .tscroll{max-height:none}
             <p class="ext-say"><span class="actor bot">bot</span>The bot bumps the pin on its next run. Nothing to do on the extension side.</p>
             
             
-            <div class="ext-foot"><span>11 commits behind</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq behind" title="22-10: behind"></i><i class="sq behind" title="23-10: behind"></i><i class="sq behind" title="27-10: behind"></i><i class="sq behind" title="28-10: behind"></i><i class="sq behind" title="29-10: behind"></i><i class="sq behind" title="30-10: behind"></i></span>
+            <div class="ext-foot"><span>15 commits behind</span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq behind" title="22-10: behind"></i><i class="sq behind" title="23-10: behind"></i><i class="sq behind" title="27-10: behind"></i><i class="sq behind" title="28-10: behind"></i><i class="sq behind" title="29-10: behind"></i><i class="sq behind" title="30-10: behind"></i><i class="sq behind" title="03-11: behind"></i></span>
             </div>
           </article>
           
@@ -1101,7 +1118,7 @@ html.tv .tscroll{max-height:none}
             
             
             <div class="ext-foot"><span>75 commits behind</span><span>duckdb carries 8 patches</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq held" title="22-10: held"></i><i class="sq held" title="23-10: held"></i><i class="sq held" title="27-10: held"></i><i class="sq held" title="28-10: held"></i><i class="sq held" title="29-10: held"></i><i class="sq held" title="30-10: held"></i></span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq held" title="22-10: held"></i><i class="sq held" title="23-10: held"></i><i class="sq held" title="27-10: held"></i><i class="sq held" title="28-10: held"></i><i class="sq held" title="29-10: held"></i><i class="sq held" title="30-10: held"></i><i class="sq held" title="03-11: held"></i></span>
             </div>
           </article>
           
@@ -1113,7 +1130,7 @@ html.tv .tscroll{max-height:none}
             
             
             <div class="ext-foot"><span>duckdb carries 3 patches</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq held" title="22-10: held"></i><i class="sq held" title="23-10: held"></i><i class="sq held" title="27-10: held"></i><i class="sq held" title="28-10: held"></i><i class="sq held" title="29-10: held"></i><i class="sq held" title="30-10: held"></i></span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq held" title="22-10: held"></i><i class="sq held" title="23-10: held"></i><i class="sq held" title="27-10: held"></i><i class="sq held" title="28-10: held"></i><i class="sq held" title="29-10: held"></i><i class="sq held" title="30-10: held"></i><i class="sq held" title="03-11: held"></i></span>
             </div>
           </article>
           
@@ -1121,7 +1138,7 @@ html.tv .tscroll{max-height:none}
       </div>
       
       <div class="ext-group" data-group="ok">
-        <h2>Up to date <span class="count">15</span></h2>
+        <h2>Up to date <span class="count">14</span></h2>
         <div class="ext-cards">
           
           
@@ -1132,7 +1149,7 @@ html.tv .tscroll{max-height:none}
             
             
             <div class="ext-foot"><span>2 commits behind</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i></span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i><i class="sq ok" title="03-11: ok"></i></span>
             </div>
           </article>
           
@@ -1144,7 +1161,7 @@ html.tv .tscroll{max-height:none}
             
             
             <div class="ext-foot"><span>6 commits behind</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i></span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i><i class="sq ok" title="03-11: ok"></i></span>
             </div>
           </article>
           
@@ -1156,19 +1173,7 @@ html.tv .tscroll{max-height:none}
             
             
             <div class="ext-foot"><span>9 commits behind</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i></span>
-            </div>
-          </article>
-          
-          
-          <article class="ext-card card" id="ext-iceberg" data-name="iceberg">
-            <div class="ext-title"><a href="https://github.com/duckdb/duckdb-iceberg">iceberg</a> <span class="tier core">core</span>
-              <span class="badges"><span class="badge ok">Up to date</span> <span class="badge none">None</span></span></div>
-            <p class="ext-say">Up to date.</p>
-            
-            
-            <div class="ext-foot"><span>83 commits behind</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i></span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i><i class="sq ok" title="03-11: ok"></i></span>
             </div>
           </article>
           
@@ -1180,7 +1185,7 @@ html.tv .tscroll{max-height:none}
             
             
             <div class="ext-foot">
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i></span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i><i class="sq ok" title="03-11: ok"></i></span>
             </div>
           </article>
           
@@ -1192,7 +1197,7 @@ html.tv .tscroll{max-height:none}
             
             
             <div class="ext-foot">
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i></span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i><i class="sq ok" title="03-11: ok"></i></span>
             </div>
           </article>
           
@@ -1203,8 +1208,8 @@ html.tv .tscroll{max-height:none}
             <p class="ext-say">Up to date.</p>
             
             
-            <div class="ext-foot"><span>105 commits behind</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i></span>
+            <div class="ext-foot"><span>107 commits behind</span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i><i class="sq ok" title="03-11: ok"></i></span>
             </div>
           </article>
           
@@ -1216,7 +1221,7 @@ html.tv .tscroll{max-height:none}
             
             
             <div class="ext-foot"><span>2 commits behind</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i></span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i><i class="sq ok" title="03-11: ok"></i></span>
             </div>
           </article>
           
@@ -1228,7 +1233,7 @@ html.tv .tscroll{max-height:none}
             
             
             <div class="ext-foot"><span>17 commits behind</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i></span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i><i class="sq ok" title="03-11: ok"></i></span>
             </div>
           </article>
           
@@ -1239,8 +1244,8 @@ html.tv .tscroll{max-height:none}
             <p class="ext-say">Up to date.</p>
             
             
-            <div class="ext-foot"><span>13 commits behind</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i></span>
+            <div class="ext-foot"><span>18 commits behind</span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i><i class="sq ok" title="03-11: ok"></i></span>
             </div>
           </article>
           
@@ -1251,8 +1256,8 @@ html.tv .tscroll{max-height:none}
             <p class="ext-say">Up to date.</p>
             
             
-            <div class="ext-foot"><span>24 commits behind</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i></span>
+            <div class="ext-foot"><span>26 commits behind</span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i><i class="sq ok" title="03-11: ok"></i></span>
             </div>
           </article>
           
@@ -1264,7 +1269,7 @@ html.tv .tscroll{max-height:none}
             
             
             <div class="ext-foot"><span>3 commits behind</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i></span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i><i class="sq ok" title="03-11: ok"></i></span>
             </div>
           </article>
           
@@ -1276,7 +1281,7 @@ html.tv .tscroll{max-height:none}
             
             
             <div class="ext-foot">
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i></span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i><i class="sq ok" title="03-11: ok"></i></span>
             </div>
           </article>
           
@@ -1288,7 +1293,7 @@ html.tv .tscroll{max-height:none}
             
             
             <div class="ext-foot"><span>14 commits behind</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i></span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i><i class="sq ok" title="03-11: ok"></i></span>
             </div>
           </article>
           
@@ -1300,7 +1305,7 @@ html.tv .tscroll{max-height:none}
             
             
             <div class="ext-foot">
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i></span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i><i class="sq ok" title="03-11: ok"></i></span>
             </div>
           </article>
           
@@ -1318,8 +1323,8 @@ html.tv .tscroll{max-height:none}
             <p class="ext-say">Not managed by this script (handles its own versioning). Listed for the overview; its pin and patches are the extension&#39;s own.</p>
             
             
-            <div class="ext-foot"><span>325 commits behind</span><span>duckdb carries 6 patches</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq none" title="22-10: none"></i><i class="sq none" title="23-10: none"></i><i class="sq none" title="27-10: none"></i><i class="sq none" title="28-10: none"></i><i class="sq none" title="29-10: none"></i><i class="sq none" title="30-10: none"></i></span>
+            <div class="ext-foot"><span>328 commits behind</span><span>duckdb carries 6 patches</span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq none" title="22-10: none"></i><i class="sq none" title="23-10: none"></i><i class="sq none" title="27-10: none"></i><i class="sq none" title="28-10: none"></i><i class="sq none" title="29-10: none"></i><i class="sq none" title="30-10: none"></i><i class="sq none" title="03-11: none"></i></span>
             </div>
           </article>
           
@@ -1330,8 +1335,8 @@ html.tv .tscroll{max-height:none}
             <p class="ext-say">Not managed by this script (external team distributes). Listed for the overview; its pin and patches are the extension&#39;s own.</p>
             
             
-            <div class="ext-foot"><span>15 commits behind</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq none" title="22-10: none"></i><i class="sq none" title="23-10: none"></i><i class="sq none" title="27-10: none"></i><i class="sq none" title="28-10: none"></i><i class="sq none" title="29-10: none"></i><i class="sq none" title="30-10: none"></i></span>
+            <div class="ext-foot"><span>23 commits behind</span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq none" title="22-10: none"></i><i class="sq none" title="23-10: none"></i><i class="sq none" title="27-10: none"></i><i class="sq none" title="28-10: none"></i><i class="sq none" title="29-10: none"></i><i class="sq none" title="30-10: none"></i><i class="sq none" title="03-11: none"></i></span>
             </div>
           </article>
           
@@ -1343,7 +1348,7 @@ html.tv .tscroll{max-height:none}
             
             
             <div class="ext-foot"><span>10 commits behind</span><span>duckdb carries 1 patch</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq none" title="22-10: none"></i><i class="sq none" title="23-10: none"></i><i class="sq none" title="27-10: none"></i><i class="sq none" title="28-10: none"></i><i class="sq none" title="29-10: none"></i><i class="sq none" title="30-10: none"></i></span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq none" title="22-10: none"></i><i class="sq none" title="23-10: none"></i><i class="sq none" title="27-10: none"></i><i class="sq none" title="28-10: none"></i><i class="sq none" title="29-10: none"></i><i class="sq none" title="30-10: none"></i><i class="sq none" title="03-11: none"></i></span>
             </div>
           </article>
           
@@ -1355,7 +1360,7 @@ html.tv .tscroll{max-height:none}
             
             
             <div class="ext-foot"><span>1 commit behind</span><span>duckdb carries 6 patches</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq none" title="22-10: none"></i><i class="sq none" title="23-10: none"></i><i class="sq none" title="27-10: none"></i><i class="sq none" title="28-10: none"></i><i class="sq none" title="29-10: none"></i><i class="sq none" title="30-10: none"></i></span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq none" title="22-10: none"></i><i class="sq none" title="23-10: none"></i><i class="sq none" title="27-10: none"></i><i class="sq none" title="28-10: none"></i><i class="sq none" title="29-10: none"></i><i class="sq none" title="30-10: none"></i><i class="sq none" title="03-11: none"></i></span>
             </div>
           </article>
           
@@ -1367,7 +1372,7 @@ html.tv .tscroll{max-height:none}
             
             
             <div class="ext-foot"><span>2 commits behind</span><span>duckdb carries 2 patches</span>
-              <span class="cells" title="Last 6 days, oldest left"><i class="sq none" title="22-10: none"></i><i class="sq none" title="23-10: none"></i><i class="sq none" title="27-10: none"></i><i class="sq none" title="28-10: none"></i><i class="sq none" title="29-10: none"></i><i class="sq none" title="30-10: none"></i></span>
+              <span class="cells" title="Last 7 days, oldest left"><i class="sq none" title="22-10: none"></i><i class="sq none" title="23-10: none"></i><i class="sq none" title="27-10: none"></i><i class="sq none" title="28-10: none"></i><i class="sq none" title="29-10: none"></i><i class="sq none" title="30-10: none"></i><i class="sq none" title="03-11: none"></i></span>
             </div>
           </article>
           
@@ -1378,7 +1383,7 @@ html.tv .tscroll{max-height:none}
     </section>
   </div>
 
-  <script type="application/json" id="report-summary">{"generated_at": "30-10-2026 14:58 CET", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "attempts": {}, "run": {"workflow": "Extension status page", "run_url": "https://github.com/duckdblabs/duckdb-automations/actions/runs/41067619921", "at": "2026-10-30T13:58:48.587551+00:00", "steps": {}}, "history": [{"day": "2026-10-22", "counts": {"pin": {"Behind": 1, "Held": 2, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 2, "Carried": 1, "None": 17}}, "broken": ["fts"], "behind": ["spatial"], "states": {"spatial": "H", "aws": "K", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "inet": "P", "fts": "B", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-23", "counts": {"pin": {"Behind": 1, "Held": 2, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 2, "Carried": 2, "None": 16}}, "broken": ["fts"], "behind": ["spatial"], "states": {"aws": "K", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "inet": "P", "fts": "B", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-27", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-28", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-29", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-30", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}], "level": "blocked"}</script>
+  <script type="application/json" id="report-summary">{"generated_at": "03-11-2026 11:01 CET", "counts": {"pin": {"Behind": 3, "Held": 2, "Up to date": 15, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "attempts": {}, "run": {"workflow": "Extension status page", "run_url": "https://github.com/duckdblabs/duckdb-automations/actions/runs/41615626493", "at": "2026-11-03T10:01:49.047169+00:00", "steps": {}}, "history": [{"day": "2026-10-22", "counts": {"pin": {"Behind": 1, "Held": 2, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 2, "Carried": 1, "None": 17}}, "broken": ["fts"], "behind": ["spatial"], "states": {"spatial": "H", "aws": "K", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "inet": "P", "fts": "B", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-23", "counts": {"pin": {"Behind": 1, "Held": 2, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 2, "Carried": 2, "None": 16}}, "broken": ["fts"], "behind": ["spatial"], "states": {"aws": "K", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "inet": "P", "fts": "B", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-27", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-28", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-29", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-30", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-11-03", "counts": {"pin": {"Behind": 3, "Held": 2, "Up to date": 15, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "iceberg", "spatial"], "states": {"aws": "B", "iceberg": "H", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}], "level": "blocked"}</script>
   <script>
 // Top-level tabs shared by the release dashboard and the extension status page; opts.names[0] is the fallback tab, onShow runs after the hash write.
 function tabSwitcher(opts) {
