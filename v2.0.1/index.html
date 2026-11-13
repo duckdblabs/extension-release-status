@@ -263,9 +263,6 @@ html.tv .tscroll{max-height:none}
   /* Skipped must not pass for Held; the badge gives up a pixel of padding for the border */
   .chip.skipped, .badge.skipped { border: 1px dashed var(--muted); color: var(--muted); font-style: italic; --ring: var(--muted); }
   .badge.skipped { padding: 1px 8px; font-weight: 500; }
-  /* Solid where Skipped is dashed: the bot leaves both alone, but a Tracked row still carries a build verdict */
-  .chip.tracked, .badge.tracked { border: 1px solid var(--muted); color: var(--ink2); --ring: var(--muted); }
-  .badge.tracked { padding: 1px 8px; font-weight: 500; }
   .ci-dot.unknown { background: var(--muted); } .ci-dot.unknown::before { content: "?"; }
   /* Detail columns show only after the Details toggle */
   #ext-table .detail { display: none; }
@@ -394,8 +391,6 @@ html.tv .tscroll{max-height:none}
   
   <template id="tip-pin-Up-to-date"><p class="tip-title">Pin: Up to date</p><p class="meaning">The pinned commit is the tip of the extension's target branch.</p><p class="action"><span class="action-tag">Action</span>Nothing to do.</p></template>
   
-  <template id="tip-pin-Tracked"><p class="tip-title">Pin: Tracked</p><p class="meaning">The bot never bumps, patches or merges this extension forward, for the reason under the next action, but the page still shows a build of its pin. For one an external team distributes: duckdb's own build on v2.0-cyanoptera, all external extensions in one job per platform. For one that handles its own versioning: its own repository's CI at the pinned commit.</p><p class="action"><span class="action-tag">Action</span>Nothing while the build is green. Raise a red build with the extension&#39;s team.</p></template>
-  
   <template id="tip-pin-Skipped"><p class="tip-title">Pin: Skipped</p><p class="meaning">This script leaves the extension alone: it handles its own pin and patches. The reason is under the next action.</p><p class="action"><span class="action-tag">Action</span>Nothing to do here.</p></template>
   
   <template id="tip-patches-Broken"><p class="tip-title">Patches: Broken</p><p class="meaning">A carried patch no longer applies or reverses cleanly at the pinned commit, or a patch-failure issue is open.</p><p class="action"><span class="action-tag">Action</span>Fix it on the extension&#39;s branch before duckdb can bump past it:</p><div class="cmd"><button type="button" class="copy-btn">Copy</button><code><span class="word">python3</span> <span class="word">-m</span> <span class="word">release.extensions.extension_util</span> <span class="word">--current-base</span> <span class="word">v2.0.0</span> <span class="word">--release-type</span> <span class="word">patch</span> <span class="word">patch</span> <span class="word">--target</span> <span class="word"><span class="ext-slot">&lt;extension&gt;</span></span> <span class="word">--make-pr</span></code></div></template>
@@ -405,6 +400,13 @@ html.tv .tscroll{max-height:none}
   <template id="tip-patches-None"><p class="tip-title">Patches: None</p><p class="meaning">duckdb carries no patches for this extension. Nothing to do.</p></template>
   
   <template id="tip-patches-Skipped"><p class="tip-title">Patches: Skipped</p><p class="meaning">Whatever patches duckdb carries for this extension are not tracked here: the extension's own maintainer handles them.</p><p class="action"><span class="action-tag">Action</span>Nothing to do here.</p></template>
+  
+  <template id="tip-pin-Behind-tracked"><p class="tip-title">Pin: Behind</p><p class="meaning">The extension has moved on since duckdb last pinned a commit.</p><p class="action"><span class="action-tag">Action</span>Nothing here: the bot never bumps this extension, its own team moves the pin.</p></template>
+  
+  <template id="tip-patches-Broken-tracked"><p class="tip-title">Patches: Broken</p><p class="meaning">A carried patch no longer applies or reverses cleanly at the pinned commit, or a patch-failure issue is open.</p><p class="action"><span class="action-tag">Action</span>Nothing here: the bot never patches this extension, its own team fixes the patch.</p></template>
+  
+  <template id="tip-patches-Carried-tracked"><p class="tip-title">Patches: Carried</p><p class="meaning">duckdb carries patches for this extension, and they all still apply.</p><p class="action"><span class="action-tag">Action</span>Nothing here: the bot never bumps this extension, so its patches stay until its own team drops them.</p></template>
+  
   
   <template id="tip-action-bump"><p class="tip-title">Bump / Bump + drop X of Y patches</p><p class="meaning">Moves duckdb's pin to the latest commit on the target branch, dropping the X of Y carried patches that have landed there.</p><div class="cmd"><button type="button" class="copy-btn">Copy</button><code><span class="word">python3</span> <span class="word">-m</span> <span class="word">release.extensions.extension_util</span> <span class="word">--current-base</span> <span class="word">v2.0.0</span> <span class="word">--release-type</span> <span class="word">patch</span> <span class="word">bump</span> <span class="word">--make-pr</span></code></div></template>
   
@@ -418,7 +420,8 @@ html.tv .tscroll{max-height:none}
   
   <template id="tip-action-hold"><p class="tip-title">Wait for next commit / Nothing: held this release / Finish the open PR</p><p class="meaning">The tip doesn't build against this release, so the pin stays; the reason is under the label. "Wait for next commit": the next commit on the branch lifts it. "Nothing: held this release": the extension moved off duckdb's API, and only the hold list in duckdb-automations lifts it. "Finish the open PR": a PR is still open on it, so the hold isn't final until that PR is merged or closed.</p></template>
   
-  <template id="tip-action-skip"><p class="tip-title">Not managed here</p><p class="meaning">Listed for the overview only; the reason is under the label. The bot never bumps, patches or merges this extension forward.</p></template>
+  <template id="tip-action-skip"><p class="tip-title">Not managed here</p><p class="meaning">Listed for the overview only; the reason is under the label. The bot never bumps, patches or merges this extension forward, so a Behind pin or Broken patches on this row are its own team's to fix.</p>
+      <p class="meaning">A tracked row also carries a build line. For an extension an external team distributes: duckdb's own build on v2.0-cyanoptera, all external extensions in one job per platform. For one that handles its own versioning: its own repository's CI at the pinned commit. Raise a red build with the extension's team.</p></template>
   
   <template id="tip-action-none"><p class="tip-title">None</p><p class="meaning">Nothing to do.</p></template>
   
@@ -430,7 +433,7 @@ html.tv .tscroll{max-height:none}
       <svg class="brand-mark" viewBox="0 0 500 500" role="img" aria-label="DuckDB"><circle cx="250" cy="250" r="250" fill="var(--logo-disc)"/><g fill="var(--logo-duck)"><circle cx="190.05" cy="250" r="103.41"/><path d="M376.138,212.784h-49.147v74.433h49.147c20.554,0,37.216-16.663,37.216-37.217S396.692,212.784,376.138,212.784Z"/></g></svg>
       <div>
         <h1>DuckDB Extension Status <span class="muted">v2.0.1</span></h1>
-        <div class="sub"><a href="../">&larr; all releases</a> &middot; branch v2.0-cyanoptera &middot; generated 13-11-2026 15:01 CET &middot; last bump run <a href="https://github.com/duckdblabs/duckdb-automations/actions/runs/42798125075">10-11-2026 11:29 CET</a>
+        <div class="sub"><a href="../">&larr; all releases</a> &middot; branch v2.0-cyanoptera &middot; generated 13-11-2026 15:59 CET &middot; last bump run <a href="https://github.com/duckdblabs/duckdb-automations/actions/runs/42798125075">10-11-2026 11:29 CET</a>
           &middot; <a href="#legend" target="_self" id="legend-link">Legend</a></div>
       </div>
       </div>
@@ -531,24 +534,22 @@ html.tv .tscroll{max-height:none}
           
           <span class="chip-group">Pin</span>
           
-          <button type="button" class="chip behind" aria-pressed="false" data-axis="pin" data-value="Behind" title="No change since the report generated 13-11-2026 11:15 CET">Behind <strong>3</strong></button>
+          <button type="button" class="chip behind" aria-pressed="false" data-axis="pin" data-value="Behind" title="Up 2 since the report generated 13-11-2026 15:01 CET">Behind <strong>5</strong><span class="chip-change">&#x2191;2</span></button>
           
-          <button type="button" class="chip held" aria-pressed="false" data-axis="pin" data-value="Held" title="No change since the report generated 13-11-2026 11:15 CET">Held <strong>1</strong></button>
+          <button type="button" class="chip held" aria-pressed="false" data-axis="pin" data-value="Held" title="No change since the report generated 13-11-2026 15:01 CET">Held <strong>1</strong></button>
           
-          <button type="button" class="chip ok" aria-pressed="false" data-axis="pin" data-value="Up to date" title="No change since the report generated 13-11-2026 11:15 CET">Up to date <strong>17</strong></button>
+          <button type="button" class="chip ok" aria-pressed="false" data-axis="pin" data-value="Up to date" title="Up 2 since the report generated 13-11-2026 15:01 CET">Up to date <strong>19</strong><span class="chip-change">&#x2191;2</span></button>
           
-          <button type="button" class="chip tracked" aria-pressed="false" data-axis="pin" data-value="Tracked">Tracked <strong>4</strong></button>
-          
-          <button type="button" class="chip skipped" aria-pressed="false" data-axis="pin" data-value="Skipped" title="Down 2 since the report generated 13-11-2026 11:15 CET">Skipped <strong>1</strong><span class="chip-change">&#x2193;2</span></button>
+          <button type="button" class="chip skipped" aria-pressed="false" data-axis="pin" data-value="Skipped" title="No change since the report generated 13-11-2026 15:01 CET">Skipped <strong>1</strong></button>
           
           
           <span class="chip-group">Patches</span>
           
-          <button type="button" class="chip blocked" aria-pressed="false" data-axis="patches" data-value="Broken" title="No change since the report generated 13-11-2026 11:15 CET">Broken <strong>4</strong></button>
+          <button type="button" class="chip blocked" aria-pressed="false" data-axis="patches" data-value="Broken" title="No change since the report generated 13-11-2026 15:01 CET">Broken <strong>4</strong></button>
           
-          <button type="button" class="chip patches" aria-pressed="false" data-axis="patches" data-value="Carried" title="No change since the report generated 13-11-2026 11:15 CET">Carried <strong>4</strong></button>
+          <button type="button" class="chip patches" aria-pressed="false" data-axis="patches" data-value="Carried" title="Up 2 since the report generated 13-11-2026 15:01 CET">Carried <strong>6</strong><span class="chip-change">&#x2191;2</span></button>
           
-          <button type="button" class="chip none" aria-pressed="false" data-axis="patches" data-value="None" title="No change since the report generated 13-11-2026 11:15 CET">None <strong>13</strong></button>
+          <button type="button" class="chip none" aria-pressed="false" data-axis="patches" data-value="None" title="Up 2 since the report generated 13-11-2026 15:01 CET">None <strong>15</strong><span class="chip-change">&#x2191;2</span></button>
           
           
         </div>
@@ -650,7 +651,7 @@ html.tv .tscroll{max-height:none}
               <td data-sort="22"><button type="button" class="badge ok tip-trigger" data-tip="tip-pin-Up-to-date" data-ext="azure">Up to date</button></td>
               <td data-sort="22"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="azure">None</button></td>
               <td class="detail"><span class="muted">main</span></td>
-              <td class="detail" data-sort="3"><a class="commit-range" href="https://github.com/duckdb/duckdb-azure/compare/1c05fafb7c53a60eb293a154a8f2525869e17730...52742b595e382ff92adcb3d74ec3551bbb131797"><code>1c05faf</code> &rarr; <code>52742b5</code></a><span class="behind-count" title="3 commits behind">+3</span></td>
+              <td class="detail" data-sort="4"><a class="commit-range" href="https://github.com/duckdb/duckdb-azure/compare/1c05fafb7c53a60eb293a154a8f2525869e17730...bf93a0af8f28fff67c0084c438d20124fd810948"><code>1c05faf</code> &rarr; <code>bf93a0a</code></a><span class="behind-count" title="4 commits behind">+4</span></td>
               <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-none" data-ext="azure">None</button></td>
               <td class="related" data-sort="0"><span class="link-pair pr-state">merged: <a href="https://github.com/duckdb/duckdb-azure/pull/217">Bump #217</a></span></td>
               <td class="related" data-sort="-1"><span class="muted">&mdash;</span></td>
@@ -815,7 +816,7 @@ html.tv .tscroll{max-height:none}
               <td data-sort="22"><button type="button" class="badge ok tip-trigger" data-tip="tip-pin-Up-to-date" data-ext="sirius">Up to date</button></td>
               <td data-sort="22"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="sirius">None</button></td>
               <td class="detail"><span class="muted">main</span></td>
-              <td class="detail" data-sort="64"><a class="commit-range" href="https://github.com/sirius-db/sirius/compare/a1d2f068922b26df3da913672503d2e9cc8e4bd5...1604e3fe8470a7f8dbe2049914b4e0bb531c7318"><code>a1d2f06</code> &rarr; <code>1604e3f</code></a><span class="behind-count" title="64 commits behind">+64</span></td>
+              <td class="detail" data-sort="65"><a class="commit-range" href="https://github.com/sirius-db/sirius/compare/a1d2f068922b26df3da913672503d2e9cc8e4bd5...db63903b9f944274f6c039d5a39122625d4da497"><code>a1d2f06</code> &rarr; <code>db63903</code></a><span class="behind-count" title="65 commits behind">+65</span></td>
               <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-none" data-ext="sirius">None</button></td>
               <td class="related" data-sort="0"><span class="muted">&mdash;</span></td>
               <td class="related" data-sort="-1"><span class="muted">&mdash;</span></td>
@@ -899,11 +900,11 @@ html.tv .tscroll{max-height:none}
             
             
             
-            <tr id="row-ducklake" data-pin="Tracked" data-patches="Skipped" data-tier="0">
+            <tr id="row-ducklake" data-pin="Behind" data-patches="Carried" data-tier="0" data-tracked>
               <td data-sort="0-ducklake"><a href="https://github.com/duckdb/ducklake">ducklake</a>
                 <span class="sub"><span class="tier core">core</span></span></td>
-              <td data-sort="33"><button type="button" class="badge tracked tip-trigger" data-tip="tip-pin-Tracked" data-ext="ducklake">Tracked</button></td>
-              <td data-sort="33"><button type="button" class="badge skipped tip-trigger" data-tip="tip-patches-Skipped" data-ext="ducklake">Skipped</button></td>
+              <td data-sort="1"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind-tracked" data-ext="ducklake">Behind</button></td>
+              <td data-sort="10"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried-tracked" data-ext="ducklake">Carried</button></td>
               <td class="detail"><code class="branch-odd" title="Differs from main, which most extensions target">v2.0-cyanoptera</code></td>
               <td class="detail" data-sort="350"><a class="commit-range" href="https://github.com/duckdb/ducklake/compare/417a9117f590e8141742ac0579d02f6a90162e37...08089b16dc8a18ce04abb6efd87e25cb4d64803a"><code>417a911</code> &rarr; <code>08089b1</code></a><span class="behind-count" title="350 commits behind">+350</span></td>
               <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-skip" data-ext="ducklake">Not managed here</button><div class="sub" title="handles its own versioning">handles its own versioning</div><div class="sub"><span class="ci-dot passed" aria-hidden="true"></span><a href="https://github.com/duckdb/ducklake/actions/runs/39256290766" title="MainDistributionPipeline.yml run of 19-10-2026 at 417a9117f5">own CI green at this pin</a></div></td>
@@ -914,41 +915,11 @@ html.tv .tscroll{max-height:none}
             
             
             
-            <tr id="row-lance" data-pin="Tracked" data-patches="Skipped" data-tier="1">
-              <td data-sort="1-lance"><a href="https://github.com/lance-format/lance-duckdb">lance</a>
-                <span class="sub"><span class="tier standard">standard</span></span></td>
-              <td data-sort="33"><button type="button" class="badge tracked tip-trigger" data-tip="tip-pin-Tracked" data-ext="lance">Tracked</button></td>
-              <td data-sort="33"><button type="button" class="badge skipped tip-trigger" data-tip="tip-patches-Skipped" data-ext="lance">Skipped</button></td>
-              <td class="detail"><span class="muted">main</span></td>
-              <td class="detail" data-sort="52"><a class="commit-range" href="https://github.com/lance-format/lance-duckdb/compare/86118537da79138e6ec5c7358f2384c7ae650ab0...e6da9141be858313cf605ddc4d2f9619a878af04"><code>8611853</code> &rarr; <code>e6da914</code></a><span class="behind-count" title="52 commits behind">+52</span></td>
-              <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-skip" data-ext="lance">Not managed here</button><div class="sub" title="external team distributes">external team distributes</div><div class="sub"><span class="ci-dot passed" aria-hidden="true"></span><a href="https://github.com/duckdb/duckdb/actions/runs/43348349715" title="duckdb&#39;s Main run of 13-11-2026 at cb56736851">duckdb build green on v2.0-cyanoptera</a></div></td>
-              <td class="related" data-sort="0"><span class="muted">&mdash;</span></td>
-              <td class="related" data-sort="-1"><span class="muted">&mdash;</span></td>
-            </tr>
-            
-            
-            
-            
-            <tr id="row-odbc_scanner" data-pin="Tracked" data-patches="Skipped" data-tier="1">
-              <td data-sort="1-odbc_scanner"><a href="https://github.com/duckdb/odbc-scanner">odbc_scanner</a>
-                <span class="sub"><span class="tier standard">standard</span></span></td>
-              <td data-sort="33"><button type="button" class="badge tracked tip-trigger" data-tip="tip-pin-Tracked" data-ext="odbc_scanner">Tracked</button></td>
-              <td data-sort="33"><button type="button" class="badge skipped tip-trigger" data-tip="tip-patches-Skipped" data-ext="odbc_scanner">Skipped</button></td>
-              <td class="detail"><span class="muted">main</span></td>
-              <td class="detail" data-sort="0"><a class="commit-range" href="https://github.com/duckdb/odbc-scanner/commit/ef4382fbfcb238e3012373384ae4e1953f3736a3"><code>ef4382f</code></a></td>
-              <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-skip" data-ext="odbc_scanner">Not managed here</button><div class="sub" title="handles its own versioning">handles its own versioning</div><div class="sub"><span class="ci-dot passed" aria-hidden="true"></span><a href="https://github.com/duckdb/odbc-scanner/actions/runs/41035107599" title="ODBCScanner.yml run of 30-10-2026 at ef4382fbfc">own CI green at this pin</a></div></td>
-              <td class="related" data-sort="0"><span class="muted">&mdash;</span></td>
-              <td class="related" data-sort="-1"><span class="muted">&mdash;</span></td>
-            </tr>
-            
-            
-            
-            
-            <tr id="row-vortex" data-pin="Tracked" data-patches="Skipped" data-tier="1">
+            <tr id="row-vortex" data-pin="Behind" data-patches="Carried" data-tier="1" data-tracked>
               <td data-sort="1-vortex"><a href="https://github.com/vortex-data/duckdb-vortex">vortex</a>
                 <span class="sub"><span class="tier standard">standard</span></span></td>
-              <td data-sort="33"><button type="button" class="badge tracked tip-trigger" data-tip="tip-pin-Tracked" data-ext="vortex">Tracked</button></td>
-              <td data-sort="33"><button type="button" class="badge skipped tip-trigger" data-tip="tip-patches-Skipped" data-ext="vortex">Skipped</button></td>
+              <td data-sort="1"><button type="button" class="badge behind tip-trigger" data-tip="tip-pin-Behind-tracked" data-ext="vortex">Behind</button></td>
+              <td data-sort="10"><button type="button" class="badge patches tip-trigger" data-tip="tip-patches-Carried-tracked" data-ext="vortex">Carried</button></td>
               <td class="detail"><code class="branch-odd" title="Differs from main, which most extensions target">v2.0-cyanoptera</code></td>
               <td class="detail" data-sort="1"><a class="commit-range" href="https://github.com/vortex-data/duckdb-vortex/compare/89091fc7dfa8b5e924b2596be65e2a91d6778ef5...0feafb2d2bb80a922ca6715d56389ec0729f6e14"><code>89091fc</code> &rarr; <code>0feafb2</code></a><span class="behind-count" title="1 commit behind">+1</span></td>
               <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-skip" data-ext="vortex">Not managed here</button><div class="sub" title="external team distributes">external team distributes</div><div class="sub"><span class="ci-dot passed" aria-hidden="true"></span><a href="https://github.com/duckdb/duckdb/actions/runs/43348349715" title="duckdb&#39;s Main run of 13-11-2026 at cb56736851">duckdb build green on v2.0-cyanoptera</a></div></td>
@@ -959,11 +930,41 @@ html.tv .tscroll{max-height:none}
             
             
             
+            <tr id="row-lance" data-pin="Up to date" data-patches="None" data-tier="1" data-tracked>
+              <td data-sort="1-lance"><a href="https://github.com/lance-format/lance-duckdb">lance</a>
+                <span class="sub"><span class="tier standard">standard</span></span></td>
+              <td data-sort="22"><button type="button" class="badge ok tip-trigger" data-tip="tip-pin-Up-to-date" data-ext="lance">Up to date</button></td>
+              <td data-sort="22"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="lance">None</button></td>
+              <td class="detail"><span class="muted">main</span></td>
+              <td class="detail" data-sort="52"><a class="commit-range" href="https://github.com/lance-format/lance-duckdb/compare/86118537da79138e6ec5c7358f2384c7ae650ab0...e6da9141be858313cf605ddc4d2f9619a878af04"><code>8611853</code> &rarr; <code>e6da914</code></a><span class="behind-count" title="52 commits behind">+52</span></td>
+              <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-skip" data-ext="lance">Not managed here</button><div class="sub" title="external team distributes">external team distributes</div><div class="sub"><span class="ci-dot passed" aria-hidden="true"></span><a href="https://github.com/duckdb/duckdb/actions/runs/43348349715" title="duckdb&#39;s Main run of 13-11-2026 at cb56736851">duckdb build green on v2.0-cyanoptera</a></div></td>
+              <td class="related" data-sort="0"><span class="muted">&mdash;</span></td>
+              <td class="related" data-sort="-1"><span class="muted">&mdash;</span></td>
+            </tr>
+            
+            
+            
+            
+            <tr id="row-odbc_scanner" data-pin="Up to date" data-patches="None" data-tier="1" data-tracked>
+              <td data-sort="1-odbc_scanner"><a href="https://github.com/duckdb/odbc-scanner">odbc_scanner</a>
+                <span class="sub"><span class="tier standard">standard</span></span></td>
+              <td data-sort="22"><button type="button" class="badge ok tip-trigger" data-tip="tip-pin-Up-to-date" data-ext="odbc_scanner">Up to date</button></td>
+              <td data-sort="22"><button type="button" class="badge none tip-trigger" data-tip="tip-patches-None" data-ext="odbc_scanner">None</button></td>
+              <td class="detail"><span class="muted">main</span></td>
+              <td class="detail" data-sort="0"><a class="commit-range" href="https://github.com/duckdb/odbc-scanner/commit/ef4382fbfcb238e3012373384ae4e1953f3736a3"><code>ef4382f</code></a></td>
+              <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-skip" data-ext="odbc_scanner">Not managed here</button><div class="sub" title="handles its own versioning">handles its own versioning</div><div class="sub"><span class="ci-dot passed" aria-hidden="true"></span><a href="https://github.com/duckdb/odbc-scanner/actions/runs/41035107599" title="ODBCScanner.yml run of 30-10-2026 at ef4382fbfc">own CI green at this pin</a></div></td>
+              <td class="related" data-sort="0"><span class="muted">&mdash;</span></td>
+              <td class="related" data-sort="-1"><span class="muted">&mdash;</span></td>
+            </tr>
+            
+            
+            
+            
             <tr id="row-test_utils" data-pin="Skipped" data-patches="Skipped" data-tier="1">
               <td data-sort="1-test_utils"><a href="https://github.com/duckdb/bwc-test-utils">test_utils</a>
                 <span class="sub"><span class="tier standard">standard</span></span></td>
-              <td data-sort="43"><button type="button" class="badge skipped tip-trigger" data-tip="tip-pin-Skipped" data-ext="test_utils">Skipped</button></td>
-              <td data-sort="34"><button type="button" class="badge skipped tip-trigger" data-tip="tip-patches-Skipped" data-ext="test_utils">Skipped</button></td>
+              <td data-sort="33"><button type="button" class="badge skipped tip-trigger" data-tip="tip-pin-Skipped" data-ext="test_utils">Skipped</button></td>
+              <td data-sort="33"><button type="button" class="badge skipped tip-trigger" data-tip="tip-patches-Skipped" data-ext="test_utils">Skipped</button></td>
               <td class="detail"><span class="muted">main</span></td>
               <td class="detail" data-sort="1"><a class="commit-range" href="https://github.com/duckdb/bwc-test-utils/compare/2669706d3384ddc2e44d9972728378c8a1afe33c...eb6f1b69afa08e0062cccac2aae7369062a221a5"><code>2669706</code> &rarr; <code>eb6f1b6</code></a><span class="behind-count" title="1 commit behind">+1</span></td>
               <td><button type="button" class="tip-trigger action-trigger" data-tip="tip-action-skip" data-ext="test_utils">Not managed here</button><div class="sub" title="external maintainer (bwc-test-utils)">external maintainer (bwc-test-utils)</div></td>
@@ -978,7 +979,7 @@ html.tv .tscroll{max-height:none}
 
       <details class="card fold legend-section" id="legend">
         <summary><h2>How to read this page</h2></summary>
-      <p class="legend-intro">Each extension has two independent states: <strong>Pin</strong>, whether duckdb/duckdb pins its latest commit, and <strong>Patches</strong>, whether duckdb carries patches for it. Hover, focus or tap any badge or next action in the table for this same text.</p>
+      <p class="legend-intro">Each extension has two independent states: <strong>Pin</strong>, whether duckdb/duckdb pins its latest commit, and <strong>Patches</strong>, whether duckdb carries patches for it. Hover, focus or tap any badge or next action in the table for this same text; on a row the bot does not manage, the action reads that its own team moves.</p>
 
       <div class="legend-groups">
         
@@ -994,9 +995,6 @@ html.tv .tscroll{max-height:none}
             
             <dt><span class="badge ok">Up to date</span></dt>
             <dd><p class="meaning">The pinned commit is the tip of the extension's target branch.</p><p class="action"><span class="action-tag">Action</span>Nothing to do.</p></dd>
-            
-            <dt><span class="badge tracked">Tracked</span></dt>
-            <dd><p class="meaning">The bot never bumps, patches or merges this extension forward, for the reason under the next action, but the page still shows a build of its pin. For one an external team distributes: duckdb's own build on v2.0-cyanoptera, all external extensions in one job per platform. For one that handles its own versioning: its own repository's CI at the pinned commit.</p><p class="action"><span class="action-tag">Action</span>Nothing while the build is green. Raise a red build with the extension&#39;s team.</p></dd>
             
             <dt><span class="badge skipped">Skipped</span></dt>
             <dd><p class="meaning">This script leaves the extension alone: it handles its own pin and patches. The reason is under the next action.</p><p class="action"><span class="action-tag">Action</span>Nothing to do here.</p></dd>
@@ -1044,7 +1042,8 @@ html.tv .tscroll{max-height:none}
             <dd><p class="meaning">The tip doesn't build against this release, so the pin stays; the reason is under the label. "Wait for next commit": the next commit on the branch lifts it. "Nothing: held this release": the extension moved off duckdb's API, and only the hold list in duckdb-automations lifts it. "Finish the open PR": a PR is still open on it, so the hold isn't final until that PR is merged or closed.</p></dd>
             
             <dt><span class="action-label">Not managed here</span></dt>
-            <dd><p class="meaning">Listed for the overview only; the reason is under the label. The bot never bumps, patches or merges this extension forward.</p></dd>
+            <dd><p class="meaning">Listed for the overview only; the reason is under the label. The bot never bumps, patches or merges this extension forward, so a Behind pin or Broken patches on this row are its own team's to fix.</p>
+      <p class="meaning">A tracked row also carries a build line. For an extension an external team distributes: duckdb's own build on v2.0-cyanoptera, all external extensions in one job per platform. For one that handles its own versioning: its own repository's CI at the pinned commit. Raise a red build with the extension's team.</p></dd>
             
             <dt><span class="action-label">None</span></dt>
             <dd><p class="meaning">Nothing to do.</p></dd>
@@ -1224,7 +1223,7 @@ html.tv .tscroll{max-height:none}
             <p class="ext-say">Up to date.</p>
             
             
-            <div class="ext-foot"><span>3 commits behind</span>
+            <div class="ext-foot"><span>4 commits behind</span>
               <span class="cells" title="Last 13 days, oldest left"><i class="sq ok" title="22-10: ok"></i><i class="sq ok" title="23-10: ok"></i><i class="sq ok" title="27-10: ok"></i><i class="sq ok" title="28-10: ok"></i><i class="sq ok" title="29-10: ok"></i><i class="sq ok" title="30-10: ok"></i><i class="sq ok" title="03-11: ok"></i><i class="sq ok" title="04-11: ok"></i><i class="sq ok" title="05-11: ok"></i><i class="sq ok" title="10-11: ok"></i><i class="sq ok" title="11-11: ok"></i><i class="sq ok" title="12-11: ok"></i><i class="sq ok" title="13-11: ok"></i></span>
             </div>
           </article>
@@ -1308,7 +1307,7 @@ html.tv .tscroll{max-height:none}
             <p class="ext-say">Up to date.</p>
             
             
-            <div class="ext-foot"><span>64 commits behind</span>
+            <div class="ext-foot"><span>65 commits behind</span>
               <span class="cells" title="Last 13 days, oldest left"><i class="sq none" title="22-10: none"></i><i class="sq none" title="23-10: none"></i><i class="sq none" title="27-10: none"></i><i class="sq none" title="28-10: none"></i><i class="sq none" title="29-10: none"></i><i class="sq none" title="30-10: none"></i><i class="sq none" title="03-11: none"></i><i class="sq none" title="04-11: none"></i><i class="sq none" title="05-11: none"></i><i class="sq ok" title="10-11: ok"></i><i class="sq ok" title="11-11: ok"></i><i class="sq ok" title="12-11: ok"></i><i class="sq ok" title="13-11: ok"></i></span>
             </div>
           </article>
@@ -1383,7 +1382,7 @@ html.tv .tscroll{max-height:none}
           
           <article class="ext-card card" id="ext-ducklake" data-name="ducklake">
             <div class="ext-title"><a href="https://github.com/duckdb/ducklake">ducklake</a> <span class="tier core">core</span>
-              <span class="badges"><span class="badge tracked">Tracked</span></span></div>
+              <span class="badges"><span class="badge behind">Behind</span> <span class="badge patches">Carried</span></span></div>
             <p class="ext-say">Not managed by this script (handles its own versioning); the bot never bumps, patches or merges it. Its own CI (MainDistributionPipeline.yml) is green at this pin.</p>
             
             
@@ -1400,9 +1399,28 @@ html.tv .tscroll{max-height:none}
           </article>
           
           
+          <article class="ext-card card" id="ext-vortex" data-name="vortex">
+            <div class="ext-title"><a href="https://github.com/vortex-data/duckdb-vortex">vortex</a> <span class="tier standard">standard</span>
+              <span class="badges"><span class="badge behind">Behind</span> <span class="badge patches">Carried</span></span></div>
+            <p class="ext-say">Distributed by its own team (external team distributes); the bot never bumps, patches or merges it. duckdb&#39;s CI builds it green at this pin on v2.0-cyanoptera.</p>
+            
+            
+            <ul class="ext-links">
+              <li><span class="ci-dot passed" aria-hidden="true"></span><a href="https://github.com/duckdb/duckdb/actions/runs/43348349715" title="duckdb&#39;s Main run of 13-11-2026 at cb56736851">duckdb build green on v2.0-cyanoptera</a></li>
+              
+              
+              
+            </ul>
+            
+            <div class="ext-foot"><span>1 commit behind</span><span>duckdb carries 1 patch</span>
+              <span class="cells" title="Last 13 days, oldest left"><i class="sq none" title="22-10: none"></i><i class="sq none" title="23-10: none"></i><i class="sq none" title="27-10: none"></i><i class="sq none" title="28-10: none"></i><i class="sq none" title="29-10: none"></i><i class="sq none" title="30-10: none"></i><i class="sq none" title="03-11: none"></i><i class="sq none" title="04-11: none"></i><i class="sq none" title="05-11: none"></i><i class="sq none" title="10-11: none"></i><i class="sq none" title="11-11: none"></i><i class="sq none" title="12-11: none"></i><i class="sq none" title="13-11: none"></i></span>
+            </div>
+          </article>
+          
+          
           <article class="ext-card card" id="ext-lance" data-name="lance">
             <div class="ext-title"><a href="https://github.com/lance-format/lance-duckdb">lance</a> <span class="tier standard">standard</span>
-              <span class="badges"><span class="badge tracked">Tracked</span></span></div>
+              <span class="badges"><span class="badge ok">Up to date</span> <span class="badge none">None</span></span></div>
             <p class="ext-say">Distributed by its own team (external team distributes); the bot never bumps, patches or merges it. duckdb&#39;s CI builds it green at this pin on v2.0-cyanoptera.</p>
             
             
@@ -1421,7 +1439,7 @@ html.tv .tscroll{max-height:none}
           
           <article class="ext-card card" id="ext-odbc_scanner" data-name="odbc_scanner">
             <div class="ext-title"><a href="https://github.com/duckdb/odbc-scanner">odbc_scanner</a> <span class="tier standard">standard</span>
-              <span class="badges"><span class="badge tracked">Tracked</span></span></div>
+              <span class="badges"><span class="badge ok">Up to date</span> <span class="badge none">None</span></span></div>
             <p class="ext-say">Not managed by this script (handles its own versioning); the bot never bumps, patches or merges it. Its own CI (ODBCScanner.yml) is green at this pin.</p>
             
             
@@ -1433,25 +1451,6 @@ html.tv .tscroll{max-height:none}
             </ul>
             
             <div class="ext-foot">
-              <span class="cells" title="Last 13 days, oldest left"><i class="sq none" title="22-10: none"></i><i class="sq none" title="23-10: none"></i><i class="sq none" title="27-10: none"></i><i class="sq none" title="28-10: none"></i><i class="sq none" title="29-10: none"></i><i class="sq none" title="30-10: none"></i><i class="sq none" title="03-11: none"></i><i class="sq none" title="04-11: none"></i><i class="sq none" title="05-11: none"></i><i class="sq none" title="10-11: none"></i><i class="sq none" title="11-11: none"></i><i class="sq none" title="12-11: none"></i><i class="sq none" title="13-11: none"></i></span>
-            </div>
-          </article>
-          
-          
-          <article class="ext-card card" id="ext-vortex" data-name="vortex">
-            <div class="ext-title"><a href="https://github.com/vortex-data/duckdb-vortex">vortex</a> <span class="tier standard">standard</span>
-              <span class="badges"><span class="badge tracked">Tracked</span></span></div>
-            <p class="ext-say">Distributed by its own team (external team distributes); the bot never bumps, patches or merges it. duckdb&#39;s CI builds it green at this pin on v2.0-cyanoptera.</p>
-            
-            
-            <ul class="ext-links">
-              <li><span class="ci-dot passed" aria-hidden="true"></span><a href="https://github.com/duckdb/duckdb/actions/runs/43348349715" title="duckdb&#39;s Main run of 13-11-2026 at cb56736851">duckdb build green on v2.0-cyanoptera</a></li>
-              
-              
-              
-            </ul>
-            
-            <div class="ext-foot"><span>1 commit behind</span><span>duckdb carries 1 patch</span>
               <span class="cells" title="Last 13 days, oldest left"><i class="sq none" title="22-10: none"></i><i class="sq none" title="23-10: none"></i><i class="sq none" title="27-10: none"></i><i class="sq none" title="28-10: none"></i><i class="sq none" title="29-10: none"></i><i class="sq none" title="30-10: none"></i><i class="sq none" title="03-11: none"></i><i class="sq none" title="04-11: none"></i><i class="sq none" title="05-11: none"></i><i class="sq none" title="10-11: none"></i><i class="sq none" title="11-11: none"></i><i class="sq none" title="12-11: none"></i><i class="sq none" title="13-11: none"></i></span>
             </div>
           </article>
@@ -1482,7 +1481,7 @@ html.tv .tscroll{max-height:none}
     </section>
   </div>
 
-  <script type="application/json" id="report-summary">{"generated_at": "13-11-2026 15:01 CET", "counts": {"pin": {"Behind": 3, "Held": 1, "Up to date": 17, "Tracked": 4, "Skipped": 1}, "patches": {"Broken": 4, "Carried": 4, "None": 13}}, "attempts": {"avro": {"bump": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb/pull/28633", "at": "2026-11-10T10:20:08.462247+00:00"}, "patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-avro/pull/158", "at": "2026-11-10T10:28:26.568176+00:00"}}, "aws": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-aws/pull/246", "at": "2026-11-10T10:28:26.568176+00:00"}}, "azure": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-azure/pull/214", "at": "2026-11-10T10:28:26.568176+00:00"}}, "delta": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-delta/pull/425", "at": "2026-11-10T10:28:26.568176+00:00"}}, "encodings": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-encodings/pull/32", "at": "2026-11-10T10:28:26.568176+00:00"}}, "excel": {"patch": {"outcome": "updated", "detail": "https://github.com/duckdb/duckdb-excel/pull/109", "at": "2026-11-10T10:28:26.568176+00:00"}}, "fts": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-fts/pull/88", "at": "2026-11-10T10:28:26.568176+00:00"}}, "glue": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-aws-glue/pull/207", "at": "2026-11-10T10:28:26.568176+00:00"}}, "httpfs": {"patch": {"outcome": "skipped", "detail": "@jdctinuiti has https://github.com/duckdb/duckdb-httpfs/pull/513 open since 29-10-2026 moving the duckdb pin; waiting for it", "at": "2026-11-10T10:28:26.568176+00:00"}}, "iceberg": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-iceberg/pull/1723", "at": "2026-11-10T10:28:26.568176+00:00"}}, "legacy_parser": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-legacy-parser/pull/11", "at": "2026-11-10T10:28:26.568176+00:00"}}, "mysql_scanner": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-mysql/pull/374", "at": "2026-11-10T10:28:26.568176+00:00"}}, "postgres_scanner": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-postgres/pull/656", "at": "2026-11-10T10:28:26.568176+00:00"}}, "quack": {"patch": {"outcome": "skipped", "detail": "@jdctinuiti has https://github.com/duckdb/duckdb-quack/pull/353 open since 30-10-2026 moving the duckdb pin; waiting for it", "at": "2026-11-10T10:28:26.568176+00:00"}}, "sirius": {"patch": {"outcome": "failed", "detail": "failed to bump extension-ci-tools to ae971e03c1: it is not a submodule", "at": "2026-11-10T10:28:26.568176+00:00"}}, "spatial": {"bump": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb/pull/28633", "at": "2026-11-10T10:20:08.462247+00:00"}, "patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-spatial/pull/916", "at": "2026-11-10T10:28:26.568176+00:00"}}, "sqlite_scanner": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-sqlite/pull/283", "at": "2026-11-10T10:28:26.568176+00:00"}}, "sqlsmith": {"patch": {"outcome": "updated", "detail": "https://github.com/duckdb/duckdb-sqlsmith/pull/84", "at": "2026-11-10T10:28:26.568176+00:00"}}, "unity_catalog": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/unity_catalog/pull/163", "at": "2026-11-10T10:28:26.568176+00:00"}}, "vss": {"patch": {"outcome": "updated", "detail": "https://github.com/duckdb/duckdb-vss/pull/107", "at": "2026-11-10T10:28:26.568176+00:00"}}}, "run": {"workflow": null, "run_url": null, "at": "2026-11-13T14:01:15.206609+00:00", "steps": {}, "last_bump_run": {"workflow": "Extension release run", "run_url": "https://github.com/duckdblabs/duckdb-automations/actions/runs/42798125075", "at": "2026-11-10T10:29:44.355918+00:00", "steps": {"bump": "ok", "patch": "failed"}}}, "history": [{"day": "2026-10-22", "counts": {"pin": {"Behind": 1, "Held": 2, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 2, "Carried": 1, "None": 17}}, "broken": ["fts"], "behind": ["spatial"], "states": {"spatial": "H", "aws": "K", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "inet": "P", "fts": "B", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-23", "counts": {"pin": {"Behind": 1, "Held": 2, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 2, "Carried": 2, "None": 16}}, "broken": ["fts"], "behind": ["spatial"], "states": {"aws": "K", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "inet": "P", "fts": "B", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-27", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-28", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-29", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-30", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-11-03", "counts": {"pin": {"Behind": 3, "Held": 2, "Up to date": 15, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "iceberg", "spatial"], "states": {"aws": "B", "iceberg": "H", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-11-04", "counts": {"pin": {"Behind": 3, "Held": 2, "Up to date": 15, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 2, "None": 15}}, "broken": ["aws", "fts"], "behind": ["fts", "iceberg", "spatial"], "states": {"aws": "B", "spatial": "H", "iceberg": "H", "azure": "K", "delta": "K", "httpfs": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-11-05", "counts": {"pin": {"Behind": 4, "Held": 1, "Up to date": 15, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 2, "None": 15}}, "broken": ["aws", "fts"], "behind": ["avro", "fts", "iceberg", "spatial"], "states": {"aws": "B", "spatial": "H", "iceberg": "H", "azure": "K", "delta": "K", "httpfs": "K", "fts": "B", "inet": "P", "avro": "H", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-11-10", "counts": {"pin": {"Behind": 3, "Held": 1, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 2, "Carried": 6, "None": 13}}, "broken": ["fts"], "behind": ["avro", "fts", "spatial"], "states": {"spatial": "H", "aws": "K", "httpfs": "K", "iceberg": "K", "azure": "K", "delta": "K", "fts": "B", "inet": "P", "avro": "H", "excel": "K", "encodings": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sirius": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-11-11", "counts": {"pin": {"Behind": 2, "Held": 1, "Up to date": 18, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 5, "None": 13}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "httpfs": "K", "iceberg": "K", "azure": "K", "delta": "K", "fts": "B", "inet": "P", "avro": "K", "excel": "K", "encodings": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sirius": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-11-12", "counts": {"pin": {"Behind": 3, "Held": 1, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 4, "Carried": 4, "None": 13}}, "broken": ["avro", "aws", "fts"], "behind": ["avro", "fts", "spatial"], "states": {"aws": "B", "httpfs": "K", "iceberg": "K", "spatial": "H", "azure": "K", "delta": "K", "avro": "B", "fts": "B", "inet": "P", "excel": "K", "glue": "K", "encodings": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sirius": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-11-13", "counts": {"pin": {"Behind": 3, "Held": 1, "Up to date": 17, "Tracked": 4, "Skipped": 1}, "patches": {"Broken": 4, "Carried": 4, "None": 13}}, "broken": ["avro", "aws", "fts"], "behind": ["avro", "fts", "spatial"], "states": {"aws": "B", "httpfs": "K", "iceberg": "K", "spatial": "H", "azure": "K", "delta": "K", "avro": "B", "fts": "B", "inet": "P", "excel": "K", "glue": "K", "encodings": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sirius": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "vortex": "-", "test_utils": "-"}}], "level": "blocked"}</script>
+  <script type="application/json" id="report-summary">{"generated_at": "13-11-2026 15:59 CET", "counts": {"pin": {"Behind": 5, "Held": 1, "Up to date": 19, "Skipped": 1}, "patches": {"Broken": 4, "Carried": 6, "None": 15}}, "attempts": {"avro": {"bump": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb/pull/28633", "at": "2026-11-10T10:20:08.462247+00:00"}, "patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-avro/pull/158", "at": "2026-11-10T10:28:26.568176+00:00"}}, "aws": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-aws/pull/246", "at": "2026-11-10T10:28:26.568176+00:00"}}, "azure": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-azure/pull/214", "at": "2026-11-10T10:28:26.568176+00:00"}}, "delta": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-delta/pull/425", "at": "2026-11-10T10:28:26.568176+00:00"}}, "encodings": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-encodings/pull/32", "at": "2026-11-10T10:28:26.568176+00:00"}}, "excel": {"patch": {"outcome": "updated", "detail": "https://github.com/duckdb/duckdb-excel/pull/109", "at": "2026-11-10T10:28:26.568176+00:00"}}, "fts": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-fts/pull/88", "at": "2026-11-10T10:28:26.568176+00:00"}}, "glue": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-aws-glue/pull/207", "at": "2026-11-10T10:28:26.568176+00:00"}}, "httpfs": {"patch": {"outcome": "skipped", "detail": "@jdctinuiti has https://github.com/duckdb/duckdb-httpfs/pull/513 open since 29-10-2026 moving the duckdb pin; waiting for it", "at": "2026-11-10T10:28:26.568176+00:00"}}, "iceberg": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-iceberg/pull/1723", "at": "2026-11-10T10:28:26.568176+00:00"}}, "legacy_parser": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-legacy-parser/pull/11", "at": "2026-11-10T10:28:26.568176+00:00"}}, "mysql_scanner": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-mysql/pull/374", "at": "2026-11-10T10:28:26.568176+00:00"}}, "postgres_scanner": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-postgres/pull/656", "at": "2026-11-10T10:28:26.568176+00:00"}}, "quack": {"patch": {"outcome": "skipped", "detail": "@jdctinuiti has https://github.com/duckdb/duckdb-quack/pull/353 open since 30-10-2026 moving the duckdb pin; waiting for it", "at": "2026-11-10T10:28:26.568176+00:00"}}, "sirius": {"patch": {"outcome": "failed", "detail": "failed to bump extension-ci-tools to ae971e03c1: it is not a submodule", "at": "2026-11-10T10:28:26.568176+00:00"}}, "spatial": {"bump": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb/pull/28633", "at": "2026-11-10T10:20:08.462247+00:00"}, "patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-spatial/pull/916", "at": "2026-11-10T10:28:26.568176+00:00"}}, "sqlite_scanner": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/duckdb-sqlite/pull/283", "at": "2026-11-10T10:28:26.568176+00:00"}}, "sqlsmith": {"patch": {"outcome": "updated", "detail": "https://github.com/duckdb/duckdb-sqlsmith/pull/84", "at": "2026-11-10T10:28:26.568176+00:00"}}, "unity_catalog": {"patch": {"outcome": "opened", "detail": "https://github.com/duckdb/unity_catalog/pull/163", "at": "2026-11-10T10:28:26.568176+00:00"}}, "vss": {"patch": {"outcome": "updated", "detail": "https://github.com/duckdb/duckdb-vss/pull/107", "at": "2026-11-10T10:28:26.568176+00:00"}}}, "run": {"workflow": null, "run_url": null, "at": "2026-11-13T14:59:48.036781+00:00", "steps": {}, "last_bump_run": {"workflow": "Extension release run", "run_url": "https://github.com/duckdblabs/duckdb-automations/actions/runs/42798125075", "at": "2026-11-10T10:29:44.355918+00:00", "steps": {"bump": "ok", "patch": "failed"}}}, "history": [{"day": "2026-10-22", "counts": {"pin": {"Behind": 1, "Held": 2, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 2, "Carried": 1, "None": 17}}, "broken": ["fts"], "behind": ["spatial"], "states": {"spatial": "H", "aws": "K", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "inet": "P", "fts": "B", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-23", "counts": {"pin": {"Behind": 1, "Held": 2, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 2, "Carried": 2, "None": 16}}, "broken": ["fts"], "behind": ["spatial"], "states": {"aws": "K", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "inet": "P", "fts": "B", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-27", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-28", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-29", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-10-30", "counts": {"pin": {"Behind": 2, "Held": 2, "Up to date": 16, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "iceberg": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-11-03", "counts": {"pin": {"Behind": 3, "Held": 2, "Up to date": 15, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 1, "None": 16}}, "broken": ["aws", "fts"], "behind": ["fts", "iceberg", "spatial"], "states": {"aws": "B", "iceberg": "H", "spatial": "H", "azure": "K", "delta": "K", "httpfs": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-11-04", "counts": {"pin": {"Behind": 3, "Held": 2, "Up to date": 15, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 2, "None": 15}}, "broken": ["aws", "fts"], "behind": ["fts", "iceberg", "spatial"], "states": {"aws": "B", "spatial": "H", "iceberg": "H", "azure": "K", "delta": "K", "httpfs": "K", "fts": "B", "inet": "P", "avro": "P", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-11-05", "counts": {"pin": {"Behind": 4, "Held": 1, "Up to date": 15, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 2, "None": 15}}, "broken": ["aws", "fts"], "behind": ["avro", "fts", "iceberg", "spatial"], "states": {"aws": "B", "spatial": "H", "iceberg": "H", "azure": "K", "delta": "K", "httpfs": "K", "fts": "B", "inet": "P", "avro": "H", "encodings": "K", "excel": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-11-10", "counts": {"pin": {"Behind": 3, "Held": 1, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 2, "Carried": 6, "None": 13}}, "broken": ["fts"], "behind": ["avro", "fts", "spatial"], "states": {"spatial": "H", "aws": "K", "httpfs": "K", "iceberg": "K", "azure": "K", "delta": "K", "fts": "B", "inet": "P", "avro": "H", "excel": "K", "encodings": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sirius": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-11-11", "counts": {"pin": {"Behind": 2, "Held": 1, "Up to date": 18, "Skipped": 5}, "patches": {"Broken": 3, "Carried": 5, "None": 13}}, "broken": ["aws", "fts"], "behind": ["fts", "spatial"], "states": {"aws": "B", "spatial": "H", "httpfs": "K", "iceberg": "K", "azure": "K", "delta": "K", "fts": "B", "inet": "P", "avro": "K", "excel": "K", "encodings": "K", "glue": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sirius": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-11-12", "counts": {"pin": {"Behind": 3, "Held": 1, "Up to date": 17, "Skipped": 5}, "patches": {"Broken": 4, "Carried": 4, "None": 13}}, "broken": ["avro", "aws", "fts"], "behind": ["avro", "fts", "spatial"], "states": {"aws": "B", "httpfs": "K", "iceberg": "K", "spatial": "H", "azure": "K", "delta": "K", "avro": "B", "fts": "B", "inet": "P", "excel": "K", "glue": "K", "encodings": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sirius": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-", "vortex": "-"}}, {"day": "2026-11-13", "counts": {"pin": {"Behind": 5, "Held": 1, "Up to date": 19, "Skipped": 1}, "patches": {"Broken": 4, "Carried": 6, "None": 15}}, "broken": ["avro", "aws", "fts"], "behind": ["avro", "fts", "spatial"], "states": {"aws": "B", "httpfs": "K", "iceberg": "K", "spatial": "H", "azure": "K", "delta": "K", "avro": "B", "fts": "B", "inet": "P", "excel": "K", "glue": "K", "encodings": "K", "legacy_parser": "K", "mysql_scanner": "K", "postgres_scanner": "K", "sirius": "K", "sqlite_scanner": "K", "unity_catalog": "K", "vss": "K", "quack": "K", "sqlsmith": "K", "ducklake": "-", "vortex": "-", "lance": "-", "odbc_scanner": "-", "test_utils": "-"}}], "level": "blocked"}</script>
   <script>
 // Top-level tabs shared by the release dashboard and the extension status page; opts.names[0] is the fallback tab, onShow runs after the hash write.
 function tabSwitcher(opts) {
@@ -1532,14 +1531,17 @@ function tabSwitcher(opts) {
     // Filter chips: one pressed at a time; pressing the pressed one again goes back to All
     var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
     var allChip = document.querySelector('.chip.all');
+    // A status reason counts managed rows only, so its "show" link leaves the tracked ones out
+    var managedOnly = false;
     function applyFilters() {
       var pressed = document.querySelector('.chip[aria-pressed="true"]');
       var axis = pressed.getAttribute('data-axis'), value = pressed.getAttribute('data-value');
       Array.prototype.forEach.call(tbody.rows, function (row) {
-        row.hidden = (!!axis && row.getAttribute('data-' + axis) !== value);
+        row.hidden = !!axis && (row.getAttribute('data-' + axis) !== value || (managedOnly && row.hasAttribute('data-tracked')));
       });
     }
-    function press(target) {
+    function press(target, fromStatus) {
+      managedOnly = !!fromStatus;
       chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c === target)); });
       applyFilters();
     }
@@ -1550,7 +1552,7 @@ function tabSwitcher(opts) {
     });
     filterTable = function (value) {
       var target = document.querySelector('.chip[data-value="' + value + '"]');
-      if (target) press(target); else applyFilters();
+      if (target) press(target, true); else applyFilters();
     };
     document.getElementById('details-toggle').addEventListener('click', function () {
       var on = table.classList.toggle('details');
