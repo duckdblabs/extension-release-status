@@ -131,6 +131,7 @@ h2[title]{cursor:help;text-decoration:underline dotted var(--muted);text-underli
 .queue .r0::before{color:var(--badtext);font-weight:800}
 /* Neither why span shrinks; the last one is capped at 40% of the row and ellipsizes there, so a long why can't push a short step onto two lines while a short why keeps its natural width. */
 .queue :is(.k-check,.k-subissue) .verb{white-space:normal;flex:0 1 auto;font-weight:500}
+.queue :is(.k-check,.k-subissue) .verb b{font-weight:600}
 .queue .k-check .verb code{font-size:12px;overflow-wrap:anywhere}
 .queue :is(.k-check,.k-subissue) .why{flex:none;white-space:nowrap}
 .queue :is(.k-check,.k-subissue) span.why:last-of-type{max-width:40%;overflow:hidden;text-overflow:ellipsis;overflow-wrap:anywhere}
